@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💌 Tạo Trang Tỏ Tình</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose:#ff6b8a; --blush:#ffb3c1; --petal:#ffe4ec;
+  --deep:#c94060; --cream:#fff9fb; --gold:#f7c59f;
+  --lavender:#e8c3f0; --sky:#c3e0f0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  min-height:100vh;
+  background:var(--cream);
+  font-family:'Nunito',sans-serif;
+  overflow-x:hidden;
+  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='26' font-size='26'%3E🌸%3C/text%3E%3C/svg%3E"),auto;
+}
+
+/* ===== STARS ===== */
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.star{position:absolute;border-radius:50%;background:#ffb3c1;animation:twinkle ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+
+/* ===== PETALS CANVAS ===== */
+#petals-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;}
+
+/* ===== FLOATING HEARTS ===== */
+.heart-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.heart-bg span{position:absolute;bottom:-60px;animation:floatUp linear infinite;opacity:0;}
+@keyframes floatUp{
+  0%{transform:translateY(0) rotate(0deg) scale(.8);opacity:0}
+  10%{opacity:.7} 90%{opacity:.4}
+  100%{transform:translateY(-110vh) rotate(30deg) scale(1.2);opacity:0}
+}
+
+/* ===== PAGES ===== */
+.page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px 80px;}
+.page.hidden{display:none;}
+
+/* ===== FORM PAGE ===== */
+.form-container{
+  width:100%;max-width:520px;
+  background:#fff;
+  border-radius:28px;
+  padding:48px 44px 44px;
+  box-shadow:0 30px 80px rgba(201,64,96,.13),0 8px 24px rgba(201,64,96,.08);
+  position:relative;overflow:hidden;
+  animation:fadeUp .8s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.form-container::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:5px;
+  background:linear-gradient(90deg,var(--blush),var(--rose),var(--lavender),var(--sky),var(--blush));
+  background-size:200% 100%;animation:shimmer 3s linear infinite;
+}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+
+.form-title{
+  font-family:'Dancing Script',cursive;font-size:2.4rem;
+  color:var(--deep);text-align:center;margin-bottom:6px;
+}
+.form-sub{text-align:center;font-size:.82rem;color:#e899b0;letter-spacing:2px;text-transform:uppercase;margin-bottom:36px;}
+
+.field{margin-bottom:22px;}
+.field label{display:block;font-size:.8rem;font-weight:700;color:var(--deep);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.field-row{display:flex;gap:14px;}
+.field-row .field{flex:1;margin-bottom:0;}
+
+.input-wrap{position:relative;}
+.input-wrap .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1.1rem;pointer-events:none;}
+input[type=text], input[type=url], textarea{
+  width:100%;padding:13px 14px 13px 40px;
+  border:2px solid #ffd0de;border-radius:12px;
+  font-family:'Nunito',sans-serif;font-size:.95rem;color:#444;
+  background:#fff9fb;outline:none;transition:border .25s,box-shadow .25s;
+}
+input[type=text]:focus, input[type=url]:focus, textarea:focus{
+  border-color:var(--rose);
+  box-shadow:0 0 0 4px rgba(255,107,138,.1);
+}
+textarea{padding-top:12px;resize:vertical;min-height:90px;}
+.no-icon input, .no-icon textarea{padding-left:14px;}
+
+/* ===== MOOD SELECT ===== */
+.mood-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px;}
+.mood-opt{
+  border:2px solid #ffd0de;border-radius:12px;padding:10px 6px;
+  text-align:center;cursor:pointer;transition:all .25s;background:#fff9fb;
+  font-size:.8rem;color:#888;font-weight:600;
+}
+.mood-opt .mood-icon{font-size:1.4rem;display:block;margin-bottom:4px;}
+.mood-opt.active, .mood-opt:hover{border-color:var(--rose);background:var(--petal);color:var(--deep);}
+
+/* ===== SUBMIT BTN ===== */
+.btn-gen{
+  width:100%;padding:16px;margin-top:30px;
+  background:linear-gradient(135deg,var(--rose),var(--deep));
+  color:#fff;border:none;border-radius:14px;
+  font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;
+  letter-spacing:.3px;cursor:pointer;
+  box-shadow:0 8px 28px rgba(201,64,96,.35);
+  transition:all .3s ease;position:relative;overflow:hidden;
+}
+.btn-gen:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(201,64,96,.45);}
+.btn-gen:active{transform:translateY(0);}
+.btn-gen::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+}
+
+/* ===== LOADING ===== */
+.loading-overlay{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(255,249,251,.92);backdrop-filter:blur(8px);
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px;
+}
+.loading-overlay.show{display:flex;}
+.loading-heart{font-size:3.5rem;animation:heartbeat .8s ease-in-out infinite;}
+@keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+.loading-text{font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--deep);text-align:center;}
+.loading-dots span{animation:dot 1.4s ease-in-out infinite;}
+.loading-dots span:nth-child(2){animation-delay:.2s;}
+.loading-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes dot{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.loading-bar{width:260px;height:4px;background:#ffd0de;border-radius:99px;overflow:hidden;}
+.loading-bar-inner{height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--deep));border-radius:99px;transition:width .4s ease;}
+
+/* ===== RESULT PAGE ===== */
+#resultPage{padding:40px 20px 80px;}
+.back-btn{
+  position:fixed;top:20px;left:20px;z-index:50;
+  background:#fff;border:2px solid var(--blush);border-radius:50px;
+  padding:8px 18px;font-family:'Nunito',sans-serif;font-size:.85rem;
+  font-weight:700;color:var(--deep);cursor:pointer;
+  box-shadow:0 4px 14px rgba(201,64,96,.15);
+  transition:all .25s;
+}
+.back-btn:hover{background:var(--petal);border-color:var(--rose);}
+
+/* ===== MUSIC PLAYER ===== */
+.music-player{
+  position:fixed;bottom:24px;right:24px;z-index:50;
+  background:#fff;border-radius:20px;padding:12px 18px 12px 14px;
+  box-shadow:0 8px 30px rgba(201,64,96,.2);
+  display:flex;align-items:center;gap:12px;
+  border:2px solid var(--blush);
+  animation:slideIn .5s ease both;
+  max-width:260px;
+}
+@keyframes slideIn{from{transform:translateY(80px);opacity:0}to{transform:translateY(0);opacity:1}}
+.music-disc{
+  width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(135deg,var(--rose),var(--deep));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;animation:spin 4s linear infinite;flex-shrink:0;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.music-disc.paused{animation-play-state:paused;}
+.music-info{flex:1;min-width:0;}
+.music-title{font-size:.78rem;font-weight:700;color:var(--deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.music-status{font-size:.7rem;color:#c9668a;}
+.music-toggle{background:none;border:none;font-size:1.3rem;cursor:pointer;padding:4px;}
+#ytFrame{display:none;}
+
+/* ===== RESULT CONTENT ===== */
+.result-scene{display:flex;flex-direction:column;align-items:center;}
+
+.page-title{
+  font-family:'Dancing Script',cursive;font-size:2.8rem;
+  color:var(--deep);text-align:center;margin-bottom:4px;
+  animation:fadeDown .8s ease both;
+}
+.page-sub{
+  font-size:.85rem;color:#e899b0;letter-spacing:2px;
+  text-transform:uppercase;text-align:center;margin-bottom:30px;
+  animation:fadeDown .8s .15s ease both;
+}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+.envelope-wrap{margin-top:30px;perspective:800px;}
+.envelope{width:260px;height:180px;position:relative;cursor:pointer;transform-style:preserve-3d;transition:transform .6s ease;}
+.envelope:hover{transform:scale(1.04) rotateY(4deg);}
+.env-body{width:100%;height:100%;background:linear-gradient(145deg,#ffe0ea,#ffc8d9);border-radius:8px;box-shadow:0 20px 60px rgba(201,64,96,.25),0 4px 12px rgba(201,64,96,.15);position:relative;overflow:hidden;}
+.env-body::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);border-left:130px solid transparent;border-right:130px solid transparent;border-bottom:90px solid rgba(255,182,200,.6);}
+.env-body::after{content:'';position:absolute;top:0;left:0;border-left:130px solid rgba(255,192,210,.5);border-right:130px solid transparent;border-top:90px solid rgba(255,192,210,.5);}
+.env-right{position:absolute;top:0;right:0;border-right:130px solid rgba(255,180,205,.45);border-top:90px solid transparent;border-bottom:90px solid transparent;height:0;}
+.env-flap{position:absolute;top:0;left:0;right:0;height:90px;background:linear-gradient(160deg,#ffb3c6,#ff8fa5);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top center;transition:transform .7s cubic-bezier(.4,0,.2,1);z-index:5;border-radius:8px 8px 0 0;}
+.envelope.open .env-flap{transform:rotateX(-170deg);}
+.env-seal{position:absolute;top:38px;left:50%;transform:translateX(-50%);font-size:2.2rem;z-index:6;transition:opacity .3s;filter:drop-shadow(0 2px 6px rgba(201,64,96,.3));}
+.envelope.open .env-seal{opacity:0;}
+.env-label{position:absolute;bottom:20px;width:100%;text-align:center;font-family:'Dancing Script',cursive;font-size:1.15rem;color:var(--deep);letter-spacing:.5px;z-index:4;}
+.hint{margin-top:14px;font-size:.82rem;color:#c9668a;letter-spacing:1px;opacity:.8;animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:.8}50%{opacity:.3}}
+
+.letter-wrap{max-width:500px;width:100%;margin-top:36px;opacity:0;transform:translateY(30px) scale(.96);transition:opacity .8s ease,transform .8s ease;pointer-events:none;}
+.letter-wrap.visible{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+.letter{background:#fff;border-radius:20px;padding:40px 36px 36px;box-shadow:0 30px 80px rgba(201,64,96,.12),0 8px 24px rgba(201,64,96,.08),inset 0 1px 0 rgba(255,255,255,.9);position:relative;overflow:hidden;}
+.letter::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--blush),var(--rose),var(--lavender),var(--sky),var(--blush));background-size:200% 100%;animation:shimmer 3s linear infinite;}
+.letter-date{text-align:right;font-size:.8rem;color:#bbb;margin-bottom:20px;font-style:italic;}
+.letter-greeting{font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--deep);margin-bottom:18px;line-height:1.3;}
+.letter p{font-size:.97rem;line-height:1.9;color:#555;margin-bottom:14px;}
+.letter p .hi{color:var(--rose);font-weight:600;}
+.letter-quote{font-family:'Dancing Script',cursive;font-size:1.4rem;color:var(--deep);text-align:center;padding:12px 0;line-height:1.6;border-top:1px dashed #ffd0de;border-bottom:1px dashed #ffd0de;margin:8px 0 16px;}
+.letter-sign{font-family:'Dancing Script',cursive;font-size:1.5rem;color:var(--deep);text-align:right;margin-top:24px;}
+.corner{position:absolute;font-size:1.4rem;opacity:.25;pointer-events:none;}
+.corner.tl{top:10px;left:14px;} .corner.tr{top:10px;right:14px;}
+.corner.bl{bottom:10px;left:14px;} .corner.br{bottom:10px;right:14px;}
+
+.btn-row{display:flex;gap:16px;margin-top:30px;flex-wrap:wrap;justify-content:center;opacity:0;transition:opacity .6s .4s ease;}
+.btn-row.visible{opacity:1;}
+.btn{padding:14px 32px;border:none;border-radius:50px;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s ease;}
+.btn-yes{background:linear-gradient(135deg,var(--rose),var(--deep));color:#fff;box-shadow:0 8px 24px rgba(201,64,96,.35);}
+.btn-yes:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 32px rgba(201,64,96,.45);}
+.btn-maybe{background:var(--petal);color:var(--deep);box-shadow:0 4px 12px rgba(201,64,96,.1);}
+.btn-maybe:hover{transform:translateY(-2px);background:#ffd0de;}
+
+.celebration{display:none;flex-direction:column;align-items:center;gap:16px;margin-top:10px;animation:popIn .6s cubic-bezier(.34,1.56,.64,1);}
+.celebration.show{display:flex;}
+@keyframes popIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.celeb-emoji{font-size:4rem;animation:bounce 1s ease infinite alternate;}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-12px)}}
+.celeb-text{font-family:'Dancing Script',cursive;font-size:2.2rem;color:var(--deep);text-align:center;line-height:1.3;}
+.celeb-sub{font-size:.9rem;color:#c9668a;text-align:center;max-width:320px;}
+
+.photos{display:flex;gap:20px;margin-top:36px;flex-wrap:wrap;justify-content:center;opacity:0;transition:opacity .8s .3s ease;}
+.photos.visible{opacity:1;}
+.polaroid{background:#fff;padding:12px 12px 36px;box-shadow:0 8px 24px rgba(0,0,0,.1);transform:rotate(var(--rot));transition:transform .3s ease,box-shadow .3s;cursor:default;}
+.polaroid:hover{transform:rotate(0deg) scale(1.05);box-shadow:0 16px 40px rgba(201,64,96,.2);z-index:2;}
+.polaroid-inner{width:130px;height:110px;display:flex;align-items:center;justify-content:center;font-size:3rem;border-radius:4px;}
+.polaroid-label{text-align:center;font-family:'Dancing Script',cursive;font-size:.85rem;color:#888;margin-top:8px;line-height:1.2;}
+.p1{--rot:-5deg;background:#fff0f5;} .p2{--rot:3deg;background:#f0f5ff;} .p3{--rot:-2deg;background:#f5fff0;}
+
+@media(max-width:520px){
+  .form-container{padding:36px 24px 32px;}
+  .field-row{flex-direction:column;gap:0;}
+  .field-row .field{margin-bottom:22px;}
+  .page-title{font-size:2rem;}
+  .letter{padding:28px 22px 28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="heart-bg" id="hearts"></div>
+
+<!-- ===== LOADING ===== -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-heart">💌</div>
+  <div class="loading-text">Đang viết thư tình cho bạn<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
+  <div class="loading-bar"><div class="loading-bar-inner" id="loadingBar"></div></div>
+</div>
+
+<!-- ===== PAGE 1: FORM ===== -->
+<div class="page" id="formPage">
+  <div class="form-container">
+    <h1 class="form-title">💌 Tạo Thư Tỏ Tình</h1>
+    <p class="form-sub">✨ Cá nhân hoá cho riêng bạn ✨</p>
+
+    <div class="field">
+      <label>👤 Tên hai người</label>
+      <div class="field-row">
+        <div class="field">
+          <div class="input-wrap">
+            <span class="icon">🌸</span>
+            <input type="text" id="name1" placeholder="Tên người gửi..." maxlength="30">
+          </div>
+        </div>
+        <div class="field">
+          <div class="input-wrap">
+            <span class="icon">💖</span>
+            <input type="text" id="name2" placeholder="Tên người nhận..." maxlength="30">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>🎵 Nhạc nền (YouTube)</label>
+      <div class="input-wrap">
+        <span class="icon">🔗</span>
+        <input type="url" id="ytLink" placeholder="https://youtube.com/watch?v=...">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>💬 Ghi chú thêm cho AI (tuỳ chọn)</label>
+      <div class="input-wrap no-icon">
+        <textarea id="extraNote" placeholder="Ví dụ: chúng mình quen nhau ở trường, anh ấy hay cười vô duyên... 😄"></textarea>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>🎨 Cảm xúc của thư</label>
+      <div class="mood-grid">
+        <div class="mood-opt active" data-mood="ngọt ngào & lãng mạn"><span class="mood-icon">🌸</span>Ngọt ngào</div>
+        <div class="mood-opt" data-mood="hài hước & vui tươi"><span class="mood-icon">😄</span>Hài hước</div>
+        <div class="mood-opt" data-mood="chân thành & sâu sắc"><span class="mood-icon">💫</span>Chân thành</div>
+        <div class="mood-opt" data-mood="nhút nhát & rụt rè dễ thương"><span class="mood-icon">🥺</span>Rụt rè</div>
+        <div class="mood-opt" data-mood="mạnh dạn & tự tin"><span class="mood-icon">🔥</span>Mạnh dạn</div>
+        <div class="mood-opt" data-mood="thơ văn & bay bổng"><span class="mood-icon">🌙</span>Thơ văn</div>
+      </div>
+    </div>
+
+    <button class="btn-gen" id="genBtn" onclick="generate()">
+      ✨ Tạo Trang Tỏ Tình Của Tôi 💌
+    </button>
+  </div>
+</div>
+
+<!-- ===== PAGE 2: RESULT ===== -->
+<div class="page hidden" id="resultPage">
+  <button class="back-btn" onclick="goBack()">← Làm lại</button>
+
+  <!-- Music Player -->
+  <div class="music-player hidden" id="musicPlayer">
+    <div class="music-disc" id="musicDisc">🎵</div>
+    <div class="music-info">
+      <div class="music-title" id="musicTitle">Nhạc nền</div>
+      <div class="music-status" id="musicStatus">▶ Đang phát</div>
+    </div>
+    <button class="music-toggle" id="musicToggle" onclick="toggleMusic()">⏸</button>
+  </div>
+  <iframe id="ytFrame" allow="autoplay"></iframe>
+
+  <div class="result-scene">
+    <h1 class="page-title" id="resultTitle">💌 Một điều muốn nói...</h1>
+    <p class="page-sub" id="resultSub">dành riêng cho bạn ✨</p>
+
+    <div class="envelope-wrap">
+      <div class="envelope" id="envelope" onclick="openEnvelope()">
+        <div class="env-body"></div>
+        <div class="env-right"></div>
+        <div class="env-flap"></div>
+        <div class="env-seal">💝</div>
+        <div class="env-label">Nhấn để mở thư 🌸</div>
+      </div>
+    </div>
+    <p class="hint" id="hint">✦ nhấn vào phong bì ✦</p>
+
+    <div class="letter-wrap" id="letterWrap">
+      <div class="letter">
+        <span class="corner tl">🌸</span><span class="corner tr">🌷</span>
+        <span class="corner bl">🌹</span><span class="corner br">💐</span>
+        <div class="letter-date" id="letterDate"></div>
+        <div class="letter-greeting" id="letterGreeting">Gửi người đặc biệt của tôi,</div>
+        <div id="letterBody"></div>
+        <div class="letter-sign" id="letterSign">Mãi yêu thương,<br>Người đã dám nói thật 🌷</div>
+      </div>
+    </div>
+
+    <div class="btn-row" id="btnRow">
+      <button class="btn btn-yes" id="btnYes" onclick="sayYes()">💖 Em cũng thích!</button>
+      <button class="btn btn-maybe" onclick="sayMaybe()">🌸 Để em nghĩ thêm...</button>
+    </div>
+
+    <div class="celebration" id="celebration">
+      <div class="celeb-emoji">🎉</div>
+      <div class="celeb-text" id="celebText">Yay! Chúng mình thích nhau rồi! 💕</div>
+      <div class="celeb-sub" id="celebSub">Mỗi ngày từ đây sẽ ngọt ngào hơn vì có nhau. 🌸✨</div>
+    </div>
+
+    <div class="photos" id="photos">
+      <div class="polaroid p1"><div class="polaroid-inner">🌸</div><div class="polaroid-label" id="pol1">Ngày đầu tiên<br>quen nhau</div></div>
+      <div class="polaroid p2"><div class="polaroid-inner">☕</div><div class="polaroid-label" id="pol2">Những khoảnh khắc<br>bên nhau</div></div>
+      <div class="polaroid p3"><div class="polaroid-inner">🌙</div><div class="polaroid-label" id="pol3">Trò chuyện<br>đến khuya</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== BG EFFECTS =====
+const starsEl=document.getElementById('stars');
+for(let i=0;i<40;i++){
+  const s=document.createElement('div');s.className='star';
+  const size=Math.random()*4+2;
+  s.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${2+Math.random()*3}s;animation-delay:${Math.random()*3}s;`;
+  starsEl.appendChild(s);
+}
+const heartsEl=document.getElementById('hearts');
+const emojis=['💕','💗','💖','🌸','✨','💝','🌷','💫','🍓','🎀'];
+for(let i=0;i<18;i++){
+  const span=document.createElement('span');
+  span.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+  span.style.cssText=`left:${Math.random()*100}%;animation-duration:${7+Math.random()*8}s;animation-delay:${Math.random()*8}s;font-size:${1+Math.random()*1.4}rem;`;
+  heartsEl.appendChild(span);
+}
+
+// Petal canvas
+const canvas=document.createElement('canvas');canvas.id='petals-canvas';document.body.appendChild(canvas);
+const ctx=canvas.getContext('2d');let W,H;
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;}
+resize();window.addEventListener('resize',resize);
+const petalColors=['#ffb3c1','#ffd6e0','#ff8fa8','#ffc8d5','#ffe4ec','#e8c3f0'];
+class Petal{
+  constructor(){this.reset(true);}
+  reset(init=false){
+    this.x=Math.random()*W;this.y=init?Math.random()*H:-20;
+    this.r=5+Math.random()*9;this.speed=.6+Math.random()*1.2;
+    this.drift=(Math.random()-.5)*.8;this.angle=Math.random()*Math.PI*2;
+    this.spin=(Math.random()-.5)*.06;this.color=petalColors[Math.floor(Math.random()*petalColors.length)];
+    this.alpha=.35+Math.random()*.45;
+  }
+  update(){this.y+=this.speed;this.x+=this.drift+Math.sin(this.y/60)*.5;this.angle+=this.spin;if(this.y>H+20)this.reset();}
+  draw(){ctx.save();ctx.globalAlpha=this.alpha;ctx.translate(this.x,this.y);ctx.rotate(this.angle);ctx.beginPath();ctx.ellipse(0,0,this.r,this.r*.55,0,0,Math.PI*2);ctx.fillStyle=this.color;ctx.fill();ctx.restore();}
+}
+const petals=Array.from({length:55},()=>new Petal());
+function animPetals(){ctx.clearRect(0,0,W,H);petals.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animPetals);}
+animPetals();
+
+// ===== MOOD SELECT =====
+let selectedMood='ngọt ngào & lãng mạn';
+document.querySelectorAll('.mood-opt').forEach(el=>{
+  el.addEventListener('click',()=>{
+    document.querySelectorAll('.mood-opt').forEach(e=>e.classList.remove('active'));
+    el.classList.add('active');
+    selectedMood=el.dataset.mood;
+  });
+});
+
+// ===== YOUTUBE HELPER =====
+function extractYTId(url){
+  const patterns=[
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+    /youtube\.com\/shorts\/([^&\n?#]+)/
+  ];
+  for(const p of patterns){const m=url.match(p);if(m)return m[1];}
+  return null;
+}
+
+// ===== LOADING BAR ANIMATION =====
+let loadingInterval=null;
+function startLoading(){
+  const overlay=document.getElementById('loadingOverlay');
+  const bar=document.getElementById('loadingBar');
+  overlay.classList.add('show');
+  let progress=0;
+  loadingInterval=setInterval(()=>{
+    progress=Math.min(progress+(Math.random()*8),88);
+    bar.style.width=progress+'%';
+  },350);
+}
+function stopLoading(){
+  clearInterval(loadingInterval);
+  document.getElementById('loadingBar').style.width='100%';
+  setTimeout(()=>{
+    document.getElementById('loadingOverlay').classList.remove('show');
+    document.getElementById('loadingBar').style.width='0';
+  },400);
+}
+
+// ===== GENERATE =====
+async function generate(){
+  const name1=document.getElementById('name1').value.trim();
+  const name2=document.getElementById('name2').value.trim();
+  const ytLink=document.getElementById('ytLink').value.trim();
+  const extraNote=document.getElementById('extraNote').value.trim();
+
+  if(!name1||!name2){
+    alert('💌 Hãy điền tên cả hai người nhé!');return;
+  }
+
+  startLoading();
+
+  // Build letter via Claude API
+  let letter=null;
+  try{
+    const prompt=`Bạn là một người viết thư tình chuyên nghiệp, lãng mạn và sáng tạo. 
+Hãy viết một bức thư tỏ tình bằng tiếng Việt từ "${name1}" gửi đến "${name2}".
+Phong cách cảm xúc: ${selectedMood}.
+${extraNote?'Thông tin thêm: '+extraNote:''}
+
+Yêu cầu định dạng JSON (chỉ trả về JSON, không có gì khác):
+{
+  "title": "tiêu đề lãng mạn ngắn (emoji + tên người nhận)",
+  "subtitle": "phụ đề ngắn dưới tiêu đề (7-10 từ, có emoji)",
+  "greeting": "lời chào mở đầu (ví dụ: Gửi [tên] thân yêu,)",
+  "paragraph1": "đoạn 1 - kể về cảm xúc khi gặp/nghĩ đến người ấy (60-80 từ)",
+  "paragraph2": "đoạn 2 - những chi tiết nhỏ đáng yêu khiến mình thích họ (60-80 từ)",
+  "paragraph3": "đoạn 3 - vì sao hôm nay dám nói ra (50-70 từ)",
+  "quote": "1 câu tỏ tình chính, ngắn gọn súc tích, bay bổng (20-35 từ)",
+  "sign": "chữ ký kết thư (ví dụ: Người luôn nghĩ đến em, [tên1] 🌸)",
+  "yesBtn": "text nút đồng ý (ví dụ: Em cũng thích anh rồi! 💖)",
+  "celebText": "câu ăn mừng khi bấm đồng ý (ví dụ: Chúng mình thích nhau rồi! 💕)",
+  "celebSub": "câu phụ ăn mừng (30-50 từ)",
+  "pol1": "nhãn polaroid 1 (2 dòng ngắn, kỷ niệm đáng yêu)",
+  "pol2": "nhãn polaroid 2 (2 dòng ngắn)",
+  "pol3": "nhãn polaroid 3 (2 dòng ngắn)"
+}
+
+Viết tự nhiên, chân thành, phù hợp với cảm xúc "${selectedMood}". Các đoạn văn phải có thẻ <span class="hi">...</span> bao quanh 1-2 cụm từ quan trọng muốn nhấn mạnh.`;
+
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data=await resp.json();
+    const text=data.content.map(i=>i.text||'').join('');
+    const clean=text.replace(/```json|```/g,'').trim();
+    letter=JSON.parse(clean);
+  } catch(e){
+    console.error(e);
+    // fallback
+    letter={
+      title:`💌 Gửi ${name2}...`,
+      subtitle:`dành riêng cho ${name2} ✨`,
+      greeting:`Gửi ${name2} thân yêu,`,
+      paragraph1:`Có những điều <span class="hi">tim muốn nói</span> mà miệng cứ ngại ngùng không dám thốt lên lời. Vậy nên hôm nay ${name1} chọn cách này — qua một trang giấy nhỏ — để thành thật với ${name2} và với chính mình. 🌸`,
+      paragraph2:`${name1} không biết từ khi nào nữa, nhưng mỗi khi nhìn thấy ${name2}, <span class="hi">trái tim lại đập loạn nhịp</span>. Mỗi lần nghe giọng ${name2} cười, ngày hôm đó tự nhiên đẹp hơn hẳn. ☁️✨`,
+      paragraph3:`${name1} đã tự nhủ giữ im lặng mãi, nhưng rồi nhận ra — <span class="hi">giữ mãi trong lòng một điều chân thật như thế này thì cũng đâu phải dũng cảm</span>. 💬`,
+      quote:`"${name1} thích ${name2} — thật sự, chân thành, và không hối hận chút nào." 🌹`,
+      sign:`Luôn nghĩ đến ${name2},<br>${name1} 🌷`,
+      yesBtn:`💖 Em cũng thích ${name1}!`,
+      celebText:`Yay! Chúng mình thích nhau rồi! 💕`,
+      celebSub:`Mỗi ngày từ đây sẽ ngọt ngào hơn khi có ${name1} và ${name2} bên nhau. 🌸✨`,
+      pol1:`Ngày đầu tiên\nquen nhau`,pol2:`Những khoảnh khắc\nbên nhau`,pol3:`Trò chuyện\nđến khuya`
+    };
+  }
+
+  stopLoading();
+  renderResult(letter,name1,name2,ytLink);
+}
+
+// ===== RENDER RESULT =====
+function renderResult(l,name1,name2,ytLink){
+  // Fill content
+  document.getElementById('resultTitle').textContent=l.title;
+  document.getElementById('resultSub').textContent=l.subtitle;
+  document.getElementById('letterGreeting').textContent=l.greeting;
+  const d=new Date();
+  const months=['tháng 1','tháng 2','tháng 3','tháng 4','tháng 5','tháng 6','tháng 7','tháng 8','tháng 9','tháng 10','tháng 11','tháng 12'];
+  document.getElementById('letterDate').textContent=`Ngày ${d.getDate()} ${months[d.getMonth()]} năm ${d.getFullYear()}`;
+
+  document.getElementById('letterBody').innerHTML=`
+    <p>${l.paragraph1}</p>
+    <p>${l.paragraph2}</p>
+    <p>${l.paragraph3}</p>
+    <div class="letter-quote">${l.quote}</div>
+  `;
+  document.getElementById('letterSign').innerHTML=l.sign;
+  document.getElementById('btnYes').textContent=l.yesBtn;
+  document.getElementById('celebText').textContent=l.celebText;
+  document.getElementById('celebSub').textContent=l.celebSub;
+  document.getElementById('pol1').innerHTML=l.pol1.replace('\n','<br>');
+  document.getElementById('pol2').innerHTML=l.pol2.replace('\n','<br>');
+  document.getElementById('pol3').innerHTML=l.pol3.replace('\n','<br>');
+
+  // Music
+  const ytId=extractYTId(ytLink);
+  if(ytId){
+    const frame=document.getElementById('ytFrame');
+    frame.src=`https://www.youtube.com/embed/${ytId}?autoplay=1&loop=1&playlist=${ytId}&controls=0`;
+    document.getElementById('musicPlayer').classList.remove('hidden');
+    document.getElementById('musicTitle').textContent='♪ Nhạc nền đang phát';
+  }
+
+  // Switch page
+  document.getElementById('formPage').classList.add('hidden');
+  document.getElementById('resultPage').classList.remove('hidden');
+  window.scrollTo(0,0);
+
+  // Reset state
+  envelopeOpened=false;
+  document.getElementById('envelope').classList.remove('open');
+  document.getElementById('hint').style.opacity='1';
+  document.getElementById('letterWrap').classList.remove('visible');
+  document.getElementById('btnRow').classList.remove('visible');
+  document.getElementById('photos').classList.remove('visible');
+  document.getElementById('celebration').classList.remove('show');
+  document.getElementById('btnRow').style.display='flex';
+}
+
+// ===== BACK =====
+function goBack(){
+  document.getElementById('resultPage').classList.add('hidden');
+  document.getElementById('formPage').classList.remove('hidden');
+  // stop music
+  document.getElementById('ytFrame').src='';
+  document.getElementById('musicPlayer').classList.add('hidden');
+}
+
+// ===== MUSIC TOGGLE =====
+let musicPlaying=true;
+function toggleMusic(){
+  const frame=document.getElementById('ytFrame');
+  const disc=document.getElementById('musicDisc');
+  const btn=document.getElementById('musicToggle');
+  const status=document.getElementById('musicStatus');
+  if(musicPlaying){
+    frame.src=frame.src.replace('autoplay=1','autoplay=0');
+    disc.classList.add('paused');
+    btn.textContent='▶';
+    status.textContent='⏸ Đã tạm dừng';
+  } else {
+    frame.src=frame.src.replace('autoplay=0','autoplay=1');
+    disc.classList.remove('paused');
+    btn.textContent='⏸';
+    status.textContent='▶ Đang phát';
+  }
+  musicPlaying=!musicPlaying;
+}
+
+// ===== ENVELOPE =====
+let envelopeOpened=false;
+function openEnvelope(){
+  if(envelopeOpened)return;
+  envelopeOpened=true;
+  document.getElementById('envelope').classList.add('open');
+  document.getElementById('hint').style.opacity='0';
+  setTimeout(()=>{
+    document.getElementById('letterWrap').classList.add('visible');
+    document.getElementById('btnRow').classList.add('visible');
+    document.getElementById('photos').classList.add('visible');
+  },800);
+}
+
+// ===== YES / MAYBE =====
+function sayYes(){
+  document.getElementById('btnRow').style.display='none';
+  document.getElementById('celebration').classList.add('show');
+  launchConfetti();
+}
+function sayMaybe(){
+  const btn=event.target;
+  const phrases=['🌸 Không sao, tôi sẽ chờ...','💫 Thực ra em cũng thích rồi!','🎀 Nói thật đi mà~ 💕','🥺 Em không chạy thoát khỏi trái tim đâu!'];
+  let i=0;
+  const id=setInterval(()=>{btn.textContent=phrases[i%phrases.length];i++;if(i>4){clearInterval(id);sayYes();}},900);
+}
+
+// ===== CONFETTI =====
+function launchConfetti(){
+  const colors=['#ff6b8a','#ffb3c1','#c94060','#f7c59f','#e8c3f0','#c3e0f0','#fff0a0'];
+  for(let i=0;i<120;i++){
+    setTimeout(()=>{
+      const el=document.createElement('div');
+      el.style.cssText=`position:fixed;pointer-events:none;z-index:999;left:${40+Math.random()*20}%;top:40%;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>.5?'50%':'2px'};animation:confettiFly ${1+Math.random()*2}s ease forwards;`;
+      document.body.appendChild(el);setTimeout(()=>el.remove(),3000);
+    },i*20);
+  }
+  if(!document.getElementById('confettiStyle')){
+    const st=document.createElement('style');st.id='confettiStyle';
+    st.textContent='@keyframes confettiFly{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--tx),var(--ty)) rotate(720deg);opacity:0}}';
+    // set random vars per element via different animation
+    document.head.appendChild(st);
+  }
+}
+</script>
+</body>
+</html>
