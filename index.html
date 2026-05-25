@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💌 Tạo Lời Tỏ Tình</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,500;1,400&family=Dancing+Script:wght@500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --rose:#ff6b8a;--deep:#c94060;--blush:#ffb3c1;--petal:#ffe4ec;--cream:#fdf8f5;
+  --night:#0f0c1a;--gold:#f5c842;--purple:#a78bfa;--mint:#34d399;
+  --font-display:'Playfair Display',serif;
+  --font-body:'Lora',serif;
+  --font-ui:'Nunito',sans-serif;
+  --font-script:'Dancing Script',cursive;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-ui);background:var(--night);color:#fff;overflow-x:hidden;min-height:100vh;}
+
+/* ============ CANVAS ============ */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* ============ PAGES ============ */
+.pg{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;}
+.pg.hidden{display:none!important;}
+
+/* ============ PAGE 1 – SELECT ============ */
+#pg1{justify-content:center;padding:40px 20px 60px;}
+.hero-badge{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--blush);opacity:.8;margin-bottom:16px;animation:fadeUp .6s ease both;}
+.hero-title{font-family:var(--font-display);font-size:clamp(2.4rem,6vw,4rem);text-align:center;line-height:1.15;margin-bottom:10px;animation:fadeUp .6s .1s ease both;}
+.hero-title span{background:linear-gradient(135deg,#ff8fab,#ff3d6f,#ff9a5c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.5);text-align:center;margin-bottom:50px;animation:fadeUp .6s .2s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:860px;width:100%;animation:fadeUp .7s .3s ease both;}
+@media(max-width:700px){.style-grid{grid-template-columns:repeat(2,1fr);gap:14px;}}
+@media(max-width:420px){.style-grid{grid-template-columns:1fr 1fr;gap:12px;}}
+
+.style-card{
+  background:rgba(255,255,255,.04);
+  border:1.5px solid rgba(255,255,255,.08);
+  border-radius:22px;padding:26px 18px 22px;
+  cursor:pointer;transition:all .35s cubic-bezier(.34,1.4,.64,1);
+  text-align:center;position:relative;overflow:hidden;
+  backdrop-filter:blur(10px);
+}
+.style-card::before{
+  content:'';position:absolute;inset:0;opacity:0;transition:opacity .35s;
+  background:var(--card-grad);
+}
+.style-card:hover{transform:translateY(-8px) scale(1.03);border-color:rgba(255,255,255,.25);}
+.style-card:hover::before{opacity:.12;}
+.style-card.active{border-color:rgba(255,255,255,.5);transform:translateY(-8px) scale(1.05);}
+.style-card.active::before{opacity:.2;}
+.sc-glow{position:absolute;inset:-2px;border-radius:23px;opacity:0;transition:opacity .35s;background:var(--card-grad);filter:blur(18px);z-index:-1;}
+.style-card:hover .sc-glow,.style-card.active .sc-glow{opacity:.35;}
+
+.sc-emoji{font-size:2.4rem;display:block;margin-bottom:12px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.4));}
+.sc-name{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:6px;color:#fff;}
+.sc-desc{font-size:.72rem;color:rgba(255,255,255,.5);line-height:1.5;}
+
+/* ============ PAGE 2 – FORM ============ */
+#pg2{background:var(--cream);padding:0;}
+.form-wrap{width:100%;max-width:560px;padding:40px 20px 80px;margin:0 auto;}
+
+.form-header{padding:36px 0 32px;text-align:center;}
+.style-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 18px;border-radius:99px;margin-bottom:18px;font-size:.8rem;font-weight:700;
+  background:var(--badge-bg);color:var(--badge-color);letter-spacing:.5px;
+}
+.form-h{font-family:var(--font-display);font-size:2rem;color:#1a1a1a;margin-bottom:6px;}
+.form-p{font-size:.85rem;color:#999;}
+
+.fcard{background:#fff;border-radius:20px;padding:28px 26px;margin-bottom:20px;box-shadow:0 4px 24px rgba(0,0,0,.06);}
+.fcard-title{font-size:.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#ccc;margin-bottom:18px;}
+
+.names-row{display:flex;align-items:center;gap:14px;}
+.name-field{flex:1;}
+.heart-div{font-size:1.5rem;flex-shrink:0;animation:heartbeat 1.4s ease-in-out infinite;}
+@keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+
+label.lbl{display:block;font-size:.75rem;font-weight:700;color:#bbb;letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
+.inp{
+  width:100%;padding:12px 16px;border:2px solid #f0f0f0;border-radius:12px;
+  font-family:var(--font-ui);font-size:.95rem;color:#333;background:#fafafa;
+  outline:none;transition:border .2s,box-shadow .2s;
+}
+.inp:focus{border-color:var(--focus-color,var(--rose));box-shadow:0 0 0 4px var(--focus-shadow,rgba(255,107,138,.1));}
+textarea.inp{resize:vertical;min-height:120px;line-height:1.7;}
+
+.inp-icon-wrap{position:relative;}
+.inp-icon-wrap .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1rem;pointer-events:none;}
+.inp-icon-wrap .inp{padding-left:40px;}
+.inp-icon-wrap.ta .icon{top:14px;transform:none;}
+
+.mood-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.mood-chip{
+  padding:7px 14px;border:1.5px solid #eee;border-radius:99px;
+  font-size:.78rem;font-weight:700;color:#aaa;cursor:pointer;transition:all .2s;background:#fafafa;
+}
+.mood-chip:hover,.mood-chip.on{border-color:var(--rose);color:var(--deep);background:var(--petal);}
+
+.btn-gen{
+  width:100%;padding:16px;border:none;border-radius:14px;
+  font-family:var(--font-ui);font-size:1rem;font-weight:800;letter-spacing:.3px;
+  cursor:pointer;transition:all .3s;color:#fff;margin-top:8px;
+  background:var(--gen-bg);box-shadow:var(--gen-shadow);
+}
+.btn-gen:hover{transform:translateY(-3px);box-shadow:var(--gen-shadow-hover);}
+.btn-back{
+  background:none;border:none;font-family:var(--font-ui);font-size:.85rem;
+  color:#bbb;cursor:pointer;padding:8px 0 0;display:block;margin:12px auto 0;
+  transition:color .2s;
+}
+.btn-back:hover{color:#666;}
+
+/* ============ LOADING ============ */
+#loader{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(253,248,245,.95);backdrop-filter:blur(12px);
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+}
+#loader.on{display:flex;}
+.loader-icon{font-size:3.5rem;animation:bounce 1s ease-in-out infinite alternate;}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-16px)}}
+.loader-text{font-family:var(--font-display);font-size:1.5rem;color:var(--deep);}
+.loader-bar{width:220px;height:3px;background:#f0d0d8;border-radius:99px;overflow:hidden;}
+.loader-fill{height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--deep));border-radius:99px;animation:fill 2.5s ease forwards;}
+@keyframes fill{to{width:95%}}
+
+/* ============ PAGE 3 – RESULT ============ */
+#pg3{padding:0;}
+.res-topbar{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  padding:14px 20px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.3);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.topbar-btn{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
+  border-radius:99px;padding:7px 16px;font-family:var(--font-ui);font-size:.8rem;
+  font-weight:700;color:#fff;cursor:pointer;transition:all .2s;
+}
+.topbar-btn:hover{background:rgba(255,255,255,.2);}
+.topbar-style{font-size:.8rem;color:rgba(255,255,255,.6);font-weight:600;}
+
+/* music player */
+.music-bar{
+  position:fixed;bottom:24px;right:20px;z-index:50;
+  background:rgba(0,0,0,.7);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.12);border-radius:99px;
+  padding:10px 18px 10px 12px;display:flex;align-items:center;gap:10px;
+  animation:slideUp .5s .5s ease both;max-width:220px;
+}
+@keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+.music-disc{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;animation:spin 3s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.music-disc.paused{animation-play-state:paused;}
+.music-info{flex:1;min-width:0;}
+.music-name{font-size:.72rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;}
+.music-st{font-size:.65rem;color:rgba(255,255,255,.5);}
+.music-btn{background:none;border:none;color:#fff;cursor:pointer;font-size:.95rem;padding:2px;}
+#ytf{display:none;}
+
+/* ===== RESULT WRAPPERS ===== */
+.res-body{padding-top:64px;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+
+/* ------- STYLE: LETTER ------- */
+.res-letter{padding:40px 20px 100px;background:linear-gradient(160deg,#fff5f7,#fce4ec,#fff9fb);}
+.envelope-scene{display:flex;flex-direction:column;align-items:center;}
+.env-wrap{perspective:900px;margin-bottom:14px;}
+.env{width:280px;height:196px;position:relative;cursor:pointer;transform-style:preserve-3d;transition:transform .5s;}
+.env:hover{transform:scale(1.04) rotateY(3deg);}
+.env-body{width:100%;height:100%;border-radius:10px;position:relative;overflow:hidden;box-shadow:0 24px 64px rgba(201,64,96,.22),0 4px 12px rgba(201,64,96,.12);}
+.env-body,.env-left,.env-right,.env-bottom{position:absolute;}
+.env-body{background:linear-gradient(150deg,#ffe0ea,#ffcad5);}
+.env-left{top:0;left:0;border-left:140px solid rgba(255,190,210,.55);border-right:140px solid transparent;border-top:98px solid rgba(255,190,210,.55);width:0;height:0;}
+.env-right{top:0;right:0;border-right:140px solid rgba(255,180,205,.42);border-top:98px solid transparent;border-bottom:98px solid transparent;width:0;height:0;}
+.env-bottom{bottom:0;left:50%;transform:translateX(-50%);border-left:140px solid transparent;border-right:140px solid transparent;border-bottom:98px solid rgba(255,185,205,.55);width:0;height:0;}
+.env-flap{position:absolute;top:0;left:0;right:0;height:98px;clip-path:polygon(0 0,100% 0,50% 100%);background:linear-gradient(160deg,#ffb3c4,#ff8fa2);transform-origin:top center;transition:transform .7s cubic-bezier(.4,0,.2,1);z-index:5;border-radius:10px 10px 0 0;}
+.env.open .env-flap{transform:rotateX(-172deg);}
+.env-seal{position:absolute;top:40px;left:50%;transform:translateX(-50%);font-size:2.4rem;z-index:6;transition:opacity .3s;pointer-events:none;}
+.env.open .env-seal{opacity:0;}
+.env-lbl{position:absolute;bottom:22px;width:100%;text-align:center;font-family:var(--font-script);font-size:1.1rem;color:var(--deep);z-index:4;}
+.hint-txt{font-size:.78rem;color:#d47090;letter-spacing:1px;animation:blink 2.2s ease-in-out infinite;margin-bottom:8px;}
+@keyframes blink{0%,100%{opacity:.8}50%{opacity:.25}}
+
+.letter-card{
+  max-width:480px;width:100%;background:#fff;border-radius:20px;
+  padding:40px 34px 36px;margin-top:28px;
+  box-shadow:0 32px 80px rgba(201,64,96,.1),0 8px 24px rgba(201,64,96,.07);
+  opacity:0;transform:translateY(28px) scale(.97);transition:all .8s ease;
+  position:relative;overflow:hidden;
+}
+.letter-card.show{opacity:1;transform:translateY(0) scale(1);}
+.letter-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blush),var(--rose),var(--purple),var(--rose),var(--blush));background-size:200%;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.lc-corner{position:absolute;font-size:1.3rem;opacity:.2;pointer-events:none;}
+.lc-corner.tl{top:10px;left:14px;}.lc-corner.tr{top:10px;right:14px;}
+.lc-corner.bl{bottom:10px;left:14px;}.lc-corner.br{bottom:10px;right:14px;}
+.lc-date{text-align:right;font-size:.78rem;color:#ccc;font-style:italic;margin-bottom:18px;}
+.lc-greeting{font-family:var(--font-script);font-size:1.7rem;color:var(--deep);margin-bottom:16px;}
+.lc-body p{font-family:var(--font-body);font-size:.93rem;line-height:1.95;color:#555;margin-bottom:13px;}
+.lc-body .hi{color:var(--rose);font-weight:600;font-style:italic;}
+.lc-quote{font-family:var(--font-script);font-size:1.35rem;color:var(--deep);text-align:center;padding:14px 0;border-top:1px dashed #ffd0de;border-bottom:1px dashed #ffd0de;margin:10px 0 16px;line-height:1.6;}
+.lc-sign{font-family:var(--font-script);font-size:1.4rem;color:var(--deep);text-align:right;margin-top:22px;}
+
+/* ------- STYLE: CHAT ------- */
+.res-chat{background:linear-gradient(160deg,#1a1028,#0d0a1f);min-height:100vh;}
+.phone-wrap{padding:40px 20px 100px;display:flex;flex-direction:column;align-items:center;}
+.phone-frame{
+  width:100%;max-width:360px;
+  background:#1c1c2e;border-radius:36px;overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 2px rgba(255,255,255,.07);
+  animation:fadeUp .7s ease both;
+}
+.phone-bar{
+  background:#131220;padding:14px 20px;
+  display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.phone-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:linear-gradient(135deg,var(--purple),var(--rose));flex-shrink:0;}
+.phone-name{font-weight:700;font-size:.95rem;}
+.phone-status{font-size:.72rem;color:rgba(255,255,255,.4);}
+.phone-dot{width:8px;height:8px;border-radius:50%;background:#34d399;position:absolute;bottom:2px;right:2px;}
+.chat-body{padding:18px 14px 24px;display:flex;flex-direction:column;gap:10px;min-height:400px;}
+.bubble{
+  max-width:78%;padding:11px 16px;border-radius:18px;font-size:.88rem;line-height:1.6;
+  animation:bubblePop .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes bubblePop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.bubble.out{
+  align-self:flex-end;background:linear-gradient(135deg,var(--purple),#6d28d9);color:#fff;
+  border-bottom-right-radius:4px;
+}
+.bubble.in{
+  align-self:flex-start;background:rgba(255,255,255,.08);color:rgba(255,255,255,.9);
+  border-bottom-left-radius:4px;border:1px solid rgba(255,255,255,.07);
+}
+.bubble-time{font-size:.65rem;color:rgba(255,255,255,.3);margin-top:3px;text-align:right;}
+.typing{align-self:flex-start;padding:10px 14px;background:rgba(255,255,255,.06);border-radius:18px;border-bottom-left-radius:4px;}
+.typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);animation:typingDot 1.2s ease-in-out infinite;}
+.typing span:nth-child(2){animation-delay:.2s;}
+.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes typingDot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
+.chat-input-bar{background:#131220;padding:12px 14px;display:flex;gap:10px;align-items:center;border-top:1px solid rgba(255,255,255,.05);}
+.chat-inp-fake{flex:1;background:rgba(255,255,255,.06);border-radius:22px;padding:10px 16px;font-size:.82rem;color:rgba(255,255,255,.25);}
+.chat-send{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--purple),#6d28d9);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+
+/* ------- STYLE: POEM ------- */
+.res-poem{background:radial-gradient(ellipse at 30% 20%,#1a0a2e,#0a0a1a);min-height:100vh;}
+.poem-wrap{padding:60px 20px 100px;display:flex;flex-direction:column;align-items:center;}
+.poem-deco{font-size:1.4rem;letter-spacing:12px;color:rgba(255,215,0,.3);margin-bottom:30px;text-align:center;}
+.poem-card{
+  max-width:460px;width:100%;text-align:center;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,215,0,.15);
+  border-radius:4px;padding:48px 36px;
+  box-shadow:0 0 80px rgba(100,50,200,.15),inset 0 0 40px rgba(100,50,200,.05);
+  animation:fadeUp .8s ease both;
+}
+.poem-title{font-family:var(--font-display);font-size:1.4rem;color:rgba(255,215,0,.8);margin-bottom:8px;font-style:italic;}
+.poem-names{font-size:.75rem;letter-spacing:3px;color:rgba(255,255,255,.3);margin-bottom:36px;text-transform:uppercase;}
+.poem-stanza{margin-bottom:28px;}
+.poem-line{font-family:var(--font-display);font-size:1.05rem;color:rgba(255,255,255,.85);line-height:1.9;font-style:italic;}
+.poem-divider{color:rgba(255,215,0,.3);font-size:.9rem;letter-spacing:8px;margin:4px 0 28px;}
+.poem-sign{font-family:var(--font-script);font-size:1.5rem;color:rgba(255,215,0,.7);margin-top:8px;}
+
+/* ------- STYLE: MOVIE ------- */
+.res-movie{background:#0a0804;min-height:100vh;}
+.movie-wrap{padding:60px 20px 100px;display:flex;flex-direction:column;align-items:center;}
+.film-strip{width:100%;max-width:540px;position:relative;}
+.film-holes{display:flex;justify-content:space-between;padding:0 8px;}
+.film-hole{width:16px;height:16px;border-radius:3px;background:#0a0804;border:1px solid rgba(255,255,255,.1);}
+.movie-card{
+  background:linear-gradient(to bottom,#1a1510,#0f0d08);
+  border:1px solid rgba(255,220,100,.08);
+  padding:44px 38px;
+  box-shadow:0 0 60px rgba(0,0,0,.8);
+  position:relative;overflow:hidden;
+  animation:fadeUp .8s ease both;
+}
+.movie-card::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none;opacity:.4;}
+.movie-slate{font-size:.65rem;letter-spacing:3px;color:rgba(255,220,100,.4);text-transform:uppercase;margin-bottom:28px;}
+.movie-scene{font-family:'Courier New',monospace;color:rgba(255,255,255,.75);font-size:.88rem;line-height:2.1;}
+.movie-scene .scene-dir{color:rgba(255,220,100,.5);font-size:.78rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:6px;}
+.movie-scene .scene-p{margin-bottom:18px;}
+.movie-scene .char-name{color:rgba(255,220,100,.8);font-weight:700;display:block;margin:16px 0 4px;letter-spacing:2px;}
+.movie-scene .dialogue{border-left:2px solid rgba(255,220,100,.25);padding-left:14px;color:rgba(255,255,255,.85);font-style:italic;}
+.movie-scene .scene-end{text-align:center;color:rgba(255,220,100,.4);margin-top:24px;letter-spacing:4px;}
+
+/* ------- STYLE: FUNNY ------- */
+.res-funny{background:linear-gradient(135deg,#fff9e6,#fff0fa,#eef9ff);}
+.funny-wrap{padding:40px 20px 100px;display:flex;flex-direction:column;align-items:center;}
+.funny-card{
+  max-width:480px;width:100%;background:#fff;border-radius:24px;
+  padding:36px 30px;animation:fadeUp .7s ease both;
+  box-shadow:0 20px 60px rgba(0,0,0,.08);
+  border:3px solid #ffecf5;position:relative;overflow:hidden;
+}
+.funny-title{font-family:var(--font-display);font-size:1.6rem;color:#333;margin-bottom:6px;}
+.funny-subtitle{font-size:.8rem;color:#aaa;margin-bottom:26px;}
+.funny-body p{font-family:var(--font-body);font-size:.95rem;color:#555;line-height:1.9;margin-bottom:14px;}
+.funny-body .kw{background:linear-gradient(135deg,#ffeef5,#fff0e6);color:var(--deep);border-radius:6px;padding:1px 8px;font-weight:600;}
+.funny-warning{
+  background:#fff9c4;border:2px dashed #ffd700;border-radius:12px;
+  padding:14px 16px;margin-bottom:20px;font-size:.85rem;color:#666;line-height:1.6;
+}
+.funny-confession{
+  background:linear-gradient(135deg,#ffe4ec,#ffe4f5);border-radius:14px;
+  padding:18px 20px;text-align:center;margin-top:6px;
+}
+.funny-confession p{font-family:var(--font-display);font-size:1.15rem;color:var(--deep);margin-bottom:0;font-style:italic;}
+.sticker-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+.sticker{font-size:1.8rem;animation:float 3s ease-in-out infinite;}
+.sticker:nth-child(2){animation-delay:.5s;}
+.sticker:nth-child(3){animation-delay:1s;}
+.sticker:nth-child(4){animation-delay:1.5s;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ------- STYLE: MIDNIGHT ------- */
+.res-midnight{background:radial-gradient(ellipse at 50% 0%,#0d1b3e,#030610);}
+.midnight-wrap{padding:60px 20px 100px;display:flex;flex-direction:column;align-items:center;}
+.moon-deco{font-size:3rem;text-align:center;margin-bottom:24px;filter:drop-shadow(0 0 20px rgba(180,160,255,.5));animation:moonFloat 4s ease-in-out infinite;}
+@keyframes moonFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-12px) rotate(5deg)}}
+.midnight-card{
+  max-width:460px;width:100%;
+  background:rgba(255,255,255,.02);border:1px solid rgba(180,160,255,.15);
+  border-radius:16px;padding:44px 36px;
+  box-shadow:0 0 100px rgba(100,80,255,.08);
+  animation:fadeUp .8s ease both;
+}
+.midnight-time{font-size:.72rem;letter-spacing:3px;color:rgba(180,160,255,.4);text-transform:uppercase;margin-bottom:28px;}
+.midnight-body p{font-family:var(--font-body);font-size:.97rem;color:rgba(255,255,255,.72);line-height:2.1;margin-bottom:16px;font-style:italic;}
+.midnight-body .glow{color:rgba(200,180,255,.9);font-style:normal;font-weight:600;}
+.midnight-confession{
+  border-left:2px solid rgba(180,160,255,.35);padding:16px 0 16px 20px;
+  margin:24px 0;
+}
+.midnight-confession p{font-family:var(--font-display);font-size:1.2rem;color:rgba(220,200,255,.9);margin-bottom:0;}
+.midnight-sign{font-family:var(--font-script);font-size:1.4rem;color:rgba(180,160,255,.7);text-align:right;margin-top:28px;}
+.stars-top{position:absolute;top:0;left:0;right:0;pointer-events:none;}
+
+/* ============ YES/NO BTNS ============ */
+.action-row{
+  display:flex;gap:14px;margin-top:32px;justify-content:center;flex-wrap:wrap;
+  opacity:0;transition:opacity .6s .5s ease;
+}
+.action-row.show{opacity:1;}
+.btn-yes,.btn-maybe{
+  padding:13px 28px;border:none;border-radius:50px;
+  font-family:var(--font-ui);font-size:.92rem;font-weight:700;cursor:pointer;transition:all .3s;
+}
+.btn-yes{background:linear-gradient(135deg,var(--rose),var(--deep));color:#fff;box-shadow:0 8px 24px rgba(201,64,96,.3);}
+.btn-yes:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(201,64,96,.4);}
+.btn-maybe{background:var(--petal);color:var(--deep);}
+.btn-maybe:hover{background:#ffd0de;}
+.btn-regen{
+  margin-top:14px;padding:10px 24px;border:1.5px dashed #ddd;border-radius:99px;
+  background:none;font-family:var(--font-ui);font-size:.82rem;color:#aaa;cursor:pointer;transition:all .2s;
+}
+.btn-regen:hover{border-color:#bbb;color:#777;}
+
+/* ============ CELEBRATION ============ */
+.celeb{
+  display:none;flex-direction:column;align-items:center;gap:14px;margin-top:10px;
+  animation:popIn .6s cubic-bezier(.34,1.56,.64,1);
+}
+.celeb.on{display:flex;}
+@keyframes popIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.celeb-emoji{font-size:4rem;animation:bounce 1s ease infinite alternate;}
+.celeb-text{font-family:var(--font-display);font-size:2rem;color:var(--deep);text-align:center;}
+.celeb-sub{font-size:.88rem;color:#c9668a;text-align:center;max-width:300px;line-height:1.6;}
+
+/* ============ UTIL ============ */
+@media(max-width:480px){
+  .fcard{padding:22px 18px;}
+  .names-row{flex-direction:column;}
+  .heart-div{display:none;}
+  .movie-card{padding:30px 22px;}
+  .poem-card{padding:36px 22px;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- ===== LOADER ===== -->
+<div id="loader">
+  <div class="loader-icon">💌</div>
+  <div class="loader-text">Đang viết cho bạn...</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- ===== PAGE 1: SELECT STYLE ===== -->
+<div class="pg" id="pg1">
+  <p class="hero-badge">✦ Công cụ tạo lời tỏ tình ✦</p>
+  <h1 class="hero-title">Nói <span>điều em muốn nói</span><br>theo cách của riêng mình</h1>
+  <p class="hero-sub">Chọn một phong cách — AI sẽ tạo lời tỏ tình đẹp nhất cho bạn 🌸</p>
+  <div class="style-grid">
+    <div class="style-card" data-id="letter" style="--card-grad:linear-gradient(135deg,#ff6b8a,#c94060);" onclick="selectStyle(this)">
+      <div class="sc-glow"></div>
+      <span class="sc-emoji">💌</span>
+      <div class="sc-name">Thư Tình Lãng Mạn</div>
+      <div class="sc-desc">Bức thư tay ngọt ngào, chân thành từng chữ</div>
+    </div>
+    <div class="style-card" data-id="chat" style="--card-grad:linear-gradient(135deg,#a78bfa,#7c3aed);" onclick="selectStyle(this)">
+      <div class="sc-glow"></div>
+      <span class="sc-emoji">💬</span>
+      <div class="sc-name">Nhắn Tin Ngọt Ngào</div>
+      <div class="sc-desc">Những tin nhắn dễ thương như đang chat thật</div>
+    </div>
+    <div class="style-card" data-id="poem" style="--card-grad:linear-gradient(135deg,#60a5fa,#1d4ed8);" onclick="selectStyle(this)">
+      <div class="sc-glow"></div>
+      <span class="sc-emoji">📜</span>
+      <div class="sc-name">Thơ Tình Bay Bổng</div>
+      <div class="sc-desc">Bài thơ lãng mạn riêng dành cho hai người</div>
+    </div>
+    <div class="style-card" data-id="movie" style="--card-grad:linear-gradient(135deg,#fbbf24,#b45309);" onclick="selectStyle(this)">
+      <div class="sc-glow"></div>
+      <span class="sc-emoji">🎬</span>
+      <div class="sc-name">Cảnh Phim Lãng Mạn</div>
+      <div class="sc-desc">Khoảnh khắc tỏ tình đẹp như trong điện ảnh</div>
+    </div>
+    <div class="style-card" data-id="funny" style="--card-grad:linear-gradient(135deg,#34d399,#059669);" onclick="selectStyle(this)">
+      <div class="sc-glow"></div>
+      <span class="sc-emoji">😄</span>
+      <div class="sc-name">Tếu Táo Mà Thương</div>
+      <div class="sc-desc">Hài hước, đáng yêu nhưng vẫn rất chân thành</div>
+    </div>
+    <div class="style-card" data-id="midnight" style="--card-grad:linear-gradient(135deg,#818cf8,#312e81);" onclick="selectStyle(this)">
+      <div class="sc-glow"></div>
+      <span class="sc-emoji">🌙</span>
+      <div class="sc-name">Thì Thầm Nửa Đêm</div>
+      <div class="sc-desc">Những lời chỉ dám nói lúc 2 giờ sáng...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE 2: FORM ===== -->
+<div class="pg hidden" id="pg2">
+  <div class="form-wrap">
+    <div class="form-header">
+      <div class="style-badge" id="styleBadge">💌 Thư Tình Lãng Mạn</div>
+      <h2 class="form-h">Kể cho mình nghe</h2>
+      <p class="form-p">Chỉ cần ý tưởng thô — mình sẽ biến thành lời đẹp ✨</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-title">👥 Hai người trong câu chuyện</div>
+      <div class="names-row">
+        <div class="name-field">
+          <label class="lbl">Tên bạn</label>
+          <input class="inp" id="n1" placeholder="Tên người gửi..." maxlength="25">
+        </div>
+        <div class="heart-div">💖</div>
+        <div class="name-field">
+          <label class="lbl">Tên người ấy</label>
+          <input class="inp" id="n2" placeholder="Tên người nhận..." maxlength="25">
+        </div>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-title">💭 Ý tưởng & cảm xúc của bạn</div>
+      <div class="inp-icon-wrap ta">
+        <span class="icon">🌸</span>
+        <textarea class="inp" id="ideas" placeholder="Viết thoải mái bằng lời của bạn...&#10;&#10;Ví dụ: em ấy hay cười rất duyên, quen nhau hồi năm ngoái ở trường, hay nhắn tin với nhau khuya lắm, anh ấy hiền và hay quan tâm mọi người...&#10;&#10;Càng nhiều chi tiết càng được lời hay!"></textarea>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-title">🎵 Nhạc nền YouTube (tuỳ chọn)</div>
+      <div class="inp-icon-wrap">
+        <span class="icon">🔗</span>
+        <input class="inp" type="url" id="yt" placeholder="https://youtube.com/watch?v=...">
+      </div>
+    </div>
+
+    <button class="btn-gen" id="genBtn" onclick="doGenerate()">✨ Tạo Ngay!</button>
+    <button class="btn-back" onclick="goTo(1)">← Đổi phong cách khác</button>
+  </div>
+</div>
+
+<!-- ===== PAGE 3: RESULT ===== -->
+<div class="pg hidden" id="pg3">
+  <div class="res-topbar">
+    <button class="topbar-btn" onclick="goTo(1)">← Làm lại</button>
+    <span class="topbar-style" id="topbarStyle">💌 Thư Tình</span>
+    <button class="topbar-btn" onclick="doGenerate()">🔄 Tạo lại</button>
+  </div>
+
+  <div class="music-bar hidden" id="musicBar">
+    <div class="music-disc" id="mDisc" style="background:linear-gradient(135deg,var(--rose),var(--deep))">🎵</div>
+    <div class="music-info">
+      <div class="music-name">Nhạc nền</div>
+      <div class="music-st" id="mSt">▶ Đang phát</div>
+    </div>
+    <button class="music-btn" id="mBtn" onclick="toggleMusic()">⏸</button>
+  </div>
+  <iframe id="ytf" allow="autoplay"></iframe>
+
+  <div class="res-body" id="resBody"></div>
+</div>
+
+<script>
+// ============ BG CANVAS ============
+const cvs=document.getElementById('bg-canvas');const c2=cvs.getContext('2d');
+let W,H;function rsz(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;}rsz();window.addEventListener('resize',rsz);
+const PC=['#ff8fab','#ffccd5','#ff6b8a','#ffb3c6','#e8c3f0','#c3e0f0','#ffd6e0'];
+class P{constructor(){this.r(true);}r(i=false){this.x=Math.random()*W;this.y=i?Math.random()*H:-20;this.s=4+Math.random()*8;this.sp=.5+Math.random();this.d=(Math.random()-.5)*.7;this.a=Math.random()*Math.PI*2;this.sp2=(Math.random()-.5)*.05;this.col=PC[~~(Math.random()*PC.length)];this.op=.3+Math.random()*.4;}up(){this.y+=this.sp;this.x+=this.d+Math.sin(this.y/55)*.4;this.a+=this.sp2;if(this.y>H+20)this.r();}draw(){c2.save();c2.globalAlpha=this.op;c2.translate(this.x,this.y);c2.rotate(this.a);c2.beginPath();c2.ellipse(0,0,this.s,this.s*.55,0,0,Math.PI*2);c2.fillStyle=this.col;c2.fill();c2.restore();}}
+// Stars for page 1
+const stars=Array.from({length:120},()=>({x:Math.random(),y:Math.random(),s:Math.random()*2+.5,op:Math.random(),sp:Math.random()*.015+.005}));
+const petals=Array.from({length:45},()=>new P());
+let curPg=1;
+function drawBg(){
+  c2.clearRect(0,0,W,H);
+  if(curPg===1){
+    // Star field
+    stars.forEach(s=>{
+      s.op+=s.sp*(Math.random()>.5?1:-1);s.op=Math.max(.1,Math.min(.9,s.op));
+      c2.beginPath();c2.arc(s.x*W,s.y*H,s.s,0,Math.PI*2);
+      c2.fillStyle=`rgba(255,200,220,${s.op})`;c2.fill();
+    });
+  } else {
+    petals.forEach(p=>{p.up();p.draw();});
+  }
+  requestAnimationFrame(drawBg);
+}
+drawBg();
+
+// ============ STATE ============
+let selectedStyle='letter';
+const styleMap={
+  letter:{name:'💌 Thư Tình Lãng Mạn',badge:'💌 Thư Tình',badgeBg:'#ffe4ec',badgeColor:'#c94060',genBg:'linear-gradient(135deg,#ff6b8a,#c94060)',genShadow:'0 8px 24px rgba(201,64,96,.3)',genShadowH:'0 14px 32px rgba(201,64,96,.45)',focus:'#ff6b8a',focusSh:'rgba(255,107,138,.1)'},
+  chat:{name:'💬 Nhắn Tin Ngọt Ngào',badge:'💬 Nhắn Tin',badgeBg:'#ede9fe',badgeColor:'#6d28d9',genBg:'linear-gradient(135deg,#a78bfa,#6d28d9)',genShadow:'0 8px 24px rgba(109,40,217,.3)',genShadowH:'0 14px 32px rgba(109,40,217,.45)',focus:'#a78bfa',focusSh:'rgba(167,139,250,.1)'},
+  poem:{name:'📜 Thơ Tình Bay Bổng',badge:'📜 Thơ Tình',badgeBg:'#dbeafe',badgeColor:'#1d4ed8',genBg:'linear-gradient(135deg,#60a5fa,#1d4ed8)',genShadow:'0 8px 24px rgba(29,78,216,.3)',genShadowH:'0 14px 32px rgba(29,78,216,.45)',focus:'#60a5fa',focusSh:'rgba(96,165,250,.1)'},
+  movie:{name:'🎬 Cảnh Phim Lãng Mạn',badge:'🎬 Cảnh Phim',badgeBg:'#fef3c7',badgeColor:'#b45309',genBg:'linear-gradient(135deg,#fbbf24,#b45309)',genShadow:'0 8px 24px rgba(180,83,9,.3)',genShadowH:'0 14px 32px rgba(180,83,9,.45)',focus:'#fbbf24',focusSh:'rgba(251,191,36,.1)'},
+  funny:{name:'😄 Tếu Táo Mà Thương',badge:'😄 Hài Hước',badgeBg:'#d1fae5',badgeColor:'#065f46',genBg:'linear-gradient(135deg,#34d399,#059669)',genShadow:'0 8px 24px rgba(5,150,105,.3)',genShadowH:'0 14px 32px rgba(5,150,105,.45)',focus:'#34d399',focusSh:'rgba(52,211,153,.1)'},
+  midnight:{name:'🌙 Thì Thầm Nửa Đêm',badge:'🌙 Nửa Đêm',badgeBg:'#e0e7ff',badgeColor:'#3730a3',genBg:'linear-gradient(135deg,#818cf8,#312e81)',genShadow:'0 8px 24px rgba(49,46,129,.4)',genShadowH:'0 14px 32px rgba(49,46,129,.55)',focus:'#818cf8',focusSh:'rgba(129,140,248,.1)'},
+};
+
+// ============ NAV ============
+function goTo(n){
+  curPg=n;
+  document.querySelectorAll('.pg').forEach(p=>p.classList.add('hidden'));
+  document.getElementById('pg'+n).classList.remove('hidden');
+  window.scrollTo(0,0);
+  document.body.style.background=n===1?'var(--night)':n===2?'var(--cream)':'';
+}
+function selectStyle(el){
+  document.querySelectorAll('.style-card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  selectedStyle=el.dataset.id;
+  const sm=styleMap[selectedStyle];
+  // update form
+  const badge=document.getElementById('styleBadge');
+  badge.textContent=sm.badge;badge.style.background=sm.badgeBg;badge.style.color=sm.badgeColor;
+  const gb=document.getElementById('genBtn');
+  gb.style.background=sm.genBg;gb.style.setProperty('--gen-shadow',sm.genShadow);
+  document.querySelectorAll('.inp').forEach(i=>{i.style.setProperty('--focus-color',sm.focus);i.style.setProperty('--focus-shadow',sm.focusSh);});
+  setTimeout(()=>goTo(2),260);
+}
+
+// ============ KEYWORD DETECTION ============
+function detect(txt){
+  txt=txt.toLowerCase();
+  return{
+    smile:/cười|nụ cười|mỉm|haha|hihi|hehe/.test(txt),
+    voice:/giọng|nói chuyện|kể chuyện|giọng nói/.test(txt),
+    eyes:/mắt|ánh nhìn|nhìn|đôi mắt/.test(txt),
+    school:/trường|lớp|học|đại học|cấp|campus|sinh viên/.test(txt),
+    work:/công ty|làm việc|văn phòng|đồng nghiệp|cơ quan|sếp/.test(txt),
+    lateNight:/khuya|đêm|nửa đêm|2h|3h|thức khuya|đêm muộn/.test(txt),
+    longTime:/lâu|năm ngoái|mấy tháng|từ lâu|lâu rồi|mấy năm|từ hồi/.test(txt),
+    cute:/dễ thương|đáng yêu|cute|ngoan|xinh|đẹp|ngây thơ/.test(txt),
+    online:/online|mạng|zalo|facebook|instagram|nhắn tin|chat/.test(txt),
+    shy:/ngại|rụt rè|nhút nhát|sợ|lo|hồi hộp/.test(txt),
+    care:/quan tâm|lo lắng|chăm sóc|hiền|tốt bụng|ân cần/.test(txt),
+    funny:/hài|vui|buồn cười|bá đạo|hay cười|thú vị/.test(txt),
+  };
+}
+function pick(arr){return arr[~~(Math.random()*arr.length)];}
+function rand(a,b){return a+~~(Math.random()*(b-a+1));}
+function sub(s,n1,n2){return s.replace(/\{n1\}/g,n1).replace(/\{n2\}/g,n2);}
+
+// ============ TEMPLATE ENGINE ============
+function buildLetter(n1,n2,ideas){
+  const d=detect(ideas);
+  const openings=[
+    'Gửi {n2} — người {n1} mãi chẳng dám nhìn thẳng vào mắt mỗi khi đứng gần.',
+    'Có những lời tưởng chừng dễ nói, mà {n1} đã mang trong lòng không biết bao lâu rồi...',
+    'Đây là bức thư {n1} đã viết rồi xóa không biết bao nhiêu lần. Và hôm nay — {n1} quyết định không xóa nữa.',
+    'Không phải {n1} không biết cách bày tỏ. Chỉ là... với {n2}, {n1} sợ nói sai một chữ sẽ hỏng hết mọi thứ.',
+    'Gửi {n2} thân mến — người mà {n1} chưa bao giờ xem là "chỉ bạn thường" dù miệng cứ nói vậy.',
+  ];
+  const midCtx=[];
+  if(d.smile) midCtx.push('Điều {n1} thích ở {n2} không phải gì to tát — chỉ là cái cách {n2} cười. Nhẹ thôi, tự nhiên thôi, mà sao {n1} cứ nhớ mãi.');
+  if(d.school) midCtx.push('Từ hồi còn ở trường, {n1} đã hay để ý {n2} — cứ giả vờ vô tình nhưng thật ra chẳng bỏ sót gì cả.');
+  if(d.lateNight) midCtx.push('Những đêm khuya hay nhắn tin với nhau, {n1} thường nằm cười một mình vì những chuyện linh tinh của {n2}. Và {n1} biết — cái cảm giác đó không phải bình thường chút nào.');
+  if(d.work) midCtx.push('Mỗi buổi sáng đến làm, lý do {n1} vui hơn ngày thường... chắc {n2} cũng đoán được rồi đó.');
+  if(d.care) midCtx.push('{n2} có hay quan tâm đến mọi người xung quanh — và mỗi lần {n1} được {n2} để ý một chút nhỏ thôi, {n1} đã vui cả ngày.');
+  if(d.cute) midCtx.push('{n2} đáng yêu theo cái cách mà chính {n2} không biết — và đó chính là thứ khiến {n1} không thể không để ý.');
+  if(d.online) midCtx.push('Dù chỉ qua màn hình, {n1} vẫn cảm nhận được {n2} đang cười hay buồn — và {n1} không hiểu sao mình lại để ý kỹ đến vậy.');
+  if(d.longTime) midCtx.push('Đã lâu rồi {n1} muốn nói điều này. Lâu đến mức {n1} tự hỏi liệu mình có đủ dũng cảm không — và hôm nay, {n1} quyết định: có.');
+  if(midCtx.length===0) midCtx.push('Có những khoảnh khắc rất nhỏ — {n2} có thể đã quên rồi — nhưng {n1} vẫn nhớ rõ mồn một. Vì với {n1}, chẳng có khoảnh khắc nào bên {n2} là nhỏ cả.');
+  const mids=[
+    'Không phải {n1} tìm kiếm điều gì hoàn hảo. {n1} chỉ biết rằng mỗi khi {n2} xuất hiện, mọi thứ xung quanh bỗng trở nên dễ chịu hơn một cách kỳ lạ.',
+    'Có người ta nhớ vì những kỷ niệm lớn lao. Còn {n1} nhớ {n2} chỉ vì những điều bình thường nhất — những thứ chính {n2} có lẽ chẳng để ý.',
+    'Với {n1}, {n2} không chỉ là người quen thông thường. {n2} là người {n1} muốn kể chuyện đầu tiên — dù vui hay buồn, bình thường hay quan trọng.',
+  ];
+  const confessions=[
+    'Vậy nên hôm nay — dù tim có đập không đều đến mấy — {n1} muốn nói thẳng: {n1} thích {n2}. Thật lòng, chân thành, và không một chút hối hận.',
+    'Nếu chỉ được nói một điều, {n1} muốn {n2} biết: có người luôn để ý từng nụ cười của {n2} mà không nói ra — và người đó là {n1}.',
+    'Đây là lần đầu tiên {n1} dũng cảm như vậy. Kết quả ra sao {n1} chưa biết — nhưng {n2} xứng đáng được nghe: {n1} thích {n2}, rất nhiều.',
+    'Có thể {n2} sẽ bất ngờ. Có thể {n2} cần thời gian. {n1} hiểu hết. Nhưng nếu không nói ra, {n1} sẽ tiếc mãi — nên: {n1} thích {n2} 💌',
+  ];
+  const quotes=[
+    '"Có một người luôn nghĩ đến {n2} mỗi khi ngày sắp kết thúc — và người đó là {n1}."',
+    '"Mỗi lần nhìn thấy {n2}, {n1} lại thấy ngày hôm đó đẹp hơn một chút."',
+    '"Tim {n1} đập khác khi {n2} ở gần. Và {n1} nghĩ — đó là câu trả lời rồi."',
+    '"Nếu có thể, {n1} muốn {n2} biết: trong danh sách những điều {n1} trân trọng, {n2} luôn ở đầu tiên."',
+  ];
+  const closings=['Luôn nghĩ đến {n2},<br>{n1} 🌸','Mãi trân trọng {n2},<br>{n1} 💌','Của {n2} (nếu {n2} muốn 🥺),<br>{n1}','Người hay nhớ {n2} nhất,<br>{n1} 🌷'];
+  return {greeting:`Gửi ${n2} thân mến,`,p1:sub(pick(openings),n1,n2),p2:sub(pick(midCtx),n1,n2),p3:sub(pick(mids),n1,n2),confession:sub(pick(confessions),n1,n2),quote:sub(pick(quotes),n1,n2),sign:sub(pick(closings),n1,n2)};
+}
+
+function buildChat(n1,n2,ideas){
+  const d=detect(ideas);
+  const msgs=[];
+  msgs.push({out:true,txt:`${n2} ơi... 👀`,delay:0});
+  msgs.push({out:true,txt:`Mình có điều muốn nói mà không biết bắt đầu từ đâu 😅`,delay:700});
+  msgs.push({out:false,txt:`Ừ? Sao vậy ${n1}?`,delay:1400});
+  if(d.school) msgs.push({out:true,txt:`Từ hồi còn ở trường, mình đã để ý ${n2} lâu rồi — cứ giả vờ không có gì nhưng thật ra... 🫣`,delay:2100});
+  else if(d.lateNight) msgs.push({out:true,txt:`Những đêm khuya hay nhắn tin với nhau ý... mình cứ nằm cười một mình xong không ngủ được 😭`,delay:2100});
+  else if(d.work) msgs.push({out:true,txt:`Mỗi ngày đi làm mình đều có lý do để vui hơn một chút — và lý do đó là ${n2} đó 🙈`,delay:2100});
+  else msgs.push({out:true,txt:`Đã lâu rồi mình cứ nghĩ mãi mà không dám nói thẳng... 🫠`,delay:2100});
+  if(d.smile) msgs.push({out:true,txt:`Cái cách ${n2} hay cười ấy... mình không thoát ra được đâu 😭💕`,delay:2900});
+  if(d.cute) msgs.push({out:true,txt:`${n2} đáng yêu lắm mà chắc không biết đâu đúng không 🥺`,delay:2900});
+  msgs.push({out:false,txt:`Ủa... ${n1} muốn nói gì vậy 👀`,delay:3600});
+  msgs.push({out:true,txt:`Mình... thích ${n2} á.`,delay:4400});
+  msgs.push({out:true,txt:`Thật lòng đó không phải đùa nha 💖`,delay:5000});
+  msgs.push({out:true,txt:`Đọc xong nhắn lại cho mình biết với... đang hồi hộp lắm 🥺👉👈`,delay:5700});
+  return msgs;
+}
+
+function buildPoem(n1,n2,ideas){
+  const d=detect(ideas);
+  const stanzas=[];
+  // Stanza 1
+  const s1=[
+    [`Có một người tên là ${n2}`,`Làm ${n1} không ngủ được bao đêm nay`,`Chẳng biết ${n2} có hay biết chăng`,`Rằng ${n1} đang nhớ mỗi ngày không thôi`],
+    [`${n1} không biết từ khi nào nữa`,`Mà cái tên ${n2} cứ vang mãi bên tai`,`Không hẳn vì điều gì to lớn`,`Chỉ vì ${n2} — thế thôi đã đủ rồi`],
+  ];
+  stanzas.push(pick(s1));
+  // Stanza 2 — context
+  if(d.smile) stanzas.push([`Cái cách ${n2} hay cười mỗi ngày`,`Làm ${n1} không dứt ra được đâu`,`Nụ cười ấy vô tình hay cố`,`Mà sao ${n1} nhớ mãi đến giờ`]);
+  else if(d.lateNight) stanzas.push([`Đêm khuya hai đứa hay nhắn tin`,`${n1} nằm cười một mình rất lâu`,`Không phải vì câu chuyện gì đặc biệt`,`Chỉ vì người kể chuyện là ${n2}`]);
+  else if(d.school) stanzas.push([`Hồi còn gặp nhau nơi giảng đường`,`${n1} hay nhìn ${n2} rồi giả vờ thôi`,`Cứ nói "chỉ bạn bình thường thôi mà"`,`Mà tim thì đập khác — biết rồi`]);
+  else stanzas.push([`Không cần kỷ niệm gì lớn lao`,`Chỉ những khoảnh khắc nhỏ thường thôi`,`Bên ${n2} — dù chỉ một chút xíu`,`${n1} đã thấy ngày đẹp hơn rồi`]);
+  // Stanza 3
+  stanzas.push([`${n1} đã thử quên — không được đâu`,`Càng cố quên lại nhớ thêm thôi`,`Thôi thì hôm nay nói thẳng nhé`,`${n1} thích ${n2} — lời này thật rồi`]);
+  // Stanza 4
+  stanzas.push([`Không cần ${n2} đáp lại được gì`,`Chỉ muốn ${n2} biết có điều này`,`Rằng trong tim ${n1} có một chỗ`,`Đã dành riêng cho ${n2} từ lâu nay`]);
+  return {title:`Cho ${n2}`,stanzas};
+}
+
+function buildMovie(n1,n2,ideas){
+  const d=detect(ideas);
+  const now=new Date();
+  const setting=d.school?`Trường học — Sân trường`:d.work?`Văn phòng — Cuối giờ chiều`:d.lateNight?`Ngoài ban công — 2:00 sáng`:d.online?`Hai màn hình, hai nơi khác nhau`:`Một buổi chiều thường ngày`;
+  const c1p=d.smile?`Khoảnh khắc ${n2} cười — ${n1} dừng lại. Không phải vì bất ngờ. Mà vì ${n1} nhận ra đây là lần thứ hàng trăm mình nhìn nụ cười đó... và vẫn chưa quen được.`:d.lateNight?`Màn hình sáng trong đêm. ${n1} nhìn lại cuộc trò chuyện khuya qua — toàn chuyện linh tinh — mà sao lại nhớ từng chữ.`:`${n1} ngồi nhìn ${n2} từ xa. Lần này khác. Không phải vì ${n2} làm gì đặc biệt — mà vì ${n1} cuối cùng đã thừa nhận với chính mình rồi.`;
+  const dial=d.shy?[`${n1}: (giọng hơi run) Này... ${n2} ơi. Mình có điều muốn nói, nhưng hứa đừng cười nha.`,`${n2}: (quay sang) Gì vậy? Trông có vẻ nghiêm trọng quá.`,`${n1}: Ừ thì... (hít thở sâu) Mình thích ${n2}. Từ lâu rồi. Và hôm nay mình quyết định nói thật.`]:[`${n1}: ${n2} — mình muốn nói thẳng một điều.`,`${n2}: (nhìn lên, bất ngờ) Chuyện gì vậy?`,`${n1}: Mình thích ${n2}. Không phải "thích bạn bình thường". Mà là thích theo cái kiểu... không muốn ai khác để ý ${n2} hơn mình.`];
+  return {setting,time:`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')} — ${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`,context:c1p,dialogue:dial};
+}
+
+function buildFunny(n1,n2,ideas){
+  const d=detect(ideas);
+  const warnings=[
+    `Cảnh báo: Đây là một lời tỏ tình NGHIÊM TÚC được viết bởi người không hề chuyên nghiệp trong việc tỏ tình. Có thể gây tim đập nhanh, mỉm cười vô lý, hoặc cả hai.`,
+    `THÔNG BÁO QUAN TRỌNG: ${n1} đã chiến đấu với bản thân suốt một thời gian dài để không nói ra điều này. Và hôm nay... ${n1} thua rồi.`,
+  ];
+  const bodies=[];
+  bodies.push(`${n1} đã lên kế hoạch tỏ tình theo kiểu: bình tĩnh, sang trọng, đầy nghệ thuật. Kết quả: ${n1} đang viết cái này lúc ${new Date().getHours()} giờ, tim đang đập khoảng 200 lần/phút.`);
+  if(d.school) bodies.push(`Từ hồi ở trường đến giờ, ${n1} đã cố giả vờ là "bạn bình thường" không biết bao nhiêu lần. Đỉnh cao nhất là lần nào cũng nói "mình thấy ${n2} okay đó" trong khi trong đầu đang hét: KHÔNG PHẢI OKAY LÀ ${n2} ĐẸP LẮM.`);
+  if(d.smile) bodies.push(`${n2} hay cười vô duyên lắm — và ${n1} biết điều đó vì ${n1} đã... uhm... đếm. Không, bình thường thôi. Ai cũng để ý kiểu vậy mà.`);
+  if(d.lateNight) bodies.push(`Những đêm khuya nhắn tin với nhau, ${n1} hay cười một mình rồi tự nhủ "thôi ngủ đi". Xong lại nhắn thêm. Xong lại cười. Vòng lặp này cứ thế diễn ra đến 2 giờ sáng.`);
+  bodies.push(`Sau nhiều cân nhắc nghiêm túc và không nghiêm túc, ${n1} đưa ra kết luận khoa học: ${n1} thích ${n2} rồi.`);
+  const confession=`Okay nói thẳng nhé ${n2}: ${n1} THÍCH ${n2}. Không phải "haha thích bạn ý mà". Mà là thích kiểu ngồi nghĩ đến ${n2} xong cười một mình kiểu đó. 💖`;
+  return {warning:pick(warnings),bodies,confession};
+}
+
+function buildMidnight(n1,n2,ideas){
+  const d=detect(ideas);
+  const now=new Date();
+  const timeStr=`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+  const ps=[];
+  ps.push(`${timeStr} rồi. ${n1} đang nằm nhìn trần nhà và cứ nghĩ đến ${n2} mãi không thôi.`);
+  if(d.lateNight) ps.push(`Những đêm như thế này, ${n1} hay nhắn tin linh tinh với ${n2} — không phải vì có chuyện gì. Chỉ vì... muốn nghe ${n2} trả lời. Chỉ vậy thôi mà ${n1} đã thấy đêm đó khác rồi.`);
+  else if(d.school) ps.push(`Hồi ở trường, ${n1} hay chọn chỗ ngồi nhìn được về phía ${n2}. Không phải cố ý — à không, là cố ý. Nhưng ai hỏi thì ${n1} cũng nói "tình cờ" thôi.`);
+  else ps.push(`${n1} không biết từ khi nào. Chỉ biết rằng có một ngày, ${n1} nhận ra — ${n2} không phải ai đó bình thường với ${n1} nữa rồi.`);
+  if(d.smile||d.cute) ps.push(`Cách ${n2} hay ${d.smile?'cười':'đáng yêu'} ấy... ${n1} không giải thích được tại sao nó làm ${n1} thấy an tâm đến vậy. Chỉ biết là mỗi lần thấy thế, ${n1} lại muốn thế giới dừng lại một chút.`);
+  ps.push(`Và hôm nay — giữa đêm khuya này — ${n1} muốn nói thật với ${n2}: ${n1} thích ${n2}. Không phải kiểu bạn bè. Không phải kiểu bình thường. Mà là kiểu ${n1} muốn ${n2} bình an, muốn ${n2} vui, và muốn được ở gần hơn một chút.`);
+  return {time:timeStr,paragraphs:ps,confession:`"Có những điều chỉ dám nói lúc nửa đêm. Và điều đó là: ${n1} thích ${n2}."`,sign:`${n1} — ${timeStr} 🌙`};
+}
+
+// ============ GENERATE ============
+let currentData={};
+function doGenerate(){
+  const n1=document.getElementById('n1').value.trim();
+  const n2=document.getElementById('n2').value.trim();
+  const ideas=document.getElementById('ideas').value.trim();
+  const yt=document.getElementById('yt').value.trim();
+  if(!n1||!n2){alert('💌 Hãy điền tên cả hai người nhé!');return;}
+  currentData={n1,n2,ideas,yt};
+  document.getElementById('loader').classList.add('on');
+  setTimeout(()=>{
+    document.getElementById('loader').classList.remove('on');
+    renderResult();
+  },2200);
+}
+
+function renderResult(){
+  const {n1,n2,ideas,yt}=currentData;
+  const sm=styleMap[selectedStyle];
+  document.getElementById('topbarStyle').textContent=sm.badge;
+  setupMusic(yt,sm);
+  const body=document.getElementById('resBody');
+  body.innerHTML='';
+  if(selectedStyle==='letter') renderLetter(body,n1,n2,ideas);
+  else if(selectedStyle==='chat') renderChat(body,n1,n2,ideas);
+  else if(selectedStyle==='poem') renderPoem(body,n1,n2,ideas);
+  else if(selectedStyle==='movie') renderMovie(body,n1,n2,ideas);
+  else if(selectedStyle==='funny') renderFunny(body,n1,n2,ideas);
+  else if(selectedStyle==='midnight') renderMidnight(body,n1,n2,ideas);
+  goTo(3);
+}
+
+// ---- LETTER ----
+let envOpen=false;
+function renderLetter(body,n1,n2,ideas){
+  const data=buildLetter(n1,n2,ideas);
+  const d=new Date();const ms=['tháng 1','tháng 2','tháng 3','tháng 4','tháng 5','tháng 6','tháng 7','tháng 8','tháng 9','tháng 10','tháng 11','tháng 12'];
+  body.className='res-body res-letter';
+  body.innerHTML=`
+  <div class="envelope-scene">
+    <div class="env-wrap">
+      <div class="env" id="env" onclick="openEnv()">
+        <div class="env-body"></div>
+        <div class="env-left"></div><div class="env-right"></div><div class="env-bottom"></div>
+        <div class="env-flap"></div>
+        <div class="env-seal">💝</div>
+        <div class="env-lbl">Nhấn để mở thư 🌸</div>
+      </div>
+    </div>
+    <p class="hint-txt" id="envHint">✦ nhấn vào phong bì ✦</p>
+    <div class="letter-card" id="lcard">
+      <span class="lc-corner tl">🌸</span><span class="lc-corner tr">🌷</span>
+      <span class="lc-corner bl">🌹</span><span class="lc-corner br">💐</span>
+      <div class="lc-date">Ngày ${d.getDate()} ${ms[d.getMonth()]} năm ${d.getFullYear()}</div>
+      <div class="lc-greeting">${data.greeting}</div>
+      <div class="lc-body">
+        <p>${data.p1}</p>
+        <p>${data.p2}</p>
+        <p>${data.p3}</p>
+        <p>${data.confession}</p>
+        <div class="lc-quote">${data.quote}</div>
+      </div>
+      <div class="lc-sign">${data.sign}</div>
+    </div>
+    <div class="action-row" id="actRow">
+      <button class="btn-yes" onclick="sayYes(this,'${n1}','${n2}')">💖 Em cũng thích ${n1}!</button>
+      <button class="btn-maybe" onclick="sayMaybe(this)">🌸 Để em nghĩ thêm...</button>
+    </div>
+    <div class="celeb" id="celeb">
+      <div class="celeb-emoji">🎉</div>
+      <div class="celeb-text">Yay! Chúng mình thích nhau rồi! 💕</div>
+      <div class="celeb-sub">Mỗi ngày từ đây sẽ ngọt ngào hơn khi có ${n1} và ${n2} bên nhau. 🌸✨</div>
+    </div>
+  </div>`;
+  envOpen=false;
+}
+function openEnv(){
+  if(envOpen)return;envOpen=true;
+  document.getElementById('env').classList.add('open');
+  document.getElementById('envHint').style.opacity='0';
+  setTimeout(()=>{
+    document.getElementById('lcard').classList.add('show');
+    setTimeout(()=>{const ar=document.getElementById('actRow');if(ar)ar.classList.add('show');},400);
+  },800);
+}
+
+// ---- CHAT ----
+function renderChat(body,n1,n2,ideas){
+  const msgs=buildChat(n1,n2,ideas);
+  body.className='res-body res-chat';
+  body.innerHTML=`
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-bar">
+        <div class="phone-avatar" style="position:relative">💕<div class="phone-dot"></div></div>
+        <div><div class="phone-name">${n2}</div><div class="phone-status">Đang hoạt động</div></div>
+      </div>
+      <div class="chat-body" id="chatBody"></div>
+      <div class="chat-input-bar">
+        <div class="chat-inp-fake">Nhắn tin...</div>
+        <div class="chat-send">➤</div>
+      </div>
+    </div>
+    <div class="action-row show" style="margin-top:28px">
+      <button class="btn-yes" onclick="sayYes(this,'${n1}','${n2}')">💖 ${n2} trả lời!</button>
+      <button class="btn-maybe" onclick="sayMaybe(this)">💬 Để nghĩ đã...</button>
+    </div>
+    <div class="celeb" id="celeb">
+      <div class="celeb-emoji">🎉</div>
+      <div class="celeb-text">Chúng mình thích nhau rồi! 💕</div>
+      <div class="celeb-sub">${n1} và ${n2} — một câu chuyện mới bắt đầu từ hôm nay. 🌸</div>
+    </div>
+  </div>`;
+  const cb=document.getElementById('chatBody');
+  msgs.forEach((m,i)=>{
+    setTimeout(()=>{
+      if(i>0){const t=cb.querySelector('.typing');if(t)t.remove();}
+      const b=document.createElement('div');
+      b.className='bubble '+(m.out?'out':'in');
+      b.style.animationDelay='0s';
+      b.innerHTML=m.txt+'<div class="bubble-time">'+new Date().getHours()+':'+String(new Date().getMinutes()).padStart(2,'0')+'</div>';
+      cb.appendChild(b);
+      if(i<msgs.length-1){
+        setTimeout(()=>{const t2=document.createElement('div');t2.className='typing';t2.innerHTML='<span></span><span></span><span></span>';cb.appendChild(t2);cb.scrollTop=cb.scrollHeight;},300);
+      }
+      cb.scrollTop=cb.scrollHeight;
+    },m.delay);
+  });
+}
+
+// ---- POEM ----
+function renderPoem(body,n1,n2,ideas){
+  const data=buildPoem(n1,n2,ideas);
+  body.className='res-body res-poem';
+  let stanzaHTML='';
+  data.stanzas.forEach((s,i)=>{
+    stanzaHTML+=`<div class="poem-stanza">${s.map(l=>`<div class="poem-line">${l}</div>`).join('')}</div>`;
+    if(i<data.stanzas.length-1) stanzaHTML+=`<div class="poem-divider">✦ ✦ ✦</div>`;
+  });
+  body.innerHTML=`
+  <div class="poem-wrap">
+    <div class="poem-deco">✦ ✦ ✦</div>
+    <div class="poem-card">
+      <div class="poem-title">${data.title}</div>
+      <div class="poem-names">${n1} → ${n2}</div>
+      ${stanzaHTML}
+      <div class="poem-divider" style="margin-top:0">— ✦ —</div>
+      <div class="poem-sign">${n1} 🌸</div>
+    </div>
+    <div class="action-row show" style="margin-top:28px">
+      <button class="btn-yes" style="background:linear-gradient(135deg,#60a5fa,#1d4ed8);box-shadow:0 8px 24px rgba(29,78,216,.3)" onclick="sayYes(this,'${n1}','${n2}')">💙 Em cũng thích ${n1}!</button>
+      <button class="btn-maybe" style="background:rgba(255,255,255,.1);color:#fff" onclick="sayMaybe(this)">🌸 Để em nghĩ thêm...</button>
+    </div>
+    <div class="celeb" id="celeb">
+      <div class="celeb-emoji">✨</div>
+      <div class="celeb-text" style="color:#93c5fd">Một bài thơ — một tình yêu thật 💙</div>
+      <div class="celeb-sub" style="color:#60a5fa">${n1} và ${n2} — mãi đẹp như thơ. 🌙</div>
+    </div>
+  </div>`;
+}
+
+// ---- MOVIE ----
+function renderMovie(body,n1,n2,ideas){
+  const data=buildMovie(n1,n2,ideas);
+  const holes=Array.from({length:8},()=>'<div class="film-hole"></div>').join('');
+  body.className='res-body res-movie';
+  body.innerHTML=`
+  <div class="movie-wrap">
+    <div class="film-strip">
+      <div class="film-holes">${holes}</div>
+      <div class="movie-card">
+        <div class="movie-slate">📍 ${data.setting} &nbsp;·&nbsp; ${data.time}</div>
+        <div class="movie-scene">
+          <span class="scene-dir">[ Cảnh mở đầu ]</span>
+          <div class="scene-p">${data.context}</div>
+          <span class="scene-dir">[ Đối thoại ]</span>
+          ${data.dialogue.map(l=>{const[name,...rest]=l.split(':');return`<span class="char-name">${name}:</span><div class="dialogue">${rest.join(':').trim()}</div>`;}).join('')}
+          <div class="scene-end">— CUT —</div>
+        </div>
+      </div>
+      <div class="film-holes">${holes}</div>
+    </div>
+    <div class="action-row show" style="margin-top:28px">
+      <button class="btn-yes" style="background:linear-gradient(135deg,#fbbf24,#b45309);box-shadow:0 8px 24px rgba(180,83,9,.3)" onclick="sayYes(this,'${n1}','${n2}')">🎬 Cảnh tiếp theo đẹp lắm!</button>
+      <button class="btn-maybe" style="background:rgba(255,255,255,.08);color:#fff" onclick="sayMaybe(this)">🎞 Xem lại cảnh này đã...</button>
+    </div>
+    <div class="celeb" id="celeb">
+      <div class="celeb-emoji">🎬</div>
+      <div class="celeb-text" style="color:#fcd34d">Happy ending đây rồi! 🌟</div>
+      <div class="celeb-sub" style="color:#fbbf24">${n1} và ${n2} — một bộ phim tình yêu bắt đầu hôm nay. 🎥</div>
+    </div>
+  </div>`;
+}
+
+// ---- FUNNY ----
+function renderFunny(body,n1,n2,ideas){
+  const data=buildFunny(n1,n2,ideas);
+  body.className='res-body res-funny';
+  body.innerHTML=`
+  <div class="funny-wrap">
+    <div class="funny-card">
+      <div class="funny-title">😄 Thông Báo Quan Trọng</div>
+      <div class="funny-subtitle">Đây là lời tỏ tình CHÍNH THỨC của ${n1}</div>
+      <div class="funny-warning">${data.warning}</div>
+      <div class="funny-body">
+        ${data.bodies.map(p=>`<p>${p}</p>`).join('')}
+      </div>
+      <div class="funny-confession"><p>${data.confession}</p></div>
+      <div class="sticker-row">
+        <span class="sticker">💖</span><span class="sticker">🌸</span>
+        <span class="sticker">🥺</span><span class="sticker">✨</span>
+      </div>
+    </div>
+    <div class="action-row show" style="margin-top:28px">
+      <button class="btn-yes" style="background:linear-gradient(135deg,#34d399,#059669);box-shadow:0 8px 24px rgba(5,150,105,.3)" onclick="sayYes(this,'${n1}','${n2}')">💚 Em cũng thích ${n1} á!</button>
+      <button class="btn-maybe" onclick="sayMaybe(this)">🤔 Hm để tính...</button>
+    </div>
+    <div class="celeb" id="celeb">
+      <div class="celeb-emoji">🎉</div>
+      <div class="celeb-text">Yayyyy!!!!! 🥳</div>
+      <div class="celeb-sub">${n1} đang nhảy múa ở nhà rồi đó! Chúc mừng hai bạn! 💚🌸</div>
+    </div>
+  </div>`;
+}
+
+// ---- MIDNIGHT ----
+function renderMidnight(body,n1,n2,ideas){
+  const data=buildMidnight(n1,n2,ideas);
+  body.className='res-body res-midnight';
+  body.innerHTML=`
+  <div class="midnight-wrap">
+    <div class="moon-deco">🌙</div>
+    <div class="midnight-card">
+      <div class="midnight-time">✦ ${data.time} ✦</div>
+      <div class="midnight-body">
+        ${data.paragraphs.map(p=>`<p>${p}</p>`).join('')}
+      </div>
+      <div class="midnight-confession"><p>${data.confession}</p></div>
+      <div class="midnight-sign">${data.sign}</div>
+    </div>
+    <div class="action-row show" style="margin-top:28px">
+      <button class="btn-yes" style="background:linear-gradient(135deg,#818cf8,#312e81);box-shadow:0 8px 24px rgba(49,46,129,.4)" onclick="sayYes(this,'${n1}','${n2}')">🌙 Em cũng nghĩ đến ${n1} đó...</button>
+      <button class="btn-maybe" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.1)" onclick="sayMaybe(this)">💫 Để em ngủ suy nghĩ đã...</button>
+    </div>
+    <div class="celeb" id="celeb">
+      <div class="celeb-emoji">🌙</div>
+      <div class="celeb-text" style="color:#c4b5fd">Đêm nay đẹp nhất từ trước đến giờ 💜</div>
+      <div class="celeb-sub" style="color:#a78bfa">${n1} và ${n2} — từ đêm nay về sau. 🌙✨</div>
+    </div>
+  </div>`;
+}
+
+// ============ INTERACTIONS ============
+function sayYes(btn,n1,n2){
+  btn.closest('.action-row').style.display='none';
+  document.getElementById('celeb').classList.add('on');
+  launchConfetti();
+}
+function sayMaybe(btn){
+  const phrases=['🌸 Không sao, mình sẽ chờ...','💫 Thực ra em cũng thích rồi!','🎀 Nói thật đi mà~ 💕','🥺 Em không trốn thoát được đâu!','💖 Cứ nói thật đi nào~'];
+  let i=0;const id=setInterval(()=>{btn.textContent=phrases[i%phrases.length];i++;if(i>5){clearInterval(id);sayYes(btn);}},850);
+}
+
+function launchConfetti(){
+  const cols=['#ff6b8a','#ffb3c1','#c94060','#f7c59f','#e8c3f0','#818cf8','#34d399','#fbbf24','#fff0a0'];
+  for(let i=0;i<130;i++){
+    setTimeout(()=>{
+      const el=document.createElement('div');
+      const tx=(Math.random()-.5)*500,ty=150+Math.random()*350;
+      el.style.cssText=`position:fixed;pointer-events:none;z-index:9999;left:${30+Math.random()*40}%;top:35%;width:${5+Math.random()*9}px;height:${5+Math.random()*9}px;background:${cols[~~(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'50%':'3px'};transition:transform ${1+Math.random()*1.5}s ease,opacity ${1+Math.random()*1.5}s ease;`;
+      document.body.appendChild(el);
+      requestAnimationFrame(()=>{el.style.transform=`translate(${tx}px,${ty}px) rotate(${Math.random()*720}deg)`;el.style.opacity='0';});
+      setTimeout(()=>el.remove(),3000);
+    },i*18);
+  }
+}
+
+// ============ MUSIC ============
+let mPlaying=true;
+function setupMusic(url,sm){
+  const bar=document.getElementById('musicBar');
+  const disc=document.getElementById('mDisc');
+  if(!url){bar.classList.add('hidden');document.getElementById('ytf').src='';return;}
+  const id=extractYT(url);
+  if(!id){bar.classList.add('hidden');return;}
+  document.getElementById('ytf').src=`https://www.youtube.com/embed/${id}?autoplay=1&loop=1&playlist=${id}&controls=0`;
+  disc.style.background=sm.genBg;
+  bar.classList.remove('hidden');
+  mPlaying=true;document.getElementById('mBtn').textContent='⏸';
+}
+function toggleMusic(){
+  const f=document.getElementById('ytf'),btn=document.getElementById('mBtn'),disc=document.getElementById('mDisc'),st=document.getElementById('mSt');
+  if(mPlaying){f.src=f.src.replace('autoplay=1','autoplay=0');disc.classList.add('paused');btn.textContent='▶';st.textContent='⏸ Tạm dừng';}
+  else{f.src=f.src.replace('autoplay=0','autoplay=1');disc.classList.remove('paused');btn.textContent='⏸';st.textContent='▶ Đang phát';}
+  mPlaying=!mPlaying;
+}
+function extractYT(u){
+  const m=u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&\n?#]+)/);
+  return m?m[1]:null;
+}
+
+// ============ INIT ============
+goTo(1);
+</script>
+</body>
+</html>
+HTMLEOF
