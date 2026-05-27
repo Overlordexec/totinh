@@ -850,7 +850,6 @@ function renderOutput(style,n1,n2,ideas,yt){
       <div class="midnight-confession"><p>${data.confession}</p></div>
       <div class="midnight-sign">${data.sign}</div>
     </div></div>`;
-  }
   } else if(style==='galaxy'){
     const data=buildGalaxy(n1,n2,ideas);
     el.innerHTML=`<div class="out-galaxy">
@@ -1210,7 +1209,14 @@ function applyRewrite(){
 function discardRewrite(){hideCaitaoResult();}
 
 window.addEventListener('hashchange',route);
-window.addEventListener('load',init);
+document.addEventListener('DOMContentLoaded',()=>{
+  init();
+  // Fallback: force hide loading after 3s no matter what
+  setTimeout(()=>{
+    const l=document.getElementById('loading');
+    if(l&&!l.classList.contains('hide')){l.classList.add('hide');route();}
+  },3000);
+});
 </script>
 </body>
 </html>
