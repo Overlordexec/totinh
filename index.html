@@ -1461,12 +1461,18 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  // Music bar visibility
   const bar=document.getElementById('musicBar');
+  const expBtn=document.getElementById('mExpBtn');
   if(id==='home'){
     showMusicBarOnHome();
+    expBtn.style.display='';
   } else if(!document.getElementById('ytf').src.includes('youtube')){
-    bar.classList.add('hidden'); // hide on other screens if no music
+    bar.classList.add('hidden');
+  } else {
+    // Has music on other screens: show bar but hide expand btn & collapse panel
+    bar.classList.remove('hidden','expanded','no-music');
+    mExpanded=false;
+    expBtn.style.display='none';
   }
 }
 
