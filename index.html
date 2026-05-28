@@ -676,6 +676,41 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 .action-title{font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:8px;color:#fff}
 .action-sub{color:rgba(255,255,255,.5);margin-bottom:24px;font-size:.92rem}
 
+/* ── Preview mode ── */
+.preview-banner{
+  position:sticky;top:0;z-index:20;
+  margin:-24px -20px 28px;padding:11px 20px;
+  background:rgba(20,16,35,.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(245,217,139,.18);
+  text-align:center;font-size:.78rem;font-weight:700;
+  letter-spacing:.08em;color:rgba(245,217,139,.75);
+  display:flex;align-items:center;justify-content:center;gap:12px
+}
+.preview-banner i{font-size:.9rem;opacity:.8}
+.preview-banner-back{
+  padding:5px 14px;border-radius:99px;
+  background:rgba(245,217,139,.12);border:1px solid rgba(245,217,139,.22);
+  color:rgba(245,217,139,.9);cursor:pointer;font-size:.75rem;
+  font-family:'Nunito',sans-serif;font-weight:700;transition:background .2s
+}
+.preview-banner-back:hover{background:rgba(245,217,139,.22)}
+
+/* Disabled action section in preview */
+.action-section.preview-lock{
+  position:relative;pointer-events:none;user-select:none
+}
+.action-section.preview-lock::after{
+  content:'';position:absolute;inset:-12px;border-radius:24px;
+  background:rgba(5,3,12,.55);backdrop-filter:blur(4px);z-index:2
+}
+.action-lock-msg{
+  position:absolute;inset:0;z-index:3;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.92rem;color:rgba(255,255,255,.5)
+}
+.action-lock-msg i{font-size:1.3rem;color:rgba(245,217,139,.6);font-style:normal}
+
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:480px){
   .home-title{font-size:2.4rem}
@@ -932,11 +967,22 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
   <div class="recipient-wrap">
 
     <div id="recipientMain">
+      <!-- Preview banner (only shown in preview mode) -->
+      <div class="preview-banner" id="previewBanner" style="display:none">
+        <i class="bi bi-eye"></i>
+        Chế độ xem trước — người nhận thật sự mới có thể trả lời
+        <button class="preview-banner-back" onclick="showScreen('linkscreen')"><i class="bi bi-arrow-left"></i> Quay lại</button>
+      </div>
+
       <!-- Content rendered by JS -->
       <div id="outputContent"></div>
 
       <!-- Response -->
       <div class="action-section" id="actionSection">
+        <div class="action-lock-msg" id="actionLockMsg" style="display:none">
+          <i class="bi bi-lock-fill"></i>
+          Chỉ người nhận mới có thể trả lời
+        </div>
         <div class="action-title" id="rQuestion">Bạn cảm thấy thế nào? <i class="bi bi-chat-heart"></i></div>
         <div class="action-sub" id="rSub">Hãy cho họ biết cảm xúc của bạn</div>
         <div class="response-btns">
