@@ -1364,16 +1364,29 @@ function setupMusic(url){
   const m=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&\n?#]+)/);
   if(!m){bar.classList.add('hidden');return;}
   const id=m[1];
-  document.getElementById('ytf').src=`https://www.youtube.com/embed/${id}?autoplay=1&loop=1&playlist=${id}&controls=0`;
+  // enablejsapi=1 lets us send postMessage commands without reloading
+  document.getElementById('ytf').src=`https://www.youtube.com/embed/${id}?autoplay=1&loop=1&playlist=${id}&controls=0&enablejsapi=1`;
   document.getElementById('mName').textContent='Đang phát ♪';
   bar.classList.remove('hidden');mPlaying=true;
   document.getElementById('mBtn').innerHTML='<i class="bi bi-pause-fill"></i>';
 }
 
+function ytCmd(cmd){
+  const f=document.getElementById('ytf');
+  f.contentWindow.postMessage(JSON.stringify({event:'command',func:cmd,args:[]}),'*');
+}
+
 function toggleMusic(){
-  const f=document.getElementById('ytf'),btn=document.getElementById('mBtn'),disc=document.getElementById('mDisc');
-  if(mPlaying){f.src=f.src.replace('autoplay=1','autoplay=0');disc.classList.add('paused');btn.innerHTML='<i class="bi bi-play-fill"></i>';}
-  else{f.src=f.src.replace('autoplay=0','autoplay=1');disc.classList.remove('paused');btn.innerHTML='<i class="bi bi-pause-fill"></i>';}
+  const btn=document.getElementById('mBtn'),disc=document.getElementById('mDisc');
+  if(mPlaying){
+    ytCmd('pauseVideo');
+    disc.classList.add('paused');
+    btn.innerHTML='<i class="bi bi-play-fill"></i>';
+  } else {
+    ytCmd('playVideo');
+    disc.classList.remove('paused');
+    btn.innerHTML='<i class="bi bi-pause-fill"></i>';
+  }
   mPlaying=!mPlaying;
 }
 
