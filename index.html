@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>💌 Gửi Yêu Thương</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Serif+Display:ital@0;1&family=Nunito:wght@300;400;500;600;700;800&family=Dancing+Script:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
 <style>
 /* ═══ TOKENS ═══ */
 :root{
@@ -113,7 +114,7 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 @media(max-width:600px){.style-mini-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:380px){.style-mini-grid{grid-template-columns:repeat(2,1fr)}}
 .style-mini{cursor:pointer;padding:12px 10px;border-radius:14px;text-align:center;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);transition:all .25s;font-size:.82rem;color:rgba(255,255,255,.6)}
-.style-mini .sm-icon{display:block;font-size:1.5rem;margin-bottom:6px}
+.style-mini .sm-icon{display:block;font-size:1.35rem;margin-bottom:6px;line-height:1}
 .style-mini:hover,.style-mini.on{background:rgba(255,255,255,.12);border-color:var(--accent,#e8a0b0);color:#fff}
 .mood-row{display:flex;gap:10px}
 .mood-btn{flex:1;padding:14px;border-radius:14px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.08);cursor:pointer;font-size:1.5rem;text-align:center;transition:all .25s}
@@ -342,6 +343,16 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 }
 .music-bar.hidden{display:none}
 .music-bar.expanded{width:300px;border-radius:20px}
+/* Pulse glow when no music — invites user to click */
+.music-bar.no-music{
+  border-color:rgba(196,96,122,.4);
+  box-shadow:0 0 0 0 rgba(196,96,122,.4);
+  animation:musicInvite 2.5s ease-in-out infinite
+}
+@keyframes musicInvite{
+  0%,100%{box-shadow:0 0 0 0 rgba(196,96,122,.35)}
+  50%{box-shadow:0 0 0 8px rgba(196,96,122,0)}
+}
 
 /* Collapsed row */
 .music-main-row{
@@ -685,26 +696,26 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 <div class="floating-petals" id="petals"></div>
 
 <div class="loading" id="loading">
-  <div class="loading-heart">💌</div>
+  <div class="loading-heart"><i class="bi bi-envelope-heart-fill"></i></div>
   <div class="loading-text">Đang chuẩn bị những điều ngọt ngào...</div>
 </div>
 
 <!-- Music player -->
 <div class="music-bar hidden" id="musicBar">
   <div class="music-main-row" onclick="toggleMusicExpand()">
-    <div class="music-disc" id="mDisc">🎵</div>
+    <div class="music-disc" id="mDisc"><i class="bi bi-music-note-beamed"></i></div>
     <div class="music-name" id="mName">Nhạc nền</div>
     <div class="music-actions">
-      <button class="music-btn-sm" id="mBtn" onclick="event.stopPropagation();toggleMusic()">⏸</button>
-      <button class="music-expand-btn" id="mExpBtn" title="Đổi nhạc">▾</button>
+      <button class="music-btn-sm" id="mBtn" onclick="event.stopPropagation();toggleMusic()"><i class="bi bi-pause-fill"></i></button>
+      <button class="music-expand-btn" id="mExpBtn" title="Đổi nhạc"><i class="bi bi-chevron-down"></i></button>
     </div>
   </div>
   <div class="music-panel" id="musicPanel">
     <div class="music-panel-inner">
-      <div class="music-panel-label">🎵 Dán link YouTube</div>
+      <div class="music-panel-label"><i class="bi bi-youtube"></i> Dán link YouTube</div>
       <div class="music-panel-row">
-        <input class="music-url-input" id="musicUrlInput" type="url" placeholder="https://youtube.com/watch?v=..."/>
-        <button class="music-play-btn" onclick="applyMusicUrl()">Phát</button>
+        <input class="music-url-input" id="musicUrlInput" type="url" placeholder="https://youtube.com/watch?v=..." onkeydown="if(event.key==='Enter')applyMusicUrl()"/>
+        <button class="music-play-btn" onclick="applyMusicUrl()"><i class="bi bi-play-fill"></i> Phát</button>
       </div>
       <div class="music-hint">Paste link YouTube bất kỳ · nhạc sẽ tự phát và lặp</div>
     </div>
@@ -725,7 +736,7 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
       <span class="home-title-line1">Gửi Yêu Thương</span>
       <span class="home-title-line2">từ trái tim đến trái tim</span>
     </h1>
-    <p class="home-subtitle">Chọn điều bạn muốn nói — Chúng tôi sẽ giúp bạn nói thật đẹp ✨</p>
+    <p class="home-subtitle">Chọn điều bạn muốn nói — AI sẽ giúp bạn nói thật đẹp ✨</p>
     <div class="hero-divider"><span class="hero-divider-icon">✦ chọn cảm xúc ✦</span></div>
   </div>
   <div class="category-section">
@@ -804,7 +815,7 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 <!-- ══════════ EDITOR ══════════ -->
 <div class="screen" id="editor">
   <div style="padding:24px 20px 80px;max-width:680px;margin:0 auto">
-    <div class="back-btn" onclick="showScreen('home')">← Quay lại</div>
+    <div class="back-btn" onclick="showScreen('home')"><i class="bi bi-arrow-left"></i> Quay lại</div>
     <div class="editor-header">
       <span class="editor-icon" id="editorIcon">💌</span>
       <div class="editor-title" id="editorTitle">Viết thư tình</div>
@@ -812,21 +823,21 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
     </div>
 
     <div class="form-section">
-      <label class="form-label">👥 Tên hai người</label>
+      <label class="form-label"><i class="bi bi-people"></i> Tên hai người</label>
       <div class="names-row">
         <input class="form-input" id="fFrom" placeholder="Tên của bạn…" maxlength="30"/>
-        <div class="name-heart">💖</div>
+        <div class="name-heart"><i class="bi bi-heart-fill"></i></div>
         <input class="form-input" id="fTo" placeholder="Tên người ấy…" maxlength="30"/>
       </div>
     </div>
 
     <div class="form-section">
-      <label class="form-label">💭 Ý tưởng & cảm xúc của bạn</label>
+      <label class="form-label"><i class="bi bi-chat-text"></i> Ý tưởng &amp; cảm xúc của bạn</label>
       <textarea class="form-textarea" id="fMessage" oninput="onMsgInput()" placeholder="Viết thoải mái bằng lời của bạn...&#10;&#10;Ví dụ: em ấy hay cười rất duyên, quen nhau hồi năm ngoái ở trường, hay nhắn tin khuya, anh ấy hiền và quan tâm mọi người...&#10;&#10;Càng nhiều chi tiết thì lời càng hay!" maxlength="1000"></textarea>
       <!-- Cải tạo toolbar -->
       <div class="caitao-bar" id="caitaoBar">
         <div class="caitao-header">
-          <span class="caitao-spark">✨</span>
+          <span class="caitao-spark"><i class="bi bi-stars"></i></span>
           <div>
             <div class="caitao-title">Bạn muốn làm gì với đoạn này?</div>
             <div class="caitao-subtitle">Chọn một trong hai tuỳ chọn bên dưới</div>
@@ -836,15 +847,15 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
         <div class="caitao-btns">
           <!-- Giữ lại -->
           <button class="caitao-keep" onclick="hideCaitao()">
-            <span class="caitao-keep-icon">✍️</span>
+            <span class="caitao-keep-icon"><i class="bi bi-pencil"></i></span>
             <span class="caitao-keep-name">Giữ lại</span>
             <span class="caitao-keep-note">Dùng nguyên văn bản gốc của bạn, không thay đổi gì</span>
           </button>
           <!-- Cải tạo AI -->
           <button class="caitao-btn" id="caitaoBtn" onclick="aiRewrite()">
             <span class="shimmer"></span>
-            <span class="caitao-btn-icon">🤖</span>
-            <span class="caitao-btn-name">✨ Cải tạo</span>
+            <span class="caitao-btn-icon"><i class="bi bi-cpu"></i></span>
+            <span class="caitao-btn-name"><i class="bi bi-magic"></i> Cải tạo</span>
             <span class="caitao-btn-note">AI viết lại lãng mạn &amp; hay hơn, giữ nguyên ý của bạn</span>
           </button>
         </div>
@@ -852,41 +863,41 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
         <div class="caitao-divider"></div>
         <div class="caitao-result" id="caitaoResult"></div>
         <div class="caitao-actions" id="caitaoActions" style="display:none">
-          <button class="caitao-apply" onclick="applyRewrite()">↩ Áp dụng phiên bản AI</button>
+          <button class="caitao-apply" onclick="applyRewrite()"><i class="bi bi-check2"></i> Áp dụng phiên bản AI</button>
           <button class="caitao-discard" onclick="discardRewrite()">Bỏ qua</button>
         </div>
       </div>
     </div>
 
     <div class="form-section">
-      <label class="form-label">🎨 Phong cách hiển thị</label>
+      <label class="form-label"><i class="bi bi-palette"></i> Phong cách hiển thị</label>
       <div class="style-mini-grid" id="stylePicker">
-        <div class="style-mini on" data-s="letter" onclick="selStyle(this)"><span class="sm-icon">💌</span>Thư Tình</div>
-        <div class="style-mini" data-s="chat" onclick="selStyle(this)"><span class="sm-icon">💬</span>Nhắn Tin</div>
-        <div class="style-mini" data-s="poem" onclick="selStyle(this)"><span class="sm-icon">📜</span>Thơ Tình</div>
-        <div class="style-mini" data-s="movie" onclick="selStyle(this)"><span class="sm-icon">🎬</span>Cảnh Phim</div>
-        <div class="style-mini" data-s="funny" onclick="selStyle(this)"><span class="sm-icon">😄</span>Tếu Táo</div>
-        <div class="style-mini" data-s="midnight" onclick="selStyle(this)"><span class="sm-icon">🌙</span>Nửa Đêm</div>
-        <div class="style-mini" data-s="galaxy" onclick="selStyle(this)"><span class="sm-icon">🌌</span>Vũ Trụ</div>
-        <div class="style-mini" data-s="fairy" onclick="selStyle(this)"><span class="sm-icon">🌿</span>Cổ Tích</div>
-        <div class="style-mini" data-s="diary" onclick="selStyle(this)"><span class="sm-icon">📖</span>Nhật Ký</div>
-        <div class="style-mini" data-s="ocean" onclick="selStyle(this)"><span class="sm-icon">🌊</span>Đại Dương</div>
+        <div class="style-mini on" data-s="letter" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-envelope-heart"></i></span>Thư Tình</div>
+        <div class="style-mini" data-s="chat" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-chat-dots"></i></span>Nhắn Tin</div>
+        <div class="style-mini" data-s="poem" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-file-earmark-text"></i></span>Thơ Tình</div>
+        <div class="style-mini" data-s="movie" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-film"></i></span>Cảnh Phim</div>
+        <div class="style-mini" data-s="funny" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-emoji-laughing"></i></span>Tếu Táo</div>
+        <div class="style-mini" data-s="midnight" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-moon-stars"></i></span>Nửa Đêm</div>
+        <div class="style-mini" data-s="galaxy" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-stars"></i></span>Vũ Trụ</div>
+        <div class="style-mini" data-s="fairy" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-tree"></i></span>Cổ Tích</div>
+        <div class="style-mini" data-s="diary" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-journal-text"></i></span>Nhật Ký</div>
+        <div class="style-mini" data-s="ocean" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-water"></i></span>Đại Dương</div>
       </div>
     </div>
 
     <div class="form-section" id="moodSection">
-      <label class="form-label">🎭 Tâm trạng</label>
+      <label class="form-label"><i class="bi bi-palette2"></i> Tâm trạng</label>
       <div class="mood-row"></div>
     </div>
 
     <div class="form-section">
-      <label class="form-label">🎵 Nhạc nền YouTube (tuỳ chọn)</label>
+      <label class="form-label"><i class="bi bi-youtube"></i> Nhạc nền YouTube (tuỳ chọn)</label>
       <input class="form-input" type="url" id="fYt" placeholder="https://youtube.com/watch?v=..."/>
     </div>
 
     <button class="generate-btn" onclick="generateLink()">
       <span class="shimmer"></span>
-      ✨ Tạo link gửi người ấy
+      <i class="bi bi-send-fill"></i> Tạo link gửi người ấy
     </button>
   </div>
 </div>
@@ -894,14 +905,14 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 <!-- ══════════ LINK SCREEN ══════════ -->
 <div class="screen" id="linkscreen">
   <div style="padding:40px 20px;max-width:560px;margin:0 auto;text-align:center">
-    <div class="link-success">💌</div>
-    <h2 class="link-title">Link đã sẵn sàng! ✨</h2>
+    <div class="link-success"><i class="bi bi-envelope-heart-fill"></i></div>
+    <h2 class="link-title">Link đã sẵn sàng! <i class="bi bi-stars"></i></h2>
     <p class="link-sub">Sao chép link bên dưới và gửi cho người ấy.<br/>Khi họ phản hồi, bạn sẽ nhận được thông báo.</p>
     <div class="link-box">
       <div class="link-url" id="generatedLink">...</div>
       <button class="copy-btn" onclick="copyLink()">Sao chép</button>
     </div>
-    <p class="link-note">💡 Lưu link bên dưới để biết khi người ấy trả lời</p>
+    <p class="link-note"><i class="bi bi-lightbulb"></i> Lưu link bên dưới để biết khi người ấy trả lời</p>
     <div style="margin-top:24px">
       <div class="link-box">
         <div class="link-url" id="senderNotifLink">...</div>
@@ -909,8 +920,8 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
       </div>
     </div>
     <div class="share-btns">
-      <button class="share-btn" onclick="previewMsg()">👁️ Xem trước</button>
-      <button class="share-btn" onclick="showScreen('home')">🏠 Trang chủ</button>
+      <button class="share-btn" onclick="previewMsg()"><i class="bi bi-eye"></i> Xem trước</button>
+      <button class="share-btn" onclick="showScreen('home')"><i class="bi bi-house"></i> Trang chủ</button>
     </div>
   </div>
 </div>
@@ -927,7 +938,7 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 
       <!-- Response -->
       <div class="action-section" id="actionSection">
-        <div class="action-title" id="rQuestion">Bạn cảm thấy thế nào? 💭</div>
+        <div class="action-title" id="rQuestion">Bạn cảm thấy thế nào? <i class="bi bi-chat-heart"></i></div>
         <div class="action-sub" id="rSub">Hãy cho họ biết cảm xúc của bạn</div>
         <div class="response-btns">
           <button class="resp-btn resp-accept" onclick="sendResponse('accept')">💚 <span id="acceptLabel">Chấp nhận</span></button>
@@ -992,7 +1003,7 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
       </div>
     </div>
 
-    <a class="home-again-btn" onclick="showScreen('home')">🏠 Về trang chủ</a>
+    <a class="home-again-btn" onclick="showScreen('home')"><i class="bi bi-house"></i> Về trang chủ</a>
   </div>
 </div>
 
@@ -1356,13 +1367,13 @@ function setupMusic(url){
   document.getElementById('ytf').src=`https://www.youtube.com/embed/${id}?autoplay=1&loop=1&playlist=${id}&controls=0`;
   document.getElementById('mName').textContent='Đang phát ♪';
   bar.classList.remove('hidden');mPlaying=true;
-  document.getElementById('mBtn').textContent='⏸';
+  document.getElementById('mBtn').innerHTML='<i class="bi bi-pause-fill"></i>';
 }
 
 function toggleMusic(){
   const f=document.getElementById('ytf'),btn=document.getElementById('mBtn'),disc=document.getElementById('mDisc');
-  if(mPlaying){f.src=f.src.replace('autoplay=1','autoplay=0');disc.classList.add('paused');btn.textContent='▶';}
-  else{f.src=f.src.replace('autoplay=0','autoplay=1');disc.classList.remove('paused');btn.textContent='⏸';}
+  if(mPlaying){f.src=f.src.replace('autoplay=1','autoplay=0');disc.classList.add('paused');btn.innerHTML='<i class="bi bi-play-fill"></i>';}
+  else{f.src=f.src.replace('autoplay=0','autoplay=1');disc.classList.remove('paused');btn.innerHTML='<i class="bi bi-pause-fill"></i>';}
   mPlaying=!mPlaying;
 }
 
@@ -1377,21 +1388,26 @@ function applyMusicUrl(){
   const val=document.getElementById('musicUrlInput').value.trim();
   if(!val){showToast('⚠️ Hãy dán link YouTube vào!');return;}
   setupMusic(val);
-  // collapse after applying
   mExpanded=false;
-  document.getElementById('musicBar').classList.remove('expanded');
+  const bar=document.getElementById('musicBar');
+  bar.classList.remove('expanded','no-music');
+  document.getElementById('mBtn').style.display='';
+  document.getElementById('mName').textContent='Đang phát ♪';
   showToast('🎵 Nhạc đã bật!');
 }
 
 function showMusicBarOnHome(){
   const bar=document.getElementById('musicBar');
-  // Show the bar always so user can add music from home
   bar.classList.remove('hidden');
-  if(!document.getElementById('ytf').src.includes('youtube')){
-    document.getElementById('mName').textContent='Thêm nhạc nền';
-    document.getElementById('mBtn').style.display='none';
-  } else {
-    document.getElementById('mBtn').style.display='';
+  const hasMusic=document.getElementById('ytf').src.includes('youtube');
+  document.getElementById('mBtn').style.display=hasMusic?'':'none';
+  document.getElementById('mName').textContent=hasMusic?'Đang phát ♪':'Thêm nhạc nền';
+  bar.classList.toggle('no-music',!hasMusic);
+  // Auto-expand panel if no music yet
+  if(!hasMusic&&!mExpanded){
+    mExpanded=true;
+    bar.classList.add('expanded');
+    setTimeout(()=>document.getElementById('musicUrlInput').focus(),350);
   }
 }
 
@@ -1433,6 +1449,13 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
+  // Music bar visibility
+  const bar=document.getElementById('musicBar');
+  if(id==='home'){
+    showMusicBarOnHome();
+  } else if(!document.getElementById('ytf').src.includes('youtube')){
+    bar.classList.add('hidden'); // hide on other screens if no music
+  }
 }
 
 function openEditor(cat){
@@ -1701,7 +1724,7 @@ async function aiRewrite(){
       acts.style.display='flex';
     } else {showToast('⚠️ Không thể cải tạo lúc này, thử lại nhé!');}
   } catch(e){showToast('⚠️ Lỗi kết nối, thử lại nhé!');}
-  finally{btn.disabled=false;btn.innerHTML='✨ Cải tạo';}
+  finally{btn.disabled=false;btn.innerHTML='<i class="bi bi-magic"></i> Cải tạo';}
 }
 
 function applyRewrite(){
