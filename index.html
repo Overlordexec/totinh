@@ -1799,17 +1799,32 @@ function hideCaitaoResult(){
 async function aiRewrite(){
   const msg=document.getElementById('fMessage').value.trim();
   if(!msg)return;
+
+  // Get or prompt for API key
+  let apiKey=localStorage.getItem('anthro_key')||'';
+  if(!apiKey){
+    apiKey=prompt('🔑 Nhập Anthropic API key của bạn (lưu 1 lần, không cần nhập lại):\n\nLấy tại: console.anthropic.com','');
+    if(!apiKey){showToast('⚠️ Cần API key để dùng tính năng này!');return;}
+    localStorage.setItem('anthro_key',apiKey.trim());
+    apiKey=apiKey.trim();
+  }
+
   const btn=document.getElementById('caitaoBtn');
   const res=document.getElementById('caitaoResult');
   const acts=document.getElementById('caitaoActions');
-  btn.disabled=true;btn.textContent='⏳ Đang viết...';
+  btn.disabled=true;btn.innerHTML='<i class="bi bi-hourglass-split"></i> Đang viết...';
   res.classList.remove('show');acts.style.display='none';
   try{
     const to=document.getElementById('fTo').value.trim()||'người ấy';
     const from=document.getElementById('fFrom').value.trim()||'mình';
     const resp=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',
         max_tokens:400,
@@ -1817,6 +1832,11 @@ async function aiRewrite(){
         messages:[{role:'user',content:`Ý tưởng gốc của mình:\n\n${msg}\n\nHãy viết lại lãng mạn hơn cho mình nhé.`}]
       })
     });
+    if(resp.status===401){
+      localStorage.removeItem('anthro_key');
+      showToast('❌ API key không hợp lệ, vui lòng thử lại!');
+      return;
+    }
     const data=await resp.json();
     aiRewriteResult=(data.content||[]).map(b=>b.text||'').join('').trim();
     if(aiRewriteResult){
