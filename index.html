@@ -509,7 +509,19 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 .midnight-confession p{font-family:'Playfair Display',serif;font-size:1.15rem;color:rgba(220,200,255,.9);margin-bottom:0}
 .midnight-sign{font-family:'Dancing Script',cursive;font-size:1.35rem;color:rgba(180,160,255,.7);text-align:right;margin-top:24px}
 
-/* ═══ CAITAO TOOLBAR ═══ */
+/* ── Caitao trigger button ── */
+.caitao-trigger-btn{
+  margin-top:8px;display:inline-flex;align-items:center;gap:8px;
+  padding:9px 18px;border-radius:50px;border:1px dashed rgba(155,114,207,.4);
+  background:rgba(155,114,207,.07);color:rgba(200,170,255,.8);
+  font-size:.82rem;font-family:'Nunito',sans-serif;font-weight:600;
+  cursor:pointer;transition:all .25s;letter-spacing:.01em
+}
+.caitao-trigger-btn:hover{
+  background:rgba(155,114,207,.15);border-color:rgba(155,114,207,.7);
+  color:#fff;transform:translateY(-1px)
+}
+.caitao-trigger-btn i{font-size:.88rem}
 .caitao-bar{
   display:none;margin-top:12px;
   background:linear-gradient(135deg,rgba(155,114,207,.08),rgba(196,96,122,.06));
@@ -696,20 +708,17 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 .preview-banner-back:hover{background:rgba(245,217,139,.22)}
 
 /* Disabled action section in preview */
-.action-section.preview-lock{
-  position:relative;pointer-events:none;user-select:none
-}
-.action-section.preview-lock::after{
-  content:'';position:absolute;inset:-12px;border-radius:24px;
-  background:rgba(5,3,12,.55);backdrop-filter:blur(4px);z-index:2
-}
-.action-lock-msg{
-  position:absolute;inset:0;z-index:3;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+.action-section{position:relative}
+.preview-overlay{
+  position:absolute;inset:-8px;border-radius:20px;z-index:10;
+  background:rgba(5,3,12,.6);backdrop-filter:blur(6px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;cursor:not-allowed;
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:.92rem;color:rgba(255,255,255,.5)
+  font-size:1rem;color:rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.06)
 }
-.action-lock-msg i{font-size:1.3rem;color:rgba(245,217,139,.6);font-style:normal}
+.preview-overlay i{font-size:1.6rem;color:rgba(245,217,139,.55);font-style:normal}
 
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:480px){
@@ -868,6 +877,9 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
     <div class="form-section">
       <label class="form-label"><i class="bi bi-chat-text"></i> Ý tưởng &amp; cảm xúc của bạn</label>
       <textarea class="form-textarea" id="fMessage" oninput="onMsgInput()" placeholder="Viết thoải mái bằng lời của bạn...&#10;&#10;Ví dụ: em ấy hay cười rất duyên, quen nhau hồi năm ngoái ở trường, hay nhắn tin khuya, anh ấy hiền và quan tâm mọi người...&#10;&#10;Càng nhiều chi tiết thì lời càng hay!" maxlength="1000"></textarea>
+      <button class="caitao-trigger-btn" id="caitaoTriggerBtn" onclick="showCaitao()" style="display:none">
+        <i class="bi bi-stars"></i> Để AI viết lại hay hơn?
+      </button>
       <!-- Cải tạo toolbar -->
       <div class="caitao-bar" id="caitaoBar">
         <div class="caitao-header">
@@ -979,9 +991,10 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 
       <!-- Response -->
       <div class="action-section" id="actionSection">
-        <div class="action-lock-msg" id="actionLockMsg" style="display:none">
-          <i class="bi bi-lock-fill"></i>
-          Chỉ người nhận mới có thể trả lời
+        <!-- Real overlay div (not pseudo-element) blocks all clicks in preview -->
+        <div class="preview-overlay" id="previewOverlay" style="display:none">
+          <i class="bi bi-eye"></i>
+          <span>Chỉ người nhận mới có thể trả lời</span>
         </div>
         <div class="action-title" id="rQuestion">Bạn cảm thấy thế nào? <i class="bi bi-chat-heart"></i></div>
         <div class="action-sub" id="rSub">Hãy cho họ biết cảm xúc của bạn</div>
@@ -1571,12 +1584,14 @@ function generateLink(){
 }
 function copyLink(){navigator.clipboard.writeText(document.getElementById('generatedLink').textContent).then(()=>showToast('✅ Đã sao chép link!'));}
 function copySenderLink(){navigator.clipboard.writeText(document.getElementById('senderNotifLink').textContent).then(()=>showToast('✅ Đã sao chép link theo dõi!'));}
-function previewMsg(){showRecipient(currentMsg);}
+function previewMsg(){
+  showRecipient(currentMsg, true);
+}
 
 // ══════════════════════════════════════════
 //  RECIPIENT VIEW
 // ══════════════════════════════════════════
-function showRecipient(data){
+function showRecipient(data, isPreview=false){
   if(!data||!data.cat){showScreen('home');return;}
   const c=CATS[data.cat];if(!c){showScreen('home');return;}
   currentMsg=data;
@@ -1594,6 +1609,18 @@ function showRecipient(data){
   renderOutput(style,data.from||'Người gửi',data.to||'Bạn',data.msg||'',data.yt||'');
   document.getElementById('recipientMain').style.display='block';
   document.getElementById('waitState').style.display='none';
+
+  // Preview mode: show overlay that blocks all clicks
+  const overlay=document.getElementById('previewOverlay');
+  const banner=document.getElementById('previewBanner');
+  if(isPreview){
+    banner.style.display='flex';
+    overlay.style.display='flex';
+  } else {
+    banner.style.display='none';
+    overlay.style.display='none';
+  }
+
   showScreen('recipient');
 }
 
@@ -1739,19 +1766,28 @@ let aiRewriteResult='';
 let caitaoVisible=false;
 
 function onMsgInput(){
+  // Only update char count / validation, never auto-show caitao bar
   const v=document.getElementById('fMessage').value.trim();
-  const bar=document.getElementById('caitaoBar');
-  if(v.length>20 && !caitaoVisible){
-    bar.classList.add('show');caitaoVisible=true;
-  } else if(v.length<=20 && caitaoVisible){
-    bar.classList.remove('show');caitaoVisible=false;
-    hideCaitaoResult();
-  }
+  const btn=document.getElementById('caitaoTriggerBtn');
+  if(btn) btn.style.display=v.length>0?'inline-flex':'none';
+  // If bar is open and user clears text, hide it
+  if(v.length===0&&caitaoVisible) hideCaitao();
+}
+
+function showCaitao(){
+  const v=document.getElementById('fMessage').value.trim();
+  if(!v){showToast('⚠️ Hãy nhập ý tưởng trước nhé!');return;}
+  document.getElementById('caitaoBar').classList.add('show');
+  caitaoVisible=true;
+  document.getElementById('caitaoBar').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 function hideCaitao(){
   document.getElementById('caitaoBar').classList.remove('show');
   caitaoVisible=false;hideCaitaoResult();
+  const v=document.getElementById('fMessage').value.trim();
+  const btn=document.getElementById('caitaoTriggerBtn');
+  if(btn) btn.style.display=v.length>0?'inline-flex':'none';
 }
 
 function hideCaitaoResult(){
