@@ -509,97 +509,6 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 .midnight-confession p{font-family:'Playfair Display',serif;font-size:1.15rem;color:rgba(220,200,255,.9);margin-bottom:0}
 .midnight-sign{font-family:'Dancing Script',cursive;font-size:1.35rem;color:rgba(180,160,255,.7);text-align:right;margin-top:24px}
 
-/* ── Caitao trigger button ── */
-.caitao-trigger-btn{
-  margin-top:8px;display:inline-flex;align-items:center;gap:8px;
-  padding:9px 18px;border-radius:50px;border:1px dashed rgba(155,114,207,.4);
-  background:rgba(155,114,207,.07);color:rgba(200,170,255,.8);
-  font-size:.82rem;font-family:'Nunito',sans-serif;font-weight:600;
-  cursor:pointer;transition:all .25s;letter-spacing:.01em
-}
-.caitao-trigger-btn:hover{
-  background:rgba(155,114,207,.15);border-color:rgba(155,114,207,.7);
-  color:#fff;transform:translateY(-1px)
-}
-.caitao-trigger-btn i{font-size:.88rem}
-.caitao-bar{
-  display:none;margin-top:12px;
-  background:linear-gradient(135deg,rgba(155,114,207,.08),rgba(196,96,122,.06));
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:18px;padding:18px 18px 14px;
-  animation:caitaoSlideIn .35s cubic-bezier(.34,1.56,.64,1)
-}
-@keyframes caitaoSlideIn{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}
-.caitao-bar.show{display:block}
-
-/* Header */
-.caitao-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.caitao-spark{font-size:1.1rem;animation:sparkSpin 3s linear infinite}
-@keyframes sparkSpin{0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.2)}100%{transform:rotate(360deg) scale(1)}}
-.caitao-title{font-size:.88rem;font-weight:700;color:rgba(255,255,255,.8);letter-spacing:.02em}
-.caitao-subtitle{font-size:.76rem;color:rgba(255,255,255,.38);margin-top:2px}
-
-/* Two-button row */
-.caitao-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-
-/* Keep button */
-.caitao-keep{
-  position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;
-  padding:14px 10px;border-radius:14px;
-  background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);
-  color:#fff;cursor:pointer;transition:all .25s;overflow:hidden
-}
-.caitao-keep:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);transform:translateY(-1px)}
-.caitao-keep-icon{font-size:1.5rem;line-height:1}
-.caitao-keep-name{font-size:.82rem;font-weight:700;color:rgba(255,255,255,.8)}
-.caitao-keep-note{font-size:.7rem;color:rgba(255,255,255,.38);line-height:1.4;text-align:center}
-
-/* AI rewrite button */
-.caitao-btn{
-  position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;
-  padding:14px 10px;border-radius:14px;overflow:hidden;
-  background:linear-gradient(135deg,var(--accent,#c4607a),var(--btn-b,#9b72cf));
-  border:none;color:#fff;cursor:pointer;transition:all .25s;
-  box-shadow:0 4px 20px rgba(155,114,207,.3)
-}
-.caitao-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 28px rgba(155,114,207,.45)}
-.caitao-btn:disabled{opacity:.55;cursor:wait}
-.caitao-btn .shimmer{position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);animation:shimmer 2s infinite}
-.caitao-btn-icon{font-size:1.5rem;line-height:1;position:relative;z-index:1}
-.caitao-btn-name{font-size:.82rem;font-weight:700;position:relative;z-index:1}
-.caitao-btn-note{font-size:.7rem;color:rgba(255,255,255,.7);line-height:1.4;text-align:center;position:relative;z-index:1}
-
-/* Divider */
-.caitao-divider{height:1px;background:rgba(255,255,255,.07);margin:4px 0 12px}
-
-/* Result preview */
-.caitao-result{
-  display:none;background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.1);border-radius:12px;
-  padding:16px;font-size:.88rem;color:rgba(255,255,255,.75);
-  line-height:1.85;font-family:'Lora',serif;font-style:italic;
-  margin-bottom:10px;position:relative
-}
-.caitao-result::before{content:'✦ Phiên bản AI';position:absolute;top:-9px;left:14px;font-size:.68rem;font-style:normal;letter-spacing:.08em;font-family:'Nunito',sans-serif;background:rgba(155,114,207,.5);color:rgba(255,255,255,.85);padding:2px 10px;border-radius:99px;font-weight:700}
-.caitao-result.show{display:block;animation:fadeIn .4s ease}
-
-/* Apply / Discard */
-.caitao-actions{display:flex;gap:8px;width:100%}
-.caitao-apply{
-  flex:1;padding:11px 16px;border-radius:10px;
-  background:linear-gradient(135deg,#27ae60,#2ecc71);
-  border:none;color:#fff;font-size:.84rem;cursor:pointer;
-  transition:all .2s;font-weight:700;font-family:'Nunito',sans-serif
-}
-.caitao-apply:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(39,174,96,.35)}
-.caitao-discard{
-  padding:11px 16px;border-radius:10px;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
-  color:rgba(255,255,255,.45);font-size:.84rem;cursor:pointer;
-  transition:all .2s;font-family:'Nunito',sans-serif
-}
-.caitao-discard:hover{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
-
 /* --- GALAXY --- */
 .out-galaxy{background:radial-gradient(ellipse at 50% 40%,#0a0420,#000210);min-height:60vh;border-radius:20px;overflow:hidden;position:relative}
 .galaxy-cosmos{position:absolute;inset:0;overflow:hidden;pointer-events:none}
@@ -720,7 +629,175 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 }
 .preview-overlay i{font-size:1.6rem;color:rgba(245,217,139,.55);font-style:normal}
 
-/* ═══ RESPONSIVE ═══ */
+/* ═══ NEW STYLES ═══ */
+
+/* POLAROID */
+.out-polaroid{display:flex;justify-content:center;padding:20px 0}
+.polaroid-card{background:#fff;padding:18px 18px 48px;border-radius:4px;box-shadow:0 8px 40px rgba(0,0,0,.5);max-width:320px;width:100%;transform:rotate(-1.5deg)}
+.polaroid-img{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#1a0a2e,#2d1a4e,#3d0a3e);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:12px;position:relative;overflow:hidden}
+.polaroid-img::after{content:'';position:absolute;inset:0;background:linear-gradient(45deg,rgba(255,255,255,.06) 0%,transparent 60%)}
+.polaroid-caption{font-family:'Dancing Script',cursive;font-size:1.1rem;color:#333;text-align:center;line-height:1.5;padding:0 4px}
+.polaroid-date{font-size:.72rem;color:#aaa;text-align:right;margin-top:6px;font-style:italic}
+
+/* POSTCARD */
+.out-postcard{padding:10px 0}
+.postcard-card{background:linear-gradient(135deg,#fef9e7,#fdf0d5);border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.2)}
+.postcard-top{height:140px;background:linear-gradient(135deg,#667eea,#764ba2,#c4607a);display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative}
+.postcard-top::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(135deg,#fef9e7,#fdf0d5);clip-path:polygon(0 100%,100% 100%,100% 0)}
+.postcard-body{padding:20px 20px 16px;display:grid;grid-template-columns:1fr 1px 1fr;gap:16px}
+.postcard-left{font-family:'Dancing Script',cursive;font-size:.95rem;color:#555;line-height:1.8}
+.postcard-divider{background:repeating-linear-gradient(180deg,#ccc 0,#ccc 8px,transparent 8px,transparent 14px)}
+.postcard-right{display:flex;flex-direction:column;gap:8px}
+.postcard-stamp{width:52px;height:62px;background:linear-gradient(135deg,#c4607a,#9b72cf);border:2px solid rgba(255,255,255,.5);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-left:auto;box-shadow:inset 0 0 0 3px rgba(0,0,0,.1)}
+.postcard-addr{font-family:'Dancing Script',cursive;font-size:.9rem;color:#777;line-height:1.8;border-bottom:1px solid #ddd;padding-bottom:4px}
+.postcard-from{font-size:.72rem;color:#aaa;font-style:italic}
+
+/* RAIN */
+.out-rain{position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#1a2a3a 0%,#0d1520 100%);min-height:300px}
+.rain-drops{position:absolute;inset:0;pointer-events:none}
+.rain-drop{position:absolute;width:1px;height:12px;background:linear-gradient(180deg,transparent,rgba(160,200,255,.5));animation:rainFall var(--d,1s) var(--del,0s) infinite linear}
+@keyframes rainFall{0%{transform:translateY(-20px);opacity:0}10%{opacity:1}100%{transform:translateY(350px);opacity:0}}
+.rain-card{position:relative;z-index:1;padding:32px 24px;text-align:center}
+.rain-cup{font-size:2.5rem;margin-bottom:12px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5))}
+.rain-time{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(160,200,255,.45);margin-bottom:20px}
+.rain-body{font-family:'Lora',serif;font-style:italic;color:rgba(200,220,255,.8);line-height:2;font-size:.95rem;margin-bottom:16px}
+.rain-conf{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:rgba(160,200,255,.9);border-top:1px solid rgba(160,200,255,.15);padding-top:16px}
+.rain-sign{font-size:.8rem;color:rgba(160,200,255,.4);margin-top:12px}
+
+/* RECIPE */
+.out-recipe{padding:4px 0}
+.recipe-card{background:linear-gradient(135deg,#fffdf6,#fff8ee);border-radius:16px;padding:28px 24px;border:2px solid #f0d9a0;box-shadow:0 8px 32px rgba(0,0,0,.4);position:relative}
+.recipe-card::before{content:'';position:absolute;inset:6px;border:1px dashed #e8c878;border-radius:12px;pointer-events:none}
+.recipe-title{font-family:'Dancing Script',cursive;font-size:1.6rem;color:#8b4513;text-align:center;margin-bottom:4px}
+.recipe-sub{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:#b8860b;text-align:center;margin-bottom:20px}
+.recipe-section{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8b4513;margin:16px 0 8px;display:flex;align-items:center;gap:8px}
+.recipe-section::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,#e8c878,transparent)}
+.recipe-list{list-style:none;padding:0}
+.recipe-list li{font-size:.88rem;color:#5c3317;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.recipe-list li::before{content:'♥';color:#c4607a;flex-shrink:0;margin-top:1px}
+.recipe-steps{counter-reset:step}
+.recipe-steps li{counter-increment:step;font-size:.88rem;color:#5c3317;padding:6px 0 6px 28px;position:relative;line-height:1.5}
+.recipe-steps li::before{content:counter(step);position:absolute;left:0;top:5px;width:20px;height:20px;background:#c4607a;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800}
+.recipe-conf{font-family:'Dancing Script',cursive;font-size:1.05rem;color:#8b4513;border-top:1px dashed #e8c878;padding-top:14px;margin-top:14px;text-align:center;font-style:italic}
+
+/* NEWSPAPER */
+.out-newspaper{padding:4px 0}
+.news-card{background:#f5f0e8;border-radius:8px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,.4);border:3px double #8b7355}
+.news-header{text-align:center;border-bottom:3px double #8b7355;padding-bottom:10px;margin-bottom:12px}
+.news-name{font-family:'Playfair Display',serif;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:#8b7355}
+.news-date{font-size:.62rem;color:#8b7355;margin-top:2px}
+.news-headline{font-family:'Playfair Display',serif;font-size:1.5rem;color:#1a0a00;line-height:1.2;text-align:center;margin:10px 0;font-weight:700}
+.news-subhead{font-size:.78rem;font-style:italic;color:#5c4a32;text-align:center;margin-bottom:12px;border-bottom:1px solid #c8b89a;padding-bottom:10px}
+.news-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.news-col{font-size:.78rem;color:#2a1a0a;line-height:1.7;font-family:'Lora',serif}
+.news-col p+p{margin-top:8px}
+.news-drop-cap::first-letter{font-size:2.2rem;font-family:'Playfair Display',serif;float:left;line-height:.8;padding-right:4px;color:#8b4513}
+.news-quote{border-top:1px solid #c8b89a;border-bottom:1px solid #c8b89a;padding:10px;margin:12px 0;text-align:center;font-family:'Playfair Display',serif;font-style:italic;color:#5c3317;font-size:.88rem}
+
+/* NEON */
+.out-neon{background:#050508;border-radius:20px;padding:36px 24px;text-align:center;position:relative;overflow:hidden}
+.neon-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,0,128,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,0,128,.04) 1px,transparent 1px);background-size:30px 30px}
+.neon-title{font-family:'Dancing Script',cursive;font-size:2rem;color:#ff0080;text-shadow:0 0 10px #ff0080,0 0 30px #ff0080,0 0 60px #ff008080;margin-bottom:8px;animation:neonFlicker 4s ease-in-out infinite}
+@keyframes neonFlicker{0%,100%{opacity:1}92%{opacity:1}93%{opacity:.8}94%{opacity:1}97%{opacity:.85}98%{opacity:1}}
+.neon-sub{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#00f5ff;text-shadow:0 0 10px #00f5ff;margin-bottom:24px;opacity:.7}
+.neon-body{font-family:'Lora',serif;font-style:italic;color:rgba(255,255,255,.7);line-height:1.9;font-size:.92rem;margin-bottom:20px}
+.neon-conf{font-family:'Dancing Script',cursive;font-size:1.3rem;color:#ff0080;text-shadow:0 0 15px #ff008099;border:1px solid rgba(255,0,128,.3);padding:14px 20px;border-radius:8px;box-shadow:0 0 20px rgba(255,0,128,.1);display:inline-block}
+.neon-sign{font-size:.72rem;letter-spacing:.2em;color:rgba(0,245,255,.4);margin-top:16px;text-transform:uppercase}
+
+/* AURORA */
+.out-aurora{border-radius:20px;overflow:hidden;position:relative;background:#010814}
+.aurora-sky{position:absolute;inset:0;overflow:hidden}
+.aurora-band{position:absolute;left:-20%;right:-20%;height:200px;border-radius:50%;filter:blur(40px);animation:auroraDrift var(--d,8s) var(--del,0s) ease-in-out infinite alternate}
+@keyframes auroraDrift{0%{transform:translateY(0) scaleX(1)}100%{transform:translateY(-20px) scaleX(1.1)}}
+.aurora-card{position:relative;z-index:1;padding:40px 24px;text-align:center}
+.aurora-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(120,220,160,.6);margin-bottom:20px}
+.aurora-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.8rem;color:#e8f8f0;text-shadow:0 0 30px rgba(80,200,120,.4);margin-bottom:20px;line-height:1.3}
+.aurora-body{font-family:'Lora',serif;font-style:italic;color:rgba(200,240,220,.7);line-height:1.9;font-size:.93rem;margin-bottom:20px}
+.aurora-conf{color:rgba(140,230,180,.9);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;border-top:1px solid rgba(80,200,120,.2);padding-top:16px}
+
+/* FIREFLY */
+.out-firefly{background:linear-gradient(180deg,#040d08 0%,#0a1a10 100%);border-radius:20px;overflow:hidden;position:relative;padding:36px 24px;text-align:center}
+.firefly-container{position:absolute;inset:0;pointer-events:none}
+.ff{position:absolute;width:4px;height:4px;border-radius:50%;background:#aaff44;animation:ffFloat var(--d,5s) var(--del,0s) ease-in-out infinite;box-shadow:0 0 6px #aaff44,0 0 12px #aaff44}
+@keyframes ffFloat{0%,100%{opacity:0;transform:translate(0,0)}20%,80%{opacity:1}50%{transform:translate(var(--dx,20px),var(--dy,-20px))}}
+.firefly-title{font-family:'Dancing Script',cursive;font-size:1.7rem;color:#d4ff8a;text-shadow:0 0 20px rgba(170,255,68,.5);margin-bottom:8px;position:relative;z-index:1}
+.firefly-sub{font-size:.7rem;letter-spacing:.15em;color:rgba(170,255,68,.4);margin-bottom:24px;position:relative;z-index:1}
+.firefly-body{font-family:'Lora',serif;font-style:italic;color:rgba(200,240,160,.75);line-height:1.9;font-size:.92rem;margin-bottom:20px;position:relative;z-index:1}
+.firefly-conf{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:#d4ff8a;text-shadow:0 0 15px rgba(170,255,68,.4);position:relative;z-index:1}
+
+/* SNOW */
+.out-snow{background:linear-gradient(180deg,#0a0f1e 0%,#141d30 100%);border-radius:20px;overflow:hidden;position:relative;padding:36px 24px;text-align:center}
+.snow-container{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.snowflake{position:absolute;color:rgba(255,255,255,.7);font-size:var(--fs,.8rem);animation:snowFall var(--d,8s) var(--del,0s) linear infinite}
+@keyframes snowFall{0%{transform:translateY(-20px) translateX(0) rotate(0deg);opacity:0}5%{opacity:1}100%{transform:translateY(120%) translateX(var(--dx,20px)) rotate(360deg);opacity:.3}}
+.snow-card{position:relative;z-index:1}
+.snow-icon{font-size:2.2rem;margin-bottom:12px}
+.snow-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.7rem;color:#e8f0ff;margin-bottom:20px;text-shadow:0 0 20px rgba(180,200,255,.3)}
+.snow-body{font-family:'Lora',serif;font-style:italic;color:rgba(200,215,255,.7);line-height:1.9;font-size:.92rem;margin-bottom:20px}
+.snow-conf{color:rgba(200,220,255,.9);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;border-top:1px solid rgba(180,200,255,.15);padding-top:16px}
+
+/* RETRO / TYPEWRITER */
+.out-retro{padding:4px 0}
+.retro-card{background:#f0ead8;border-radius:4px;padding:32px 28px;border:8px solid #d4c9a8;box-shadow:0 8px 32px rgba(0,0,0,.4);position:relative}
+.retro-header{text-align:center;border-bottom:2px solid #a09070;padding-bottom:12px;margin-bottom:20px}
+.retro-machine{font-size:2rem;margin-bottom:4px}
+.retro-brand{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:#7a6a50}
+.retro-body{font-family:'Courier New',monospace;font-size:.88rem;color:#2a1a0a;line-height:2;white-space:pre-wrap;word-break:break-word}
+.retro-body .typed-cursor{display:inline-block;width:8px;height:14px;background:#2a1a0a;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.retro-conf{font-family:'Courier New',monospace;font-size:.92rem;color:#2a1a0a;border-top:2px dashed #a09070;padding-top:14px;margin-top:14px}
+.retro-sign{font-family:'Dancing Script',cursive;font-size:1.2rem;color:#7a6a50;text-align:right;margin-top:10px}
+.retro-stamp{position:absolute;top:16px;right:16px;font-size:.6rem;font-family:'Courier New',monospace;color:#c4607a;border:2px solid #c4607a;padding:3px 6px;letter-spacing:.1em;text-transform:uppercase;transform:rotate(-8deg);opacity:.6}
+
+/* PIANO */
+.out-piano{background:#080808;border-radius:20px;overflow:hidden;padding:32px 24px;text-align:center;position:relative}
+.piano-keys{display:flex;justify-content:center;gap:2px;margin-bottom:24px;padding:0 20px}
+.pk-w{width:22px;height:70px;background:linear-gradient(180deg,#f5f5f0,#e8e8e0);border-radius:0 0 6px 6px;border:1px solid #ccc;flex-shrink:0}
+.pk-b{width:14px;height:44px;background:linear-gradient(180deg,#1a1a1a,#0a0a0a);border-radius:0 0 4px 4px;margin:0 -7px;z-index:1;position:relative}
+.piano-note{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,215,100,.5);margin-bottom:16px}
+.piano-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.6rem;color:#f5d98b;text-shadow:0 0 20px rgba(245,217,139,.3);margin-bottom:20px}
+.piano-body{font-family:'Lora',serif;font-style:italic;color:rgba(245,230,180,.7);line-height:1.9;font-size:.92rem;margin-bottom:20px}
+.piano-conf{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:#f5d98b;border-top:1px solid rgba(245,215,100,.15);padding-top:16px}
+.piano-staff{display:flex;flex-direction:column;gap:5px;margin:20px auto;width:80%;opacity:.2}
+.piano-staff div{height:1px;background:#f5d98b}
+
+/* SPRING / CHERRY BLOSSOM */
+.out-spring{background:linear-gradient(180deg,#fff0f4,#ffe8f0);border-radius:20px;padding:36px 24px;text-align:center;position:relative;overflow:hidden}
+.spring-petals{position:absolute;inset:0;pointer-events:none}
+.sp{position:absolute;font-size:var(--fs,.9rem);animation:spFall var(--d,8s) var(--del,0s) linear infinite;opacity:0}
+@keyframes spFall{0%{transform:translateY(-30px) rotate(0deg);opacity:0}5%{opacity:.8}100%{transform:translateY(110%) translateX(var(--dx,30px)) rotate(360deg);opacity:0}}
+.spring-icon{font-size:2.2rem;margin-bottom:8px;position:relative;z-index:1}
+.spring-title{font-family:'Dancing Script',cursive;font-size:1.7rem;color:#c4607a;margin-bottom:20px;position:relative;z-index:1}
+.spring-body{font-family:'Lora',serif;font-style:italic;color:#8b4560;line-height:1.9;font-size:.92rem;margin-bottom:20px;position:relative;z-index:1}
+.spring-conf{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:#c4607a;border-top:1px solid rgba(196,96,122,.2);padding-top:16px;position:relative;z-index:1}
+
+/* CAMPFIRE */
+.out-campfire{background:linear-gradient(180deg,#0d0805 0%,#1a0e08 100%);border-radius:20px;overflow:hidden;position:relative;padding:36px 24px;text-align:center}
+.fire-anim{font-size:3rem;animation:fireWave 1.5s ease-in-out infinite;display:inline-block;margin-bottom:12px}
+@keyframes fireWave{0%,100%{transform:scaleY(1) scaleX(1)}50%{transform:scaleY(1.12) scaleX(.92)}}
+.campfire-glow{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:300px;height:200px;background:radial-gradient(ellipse at 50% 100%,rgba(255,100,20,.15),transparent 70%);pointer-events:none}
+.campfire-title{font-family:'Dancing Script',cursive;font-size:1.6rem;color:#ffa040;text-shadow:0 0 20px rgba(255,120,20,.5);margin-bottom:20px;position:relative;z-index:1}
+.campfire-body{font-family:'Lora',serif;font-style:italic;color:rgba(255,200,120,.75);line-height:1.9;font-size:.92rem;margin-bottom:20px;position:relative;z-index:1}
+.campfire-conf{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:#ffb060;border-top:1px solid rgba(255,120,20,.2);padding-top:16px;position:relative;z-index:1}
+
+/* TELEGRAM */
+.out-telegram{padding:4px 0}
+.tg-frame{background:#17212b;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.tg-bar{background:#2b5278;padding:12px 16px;display:flex;align-items:center;gap:10px}
+.tg-ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#5591c5,#3a7abf);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.tg-info{flex:1}
+.tg-name{font-size:.88rem;font-weight:700;color:#fff}
+.tg-status{font-size:.72rem;color:rgba(255,255,255,.5)}
+.tg-body{padding:12px 16px;display:flex;flex-direction:column;gap:8px;min-height:160px}
+.tg-bubble{max-width:82%;padding:8px 12px 6px;border-radius:12px;font-size:.84rem;line-height:1.55;position:relative}
+.tg-bubble.out{background:#2b5278;border-radius:12px 12px 4px 12px;align-self:flex-end}
+.tg-bubble.in{background:#182533;border-radius:12px 12px 12px 4px;align-self:flex-start}
+.tg-time{font-size:.62rem;color:rgba(255,255,255,.4);text-align:right;margin-top:3px}
+.tg-typing{display:flex;gap:4px;align-items:center;padding:10px 12px;background:#182533;border-radius:12px;width:fit-content}
+.tg-typing span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);animation:tgDot 1.2s ease-in-out infinite}
+.tg-typing span:nth-child(2){animation-delay:.2s}
+.tg-typing span:nth-child(3){animation-delay:.4s}
+@keyframes tgDot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
 @media(max-width:480px){
   .home-title{font-size:2.4rem}
   .response-btns{flex-direction:column;align-items:center}
@@ -876,58 +953,36 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 
     <div class="form-section">
       <label class="form-label"><i class="bi bi-chat-text"></i> Ý tưởng &amp; cảm xúc của bạn</label>
-      <textarea class="form-textarea" id="fMessage" oninput="onMsgInput()" placeholder="Viết thoải mái bằng lời của bạn...&#10;&#10;Ví dụ: em ấy hay cười rất duyên, quen nhau hồi năm ngoái ở trường, hay nhắn tin khuya, anh ấy hiền và quan tâm mọi người...&#10;&#10;Càng nhiều chi tiết thì lời càng hay!" maxlength="1000"></textarea>
-      <button class="caitao-trigger-btn" id="caitaoTriggerBtn" onclick="showCaitao()" style="display:none">
-        <i class="bi bi-stars"></i> Để AI viết lại hay hơn?
-      </button>
-      <!-- Cải tạo toolbar -->
-      <div class="caitao-bar" id="caitaoBar">
-        <div class="caitao-header">
-          <span class="caitao-spark"><i class="bi bi-stars"></i></span>
-          <div>
-            <div class="caitao-title">Bạn muốn làm gì với đoạn này?</div>
-            <div class="caitao-subtitle">Chọn một trong hai tuỳ chọn bên dưới</div>
-          </div>
-        </div>
-
-        <div class="caitao-btns">
-          <!-- Giữ lại -->
-          <button class="caitao-keep" onclick="hideCaitao()">
-            <span class="caitao-keep-icon"><i class="bi bi-pencil"></i></span>
-            <span class="caitao-keep-name">Giữ lại</span>
-            <span class="caitao-keep-note">Dùng nguyên văn bản gốc của bạn, không thay đổi gì</span>
-          </button>
-          <!-- Cải tạo AI -->
-          <button class="caitao-btn" id="caitaoBtn" onclick="aiRewrite()">
-            <span class="shimmer"></span>
-            <span class="caitao-btn-icon"><i class="bi bi-cpu"></i></span>
-            <span class="caitao-btn-name"><i class="bi bi-magic"></i> Cải tạo</span>
-            <span class="caitao-btn-note">AI viết lại lãng mạn &amp; hay hơn, giữ nguyên ý của bạn</span>
-          </button>
-        </div>
-
-        <div class="caitao-divider"></div>
-        <div class="caitao-result" id="caitaoResult"></div>
-        <div class="caitao-actions" id="caitaoActions" style="display:none">
-          <button class="caitao-apply" onclick="applyRewrite()"><i class="bi bi-check2"></i> Áp dụng phiên bản AI</button>
-          <button class="caitao-discard" onclick="discardRewrite()">Bỏ qua</button>
-        </div>
-      </div>
+      <textarea class="form-textarea" id="fMessage" placeholder="Viết thoải mái bằng lời của bạn...&#10;&#10;Ví dụ: em ấy hay cười rất duyên, quen nhau hồi năm ngoái ở trường, hay nhắn tin khuya, anh ấy hiền và quan tâm mọi người...&#10;&#10;Càng nhiều chi tiết thì lời càng hay!" maxlength="1000"></textarea>
     </div>
 
     <div class="form-section">
       <label class="form-label"><i class="bi bi-palette"></i> Phong cách hiển thị</label>
       <div class="style-mini-grid" id="stylePicker">
-        <div class="style-mini on" data-s="letter" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-envelope-heart"></i></span>Thư Tình</div>
-        <div class="style-mini" data-s="chat" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-chat-dots"></i></span>Nhắn Tin</div>
-        <div class="style-mini" data-s="poem" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-file-earmark-text"></i></span>Thơ Tình</div>
-        <div class="style-mini" data-s="movie" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-film"></i></span>Cảnh Phim</div>
-        <div class="style-mini" data-s="funny" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-emoji-laughing"></i></span>Tếu Táo</div>
-        <div class="style-mini" data-s="midnight" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-moon-stars"></i></span>Nửa Đêm</div>
-        <div class="style-mini" data-s="galaxy" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-stars"></i></span>Vũ Trụ</div>
-        <div class="style-mini" data-s="fairy" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-tree"></i></span>Cổ Tích</div>
-        <div class="style-mini" data-s="diary" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-journal-text"></i></span>Nhật Ký</div>
-        <div class="style-mini" data-s="ocean" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-water"></i></span>Đại Dương</div>
+        <div class="style-mini on" data-s="letter"    onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-envelope-heart"></i></span>Thư Tình</div>
+        <div class="style-mini"    data-s="chat"      onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-chat-dots"></i></span>Nhắn Tin</div>
+        <div class="style-mini"    data-s="poem"      onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-file-earmark-text"></i></span>Thơ Tình</div>
+        <div class="style-mini"    data-s="movie"     onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-film"></i></span>Cảnh Phim</div>
+        <div class="style-mini"    data-s="funny"     onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-emoji-laughing"></i></span>Tếu Táo</div>
+        <div class="style-mini"    data-s="midnight"  onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-moon-stars"></i></span>Nửa Đêm</div>
+        <div class="style-mini"    data-s="galaxy"    onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-stars"></i></span>Vũ Trụ</div>
+        <div class="style-mini"    data-s="fairy"     onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-tree"></i></span>Cổ Tích</div>
+        <div class="style-mini"    data-s="diary"     onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-journal-text"></i></span>Nhật Ký</div>
+        <div class="style-mini"    data-s="ocean"     onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-water"></i></span>Đại Dương</div>
+        <div class="style-mini"    data-s="polaroid"  onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-image"></i></span>Polaroid</div>
+        <div class="style-mini"    data-s="postcard"  onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-mailbox2-flag"></i></span>Bưu Thiếp</div>
+        <div class="style-mini"    data-s="rain"      onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-cloud-rain"></i></span>Ngày Mưa</div>
+        <div class="style-mini"    data-s="recipe"    onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-heart-fill"></i></span>Công Thức</div>
+        <div class="style-mini"    data-s="newspaper" onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-newspaper"></i></span>Tin Tức</div>
+        <div class="style-mini"    data-s="neon"      onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-lightbulb"></i></span>Đèn Neon</div>
+        <div class="style-mini"    data-s="aurora"    onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-rainbow"></i></span>Cực Quang</div>
+        <div class="style-mini"    data-s="firefly"   onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-sun"></i></span>Đom Đóm</div>
+        <div class="style-mini"    data-s="snow"      onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-snow2"></i></span>Tuyết Rơi</div>
+        <div class="style-mini"    data-s="retro"     onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-keyboard"></i></span>Máy Chữ</div>
+        <div class="style-mini"    data-s="piano"     onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-music-note-list"></i></span>Phím Đàn</div>
+        <div class="style-mini"    data-s="spring"    onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-flower1"></i></span>Anh Đào</div>
+        <div class="style-mini"    data-s="campfire"  onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-fire"></i></span>Lửa Trại</div>
+        <div class="style-mini"    data-s="telegram"  onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-send"></i></span>Telegram</div>
       </div>
     </div>
 
@@ -1095,66 +1150,199 @@ function sub(s,n1,n2){return s.replace(/\{n1\}/g,n1).replace(/\{n2\}/g,n2);}
 
 function buildLetter(n1,n2,ideas){
   const d=detect(ideas);
-  const openings=['Gửi {n2} — người {n1} mãi chẳng dám nhìn thẳng vào mắt mỗi khi đứng gần.','Có những lời tưởng chừng dễ nói, mà {n1} đã mang trong lòng không biết bao lâu rồi...','Đây là bức thư {n1} đã viết rồi xóa không biết bao nhiêu lần. Hôm nay — {n1} quyết định không xóa nữa.','Không phải {n1} không biết cách bày tỏ. Chỉ là... với {n2}, {n1} sợ nói sai một chữ sẽ hỏng hết mọi thứ.','Gửi {n2} thân mến — người mà {n1} chưa bao giờ thật sự xem là "bạn thường" dù miệng cứ nói vậy.'];
+  const openings=[
+    'Gửi {n2} — người {n1} mãi chẳng dám nhìn thẳng vào mắt mỗi khi đứng gần.',
+    'Có những lời tưởng chừng dễ nói, mà {n1} đã mang trong lòng không biết bao lâu rồi...',
+    'Đây là bức thư {n1} đã viết rồi xóa không biết bao nhiêu lần. Hôm nay — {n1} quyết định không xóa nữa.',
+    'Không phải {n1} không biết cách bày tỏ. Chỉ là... với {n2}, {n1} sợ nói sai một chữ sẽ hỏng hết mọi thứ.',
+    'Gửi {n2} thân mến — người mà {n1} chưa bao giờ thật sự xem là "bạn thường" dù miệng cứ nói vậy.',
+    '{n2} ơi, {n1} không biết bắt đầu từ đâu — nhưng {n1} biết nếu không nói hôm nay, {n1} sẽ tiếc mãi.',
+    'Viết thư thì {n1} vẫn hay làm, nhưng gửi thì chưa bao giờ dám. Lần này thì khác — {n1} dám rồi.',
+    'Có những điều chỉ đêm khuya mới đủ dũng cảm để nghĩ đến. Và {n2} — {n1} đã nghĩ đến quá nhiều lần rồi.',
+    'Nếu {n1} là kiểu người giỏi nói cảm xúc, {n1} đã nói từ lâu. Nhưng thôi — thư này cũng là cách nói của {n1}.',
+    '{n2} ơi — {n1} không chắc {n2} đã từng để ý, nhưng {n1} thì để ý {n2} từ rất lâu rồi.',
+  ];
   const midCtx=[];
-  if(d.smile)midCtx.push('Điều {n1} thích ở {n2} không phải gì to tát — chỉ là cái cách {n2} cười. Nhẹ thôi, tự nhiên thôi, mà sao {n1} cứ <span class="hi">nhớ mãi</span>.');
-  if(d.school)midCtx.push('Từ hồi còn ở trường, {n1} đã hay để ý {n2} — cứ giả vờ vô tình nhưng thật ra <span class="hi">chẳng bỏ sót gì</span> cả.');
-  if(d.lateNight)midCtx.push('Những đêm khuya hay nhắn tin với nhau, {n1} thường nằm cười một mình vì những chuyện linh tinh của {n2}. Và {n1} biết — <span class="hi">cái cảm giác đó không phải bình thường</span> chút nào.');
-  if(d.work)midCtx.push('Mỗi buổi sáng đến làm, lý do {n1} vui hơn ngày thường... <span class="hi">chắc {n2} cũng đoán được rồi đó</span>.');
-  if(d.care)midCtx.push('{n2} có hay quan tâm đến mọi người xung quanh — và mỗi lần {n1} được {n2} để ý dù chỉ một chút, <span class="hi">{n1} đã vui cả ngày</span>.');
-  if(d.longTime)midCtx.push('Đã lâu rồi {n1} muốn nói điều này. Lâu đến mức {n1} tự hỏi liệu mình có đủ dũng cảm không — và hôm nay, {n1} quyết định: <span class="hi">có</span>.');
-  if(midCtx.length===0)midCtx.push('Có những khoảnh khắc rất nhỏ — {n2} có thể đã quên rồi — nhưng {n1} vẫn nhớ rõ mồn một. Vì với {n1}, <span class="hi">chẳng có khoảnh khắc nào bên {n2} là nhỏ</span> cả.');
-  const mids=['Không phải {n1} tìm kiếm điều gì hoàn hảo. {n1} chỉ biết rằng mỗi khi {n2} xuất hiện, mọi thứ xung quanh <span class="hi">bỗng trở nên dễ chịu hơn</span> một cách kỳ lạ.','Có người ta nhớ vì những kỷ niệm lớn lao. Còn {n1} nhớ {n2} chỉ vì những điều bình thường nhất — những thứ <span class="hi">chính {n2} có lẽ chẳng để ý</span>.'];
-  const confessions=['Vậy nên hôm nay — dù tim có đập không đều đến mấy — {n1} muốn nói thẳng: {n1} <span class="hi">thích {n2}</span>. Thật lòng, chân thành, và không một chút hối hận.','Nếu chỉ được nói một điều, {n1} muốn {n2} biết: có người luôn để ý từng nụ cười của {n2} mà không nói ra — và <span class="hi">người đó là {n1}</span>.','Đây là lần đầu tiên {n1} dũng cảm như vậy. Kết quả ra sao {n1} chưa biết — nhưng {n2} xứng đáng được nghe: <span class="hi">{n1} thích {n2}, rất nhiều</span>.'];
-  const quotes=['"Có một người luôn nghĩ đến {n2} mỗi khi ngày sắp kết thúc — và người đó là {n1}."','"Mỗi lần nhìn thấy {n2}, {n1} lại thấy ngày hôm đó đẹp hơn một chút."','"Tim {n1} đập khác khi {n2} ở gần. Và {n1} nghĩ — đó là câu trả lời rồi."'];
-  const closings=['Luôn nghĩ đến {n2},<br>{n1} 🌸','Mãi trân trọng {n2},<br>{n1} 💌','Của {n2} (nếu {n2} muốn 🥺),<br>{n1}'];
+  if(d.smile){midCtx.push('Điều {n1} thích ở {n2} không phải gì to tát — chỉ là cái cách {n2} cười. Nhẹ thôi, tự nhiên thôi, mà sao {n1} cứ <span class="hi">nhớ mãi</span>.');midCtx.push('Có lần {n2} cười mà không biết có người đứng cạnh đang bị tim đập loạn lên. Người đó là {n1}. <span class="hi">Chưa ổn kể từ đó</span>.');}
+  if(d.school){midCtx.push('Từ hồi còn ở trường, {n1} đã hay để ý {n2} — cứ giả vờ vô tình nhưng thật ra <span class="hi">chẳng bỏ sót gì</span> cả.');midCtx.push('Những buổi học dài nhất với {n1} lại là những buổi {n2} ngồi gần — vì {n1} <span class="hi">tập trung vào nhầm chỗ</span>.');}
+  if(d.lateNight){midCtx.push('Những đêm khuya hay nhắn tin với nhau, {n1} thường nằm cười một mình vì những chuyện linh tinh của {n2}. <span class="hi">Cái cảm giác đó không phải bình thường</span> chút nào.');midCtx.push('Có những đêm {n2} nhắn tin trước, và {n1} cầm điện thoại cười ngớ ngẩn một mình. <span class="hi">{n1} không giải thích được — nhưng biết tại sao rồi</span>.');}
+  if(d.work){midCtx.push('Mỗi buổi sáng đến làm, lý do {n1} vui hơn ngày thường... <span class="hi">chắc {n2} cũng đoán được rồi đó</span>.');midCtx.push('Đồng nghiệp hay hỏi sao {n1} dạo này vui hơn. {n1} chỉ cười không nói — vì câu trả lời là {n2}, và <span class="hi">{n1} chưa dám nói to</span>.');}
+  if(d.care){midCtx.push('{n2} có hay quan tâm đến mọi người xung quanh — và mỗi lần {n1} được {n2} để ý dù chỉ một chút, <span class="hi">{n1} đã vui cả ngày</span>.');midCtx.push('Người ta hay nói đừng thích ai vì họ tốt với mình — nhưng {n2} tốt theo kiểu khiến {n1} <span class="hi">không thể không để ý</span>.');}
+  if(d.longTime){midCtx.push('Đã lâu rồi {n1} muốn nói điều này. Lâu đến mức {n1} tự hỏi liệu có đủ dũng cảm không — và hôm nay, {n1} quyết định: <span class="hi">có</span>.');}
+  if(d.cute)midCtx.push('{n2} dễ thương theo cái kiểu mà {n1} không định nghĩa được — chỉ biết rằng mỗi lần thấy {n2}, {n1} lại thấy <span class="hi">lòng nhẹ hơn một chút</span>.');
+  if(d.online)midCtx.push('Cứ mỗi lần {n2} online, {n1} lại có cái xúc cảm lạ — vừa muốn nhắn tin vừa không biết nói gì. <span class="hi">Đó là dấu hiệu của thứ gì đó rồi</span>.');
+  if(d.shy)midCtx.push('{n1} hay bị mọi người gọi là "lạnh" hay "khó gần". Nhưng với {n2} thì khác — {n1} muốn gần, chỉ là <span class="hi">chưa biết cách</span> thôi.');
+  if(midCtx.length===0){midCtx.push('Có những khoảnh khắc rất nhỏ — {n2} có thể đã quên rồi — nhưng {n1} vẫn nhớ rõ mồn một. Vì với {n1}, <span class="hi">chẳng có khoảnh khắc nào bên {n2} là nhỏ</span> cả.');midCtx.push('{n1} không nhớ chính xác khoảnh khắc nào bắt đầu. Chỉ biết rằng một ngày {n1} nhận ra: <span class="hi">nghĩ đến {n2} nhiều hơn nghĩ đến bản thân</span>.');midCtx.push('Không phải {n1} tìm kiếm lý do để thích {n2}. Nhưng lý do cứ tự nhiên xuất hiện — nhiều đến mức <span class="hi">{n1} không cần tìm nữa</span>.');}
+  const mids=[
+    'Không phải {n1} tìm kiếm điều gì hoàn hảo. {n1} chỉ biết rằng mỗi khi {n2} xuất hiện, mọi thứ xung quanh <span class="hi">bỗng trở nên dễ chịu hơn</span> một cách kỳ lạ.',
+    'Có người ta nhớ vì những kỷ niệm lớn lao. Còn {n1} nhớ {n2} chỉ vì những điều bình thường nhất — những thứ <span class="hi">chính {n2} có lẽ chẳng để ý</span>.',
+    '{n1} từng nghĩ "thích" chỉ là cảm giác nhất thời. Nhưng với {n2} — nó cứ ở đó, <span class="hi">không chịu mờ đi</span> dù {n1} đã thử không để ý.',
+    'Mỗi ngày trôi qua, {n1} không hiểu sao {n2} vẫn là người đầu tiên {n1} muốn kể chuyện cho nghe. <span class="hi">Đó là câu trả lời rồi đó.</span>',
+    'Người ta hay nói "thích thì nói đi". {n1} đã thử hàng chục lần trong đầu. Và đây — <span class="hi">lần này {n1} nói thật</span>.',
+    '{n1} không phải kiểu người hay nói cảm xúc. Nhưng với {n2}, {n1} thấy — <span class="hi">không nói thì {n1} không chịu được nữa rồi</span>.',
+  ];
+  const confessions=[
+    'Vậy nên hôm nay — dù tim có đập không đều đến mấy — {n1} muốn nói thẳng: {n1} <span class="hi">thích {n2}</span>. Thật lòng, chân thành, và không một chút hối hận.',
+    'Nếu chỉ được nói một điều, {n1} muốn {n2} biết: có người luôn để ý từng nụ cười của {n2} mà không nói ra — và <span class="hi">người đó là {n1}</span>.',
+    'Đây là lần đầu tiên {n1} dũng cảm như vậy. Kết quả ra sao {n1} chưa biết — nhưng {n2} xứng đáng được nghe: <span class="hi">{n1} thích {n2}, rất nhiều</span>.',
+    '{n1} không yêu cầu gì cả — chỉ muốn {n2} biết rằng: <span class="hi">{n2} là người {n1} nghĩ đến nhiều nhất</span>. Và điều đó không phải ngẫu nhiên.',
+    'Hôm nay {n1} chọn nói thật: <span class="hi">{n1} thích {n2}</span>. Không vì hoàn hảo — mà vì là {n2}, và thế là đủ rồi.',
+    'Thật ra {n1} chỉ muốn hỏi một câu: <span class="hi">{n2} có muốn {n1} ở gần hơn không?</span> Vì {n1} thì muốn lắm rồi.',
+    'Trước khi {n1} thay đổi ý kiến (lần thứ mười) — {n1} muốn {n2} biết: <span class="hi">{n1} thích {n2} thật sự</span>. Và đây là lần {n1} không rút lui.',
+  ];
+  const quotes=[
+    '"Có một người luôn nghĩ đến {n2} mỗi khi ngày sắp kết thúc — và người đó là {n1}."',
+    '"Mỗi lần nhìn thấy {n2}, {n1} lại thấy ngày hôm đó đẹp hơn một chút."',
+    '"Tim {n1} đập khác khi {n2} ở gần. Và {n1} nghĩ — đó là câu trả lời rồi."',
+    '"Nếu thích một người là sai, thì {n1} không muốn đúng — vì người đó là {n2}."',
+    '"Có những cái tên mà chỉ cần nhìn thấy là tim đã vui trước. Với {n1}, tên đó là {n2}."',
+    '"Không phải {n1} không có lý trí. Chỉ là lý trí cũng đồng ý: {n2} xứng đáng được thích."',
+    '"Người ta hay nói đừng hy vọng. Nhưng với {n2}, {n1} không thể không hy vọng."',
+    '"Mỗi tin nhắn từ {n2} đều làm {n1} cười trước khi đọc. Đó không phải chuyện bình thường đâu."',
+  ];
+  const closings=[
+    'Luôn nghĩ đến {n2},<br>{n1} 🌸',
+    'Mãi trân trọng {n2},<br>{n1} 💌',
+    'Của {n2} (nếu {n2} muốn 🥺),<br>{n1}',
+    'Người hay nghĩ đến {n2} mà không nói,<br>{n1} 💕',
+    'Hồi hộp nhưng không hối hận,<br>{n1} ✨',
+    'Dũng cảm lần đầu trong đời,<br>{n1} 🌹',
+    'Mãi thuộc về {n2} (nếu {n2} cho phép),<br>{n1} 💗',
+  ];
   return{greeting:`Gửi ${n2} thân mến,`,p1:sub(pick(openings),n1,n2),p2:sub(pick(midCtx),n1,n2),p3:sub(pick(mids),n1,n2),conf:sub(pick(confessions),n1,n2),quote:sub(pick(quotes),n1,n2),sign:sub(pick(closings),n1,n2)};
 }
 
 function buildChat(n1,n2,ideas){
   const d=detect(ideas);
-  const msgs=[{out:true,txt:`${n2} ơi... 👀`,delay:0},{out:true,txt:`Mình có điều muốn nói mà không biết bắt đầu từ đâu 😅`,delay:700},{out:false,txt:`Ừ? Sao vậy ${n1}?`,delay:1400}];
-  if(d.school)msgs.push({out:true,txt:`Từ hồi ở trường, mình đã để ý ${n2} lâu rồi — cứ giả vờ không có gì... 🫣`,delay:2100});
-  else if(d.lateNight)msgs.push({out:true,txt:`Những đêm khuya hay nhắn tin với nhau ý... mình cứ nằm cười một mình xong không ngủ được 😭`,delay:2100});
-  else if(d.work)msgs.push({out:true,txt:`Mỗi ngày đi làm mình đều có lý do để vui hơn — và lý do đó là ${n2} đó 🙈`,delay:2100});
-  else msgs.push({out:true,txt:`Đã lâu rồi mình cứ nghĩ mãi mà không dám nói thẳng... 🫠`,delay:2100});
-  if(d.smile)msgs.push({out:true,txt:`Cái cách ${n2} hay cười ấy... mình không thoát ra được đâu 😭💕`,delay:2900});
-  msgs.push({out:false,txt:`Ủa... ${n1} muốn nói gì vậy 👀`,delay:3600},{out:true,txt:`Mình... thích ${n2} á.`,delay:4400},{out:true,txt:`Thật lòng đó không phải đùa nha 💖`,delay:5000},{out:true,txt:`Đọc xong nhắn lại cho mình biết với... đang hồi hộp lắm 🥺👉👈`,delay:5700});
+  const openers=[
+    [{out:true,txt:`${n2} ơi... 👀`,delay:0},{out:true,txt:`Mình có điều muốn nói mà không biết bắt đầu từ đâu 😅`,delay:700},{out:false,txt:`Ừ? Sao vậy ${n1}?`,delay:1400}],
+    [{out:true,txt:`Nè ${n2}...`,delay:0},{out:true,txt:`Mình hỏi thật nha, ${n2} đừng cười 🫣`,delay:600},{out:false,txt:`Haha gì vậy, nói đi?`,delay:1300}],
+    [{out:true,txt:`${n2} đang rảnh không?`,delay:0},{out:false,txt:`Ừ sao vậy?`,delay:700},{out:true,txt:`Mình có cái này muốn nói từ lâu rồi... 🥺`,delay:1400}],
+    [{out:true,txt:`Xin lỗi nếu cái này làm ${n2} awkward nha`,delay:0},{out:true,txt:`Nhưng mình quyết định nói thật rồi 😤`,delay:800},{out:false,txt:`Ủa gì vậy trời`,delay:1500}],
+    [{out:true,txt:`Okay ${n2} mình cần nói cái này`,delay:0},{out:true,txt:`Đã giữ trong lòng lâu lắm rồi 😭`,delay:800},{out:false,txt:`Gì vậy? Nghe có vẻ serious quá`,delay:1500}],
+  ];
+  const msgs=[...pick(openers)];
+  const base=msgs.length*700;
+  if(d.school)msgs.push({out:true,txt:`Từ hồi ở trường, mình đã để ý ${n2} lâu rồi — cứ giả vờ không có gì... 🫣`,delay:base+200});
+  else if(d.lateNight)msgs.push({out:true,txt:`Những đêm khuya hay nhắn tin với nhau ý... mình cứ nằm cười một mình xong không ngủ được 😭`,delay:base+200});
+  else if(d.work)msgs.push({out:true,txt:`Mỗi ngày đi làm mình đều có lý do để vui hơn — và lý do đó là ${n2} đó 🙈`,delay:base+200});
+  else if(d.online)msgs.push({out:true,txt:`Mỗi lần thấy ${n2} online là mình cũng hơi... run run một chút á 🫠`,delay:base+200});
+  else msgs.push({out:true,txt:`Đã lâu rồi mình cứ nghĩ mãi mà không dám nói thẳng... 🫠`,delay:base+200});
+  if(d.smile)msgs.push({out:true,txt:`Cái cách ${n2} hay cười ấy... mình không thoát ra được đâu 😭💕`,delay:msgs.length*700+100});
+  else if(d.cute)msgs.push({out:true,txt:`${n2} dễ thương thật — không phải mình nói xã giao đâu nha 🫣`,delay:msgs.length*700+100});
+  else if(d.care)msgs.push({out:true,txt:`${n2} hay quan tâm người khác lắm — và mỗi lần ${n2} hỏi thăm mình... mình vui cả ngày á 🥺`,delay:msgs.length*700+100});
+  const midReplies=[
+    {out:false,txt:`Ủa... ${n1} muốn nói gì vậy 👀`,delay:msgs.length*700+300},
+    {out:false,txt:`Hả? Mình... không hiểu ý ${n1} 👀`,delay:msgs.length*700+300},
+    {out:false,txt:`${n1}... đang nói thật không đây 😳`,delay:msgs.length*700+300},
+    {out:false,txt:`Ừ... rồi sao? 🤔`,delay:msgs.length*700+300},
+  ];
+  msgs.push(pick(midReplies));
+  const confSets=[
+    [{out:true,txt:`Mình... thích ${n2} á.`,delay:msgs.length*700+400},{out:true,txt:`Thật lòng đó không phải đùa nha 💖`,delay:msgs.length*700+1000},{out:true,txt:`Đọc xong nhắn lại cho mình biết với... đang hồi hộp lắm 🥺👉👈`,delay:msgs.length*700+1700}],
+    [{out:true,txt:`Mình thích ${n2} 😤`,delay:msgs.length*700+400},{out:true,txt:`Đó. Nói rồi. Không thu hồi nữa đâu.`,delay:msgs.length*700+1000},{out:true,txt:`${n2} muốn nói gì thì nói nha... mình chịu được (chắc vậy) 🥺`,delay:msgs.length*700+1700}],
+    [{out:true,txt:`Tóm lại là... mình thích ${n2}. Từ lâu rồi. 💕`,delay:msgs.length*700+400},{out:true,txt:`Mình biết có thể hơi đột ngột`,delay:msgs.length*700+1000},{out:true,txt:`Nhưng mình nghĩ ${n2} nên biết điều này 🌸`,delay:msgs.length*700+1700}],
+    [{out:true,txt:`Okay thật ra... mình thích ${n2} á 🥹`,delay:msgs.length*700+400},{out:true,txt:`Không phải kiểu "thích bạn bình thường"`,delay:msgs.length*700+1000},{out:true,txt:`Mà kiểu hay nghĩ đến ${n2} rồi cười một mình đó 😭💗`,delay:msgs.length*700+1700}],
+    [{out:true,txt:`${n2} ơi mình... thích ${n2} nha`,delay:msgs.length*700+400},{out:true,txt:`Đã kìm lại bao lâu rồi mà không được 😮‍💨`,delay:msgs.length*700+1000},{out:true,txt:`Dù ${n2} trả lời thế nào mình cũng không hối hận đâu 💓`,delay:msgs.length*700+1700}],
+  ];
+  msgs.push(...pick(confSets));
   return msgs;
 }
 
 function buildPoem(n1,n2,ideas){
   const d=detect(ideas);
-  const s1s=[[`Có một người tên là ${n2}`,`Làm ${n1} không ngủ được bao đêm nay`,`Chẳng biết ${n2} có hay biết chăng`,`Rằng ${n1} đang nhớ mỗi ngày không thôi`],[`${n1} không biết từ khi nào nữa`,`Mà cái tên ${n2} cứ vang mãi bên tai`,`Không hẳn vì điều gì to lớn`,`Chỉ vì ${n2} — thế thôi đã đủ rồi`]];
-  const stanzas=[pick(s1s)];
-  if(d.smile)stanzas.push([`Cái cách ${n2} hay cười mỗi ngày`,`Làm ${n1} không dứt ra được đâu`,`Nụ cười ấy vô tình hay cố`,`Mà sao ${n1} nhớ mãi đến giờ`]);
-  else if(d.lateNight)stanzas.push([`Đêm khuya hai đứa hay nhắn tin`,`${n1} nằm cười một mình rất lâu`,`Không phải vì câu chuyện gì đặc biệt`,`Chỉ vì người kể chuyện là ${n2}`]);
-  else if(d.school)stanzas.push([`Hồi còn gặp nhau nơi giảng đường`,`${n1} hay nhìn ${n2} rồi giả vờ thôi`,`Cứ nói "chỉ bạn bình thường thôi mà"`,`Mà tim thì đập khác — biết rồi`]);
-  else stanzas.push([`Không cần kỷ niệm gì lớn lao`,`Chỉ những khoảnh khắc nhỏ thường thôi`,`Bên ${n2} — dù chỉ một chút xíu`,`${n1} đã thấy ngày đẹp hơn rồi`]);
-  stanzas.push([`${n1} đã thử quên — không được đâu`,`Càng cố quên lại nhớ thêm thôi`,`Thôi thì hôm nay nói thẳng nhé`,`${n1} thích ${n2} — lời này thật rồi`]);
-  stanzas.push([`Không cần ${n2} đáp lại được gì`,`Chỉ muốn ${n2} biết có điều này`,`Rằng trong tim ${n1} có một chỗ`,`Đã dành riêng cho ${n2} từ lâu nay`]);
+  const s1Pool=[
+    [`Có một người tên là ${n2}`,`Làm ${n1} không ngủ được bao đêm nay`,`Chẳng biết ${n2} có hay biết chăng`,`Rằng ${n1} đang nhớ mỗi ngày không thôi`],
+    [`${n1} không biết từ khi nào nữa`,`Mà cái tên ${n2} cứ vang mãi bên tai`,`Không hẳn vì điều gì to lớn`,`Chỉ vì ${n2} — thế thôi đã đủ rồi`],
+    [`Cứ tưởng rằng sẽ quen được thôi`,`Mà ${n1} càng cố — lại càng nhớ thêm`,`Tên ${n2} chẳng hiểu sao cứ mãi`,`Quanh quẩn không chịu rời trong tim`],
+    [`Có điều ${n1} chưa nói bao giờ`,`Giữ trong lòng sợ nói mà hư`,`Nhưng hôm nay — thôi mặc kệ đi`,`${n2} ơi, ${n1} thích ${n2} — thật sự`],
+    [`${n1} hay nhìn ${n2} từ xa thôi`,`Chẳng dám lại gần chỉ đứng coi`,`Mỗi lần ${n2} cười là tim loạn`,`Biết là vô lý vẫn cứ trôi`],
+    [`Mỗi sáng thức dậy ${n1} nghĩ gì`,`Nghĩ đến ${n2} trước — thật tình thế`,`Không hiểu từ lúc nào thành thói`,`Mà thói này — ${n1} không muốn bỏ đi`],
+  ];
+  const midPool=[
+    d.smile?[`Cái cách ${n2} hay cười mỗi ngày`,`Làm ${n1} không dứt ra được đâu`,`Nụ cười ấy vô tình hay cố`,`Mà sao ${n1} nhớ mãi đến giờ`]:null,
+    d.lateNight?[`Đêm khuya hai đứa hay nhắn tin`,`${n1} nằm cười một mình rất lâu`,`Không phải vì câu chuyện gì đặc biệt`,`Chỉ vì người kể chuyện là ${n2}`]:null,
+    d.school?[`Hồi còn gặp nhau nơi giảng đường`,`${n1} hay nhìn ${n2} rồi giả vờ thôi`,`Cứ nói "chỉ bạn bình thường thôi mà"`,`Mà tim thì đập khác — biết rồi`]:null,
+    d.care?[`${n2} hay quan tâm người xung quanh`,`Mỗi lần để ý ${n1} — tim ${n1} rung`,`Không to lớn gì — chỉ một câu hỏi`,`Mà ${n1} vui mấy ngày không ngừng`]:null,
+    [`Không cần kỷ niệm gì lớn lao`,`Chỉ những khoảnh khắc nhỏ thường thôi`,`Bên ${n2} — dù chỉ một chút xíu`,`${n1} đã thấy ngày đẹp hơn rồi`],
+    [`Người ta nói đừng thích đơn phương`,`${n1} biết lý lẽ đó không sai`,`Nhưng tim đâu có nghe lý trí`,`Cứ hướng về ${n2} — hoài như vậy`],
+  ].filter(Boolean);
+  const s3Pool=[
+    [`${n1} đã thử quên — không được đâu`,`Càng cố quên lại nhớ thêm thôi`,`Thôi thì hôm nay nói thẳng nhé`,`${n1} thích ${n2} — lời này thật rồi`],
+    [`Thôi thì ${n1} nói luôn cho rồi`,`Dù tim đang đập loạn cả rồi`,`${n2} ơi — ${n1} thích ${n2} lắm`,`Câu này ${n1} không thể giả lời`],
+    [`Nếu ${n2} đọc đến đây rồi đó`,`Thì ${n2} đã biết điều ${n1} muốn nói`,`${n1} thích ${n2} — không đùa chút nào`,`Chỉ xin ${n2} — đừng cười thôi`],
+    [`Đã dấu lâu, thôi nói luôn đi`,`Dù biết có thể ${n2} ngạc nhiên`,`${n1} thích ${n2} — từ rất lâu`,`Và hôm nay dám nói — không phiền`],
+  ];
+  const s4Pool=[
+    [`Không cần ${n2} đáp lại được gì`,`Chỉ muốn ${n2} biết có điều này`,`Rằng trong tim ${n1} có một chỗ`,`Đã dành riêng cho ${n2} từ lâu nay`],
+    [`Dù ${n2} trả lời thế nào đi nữa`,`${n1} vẫn vui vì đã dám nói`,`Vì được thích ${n2} — dù một chiều`,`Cũng là điều ${n1} không hối với`],
+    [`Thế thôi — ${n1} chỉ muốn ${n2} biết`,`Rằng có người đang nghĩ đến ${n2}`,`Và người đó — nếu ${n2} chưa đoán`,`Chính là ${n1} — người viết thơ này`],
+    [`Câu thơ cuối ${n1} dành cho ${n2}`,`Như điều chưa nói đã cất lâu`,`Rằng ${n2} — trong mắt ${n1} — đẹp lắm`,`Và tim ${n1} — cũng thuộc về ${n2}`],
+  ];
+  const stanzas=[pick(s1Pool),pick(midPool),pick(s3Pool),pick(s4Pool)];
   return{title:`Cho ${n2}`,stanzas};
 }
 
 function buildMovie(n1,n2,ideas){
   const d=detect(ideas);
   const now=new Date();
-  const setting=d.school?`Trường học — Sân trường`:d.work?`Văn phòng — Cuối giờ chiều`:d.lateNight?`Ngoài ban công — 2:00 sáng`:`Một buổi chiều thường ngày`;
-  const ctx=d.smile?`Khoảnh khắc ${n2} cười — ${n1} dừng lại. Không phải vì bất ngờ. Mà vì ${n1} nhận ra đây là lần thứ hàng trăm mình nhìn nụ cười đó... và vẫn chưa quen được.`:d.lateNight?`Màn hình sáng trong đêm. ${n1} nhìn lại cuộc trò chuyện khuya qua — toàn chuyện linh tinh — mà sao lại nhớ từng chữ.`:`${n1} ngồi nhìn ${n2} từ xa. Lần này khác. Không phải vì ${n2} làm gì đặc biệt — mà vì ${n1} cuối cùng đã thừa nhận với chính mình.`;
-  const dials=d.shy?[`${n1}: (giọng hơi run) Này... ${n2} ơi. Mình có điều muốn nói, hứa đừng cười nha.`,`${n2}: (quay sang) Gì vậy? Trông có vẻ nghiêm trọng quá.`,`${n1}: Ừ thì... (hít thở sâu) Mình thích ${n2}. Từ lâu rồi. Và hôm nay mình quyết định nói thật.`]:[`${n1}: ${n2} — mình muốn nói thẳng một điều.`,`${n2}: (nhìn lên, bất ngờ) Chuyện gì vậy?`,`${n1}: Mình thích ${n2}. Không phải "thích bạn bình thường". Mà là thích theo kiểu không muốn ai khác để ý ${n2} hơn mình.`];
-  return{setting,time:`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`,ctx,dials};
+  const settingPool=[
+    d.school?`Trường học — Sân trường cuối giờ`:d.work?`Văn phòng — Sau giờ làm`:d.lateNight?`Ngoài ban công — ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')} đêm`:`Một buổi chiều thường ngày`,
+    d.school?`Hành lang lớp học — Tiết ra chơi`:d.work?`Bãi giữ xe — Tan ca`:d.lateNight?`Phòng riêng — Đêm khuya`:`Quán cà phê — Chiều muộn`,
+    d.school?`Thư viện — Giờ tự học`:d.work?`Pantry tầng 4 — Giờ uống cà phê`:`Công viên — Hoàng hôn`,
+  ];
+  const ctxPool=[
+    d.smile?`Khoảnh khắc ${n2} cười — ${n1} dừng lại. Không phải vì bất ngờ. Mà vì ${n1} nhận ra đây là lần thứ hàng trăm mình nhìn nụ cười đó... và vẫn chưa quen được.`:d.lateNight?`Màn hình sáng trong đêm. ${n1} nhìn lại cuộc trò chuyện khuya qua — toàn chuyện linh tinh — mà sao lại nhớ từng chữ.`:`${n1} ngồi nhìn ${n2} từ xa. Lần này khác. Không phải vì ${n2} làm gì đặc biệt — mà vì ${n1} cuối cùng đã thừa nhận với chính mình.`,
+    `${n1} đã chuẩn bị cho khoảnh khắc này cả tuần. Script trong đầu. Câu mở đầu. Cách đứng. Nhưng giờ nhìn thấy ${n2} — mọi thứ bay hết. Chỉ còn tim đập thôi.`,
+    `Khoảnh khắc bình thường nhất — ${n2} đang làm việc gì đó, không để ý ${n1} đang nhìn. Và ${n1} nghĩ: đây rồi. Hôm nay phải nói.`,
+    `${n1} đã nói câu này trong đầu ít nhất 50 lần. Lần này là thật. Không phải trong gương. Không phải lúc tắm. Là thật — trước mặt ${n2}.`,
+  ];
+  const dialSets=[
+    d.shy?[`${n1}: (giọng hơi run) Này... ${n2} ơi. Mình có điều muốn nói, hứa đừng cười nha.`,`${n2}: (quay sang) Gì vậy? Trông có vẻ nghiêm trọng quá.`,`${n1}: Ừ thì... (hít thở sâu) Mình thích ${n2}. Từ lâu rồi. Và hôm nay mình quyết định nói thật.`]:[`${n1}: ${n2} — mình muốn nói thẳng một điều.`,`${n2}: (nhìn lên, bất ngờ) Chuyện gì vậy?`,`${n1}: Mình thích ${n2}. Không phải "thích bạn bình thường". Mà là thích theo kiểu không muốn ai khác để ý ${n2} hơn mình.`],
+    [`${n1}: (nhìn thẳng) ${n2} ơi, mình nói cái này ${n2} đừng ngạc nhiên nha.`,`${n2}: Ủa? Gì vậy ${n1}?`,`${n1}: Mình thích ${n2}. Đã lâu rồi. Hôm nay mình chỉ muốn ${n2} biết — dù kết quả thế nào mình cũng không hối hận.`],
+    [`${n2}: Sao ngồi im vậy ${n1}?`,`${n1}: (ngập ngừng) Không... Mình đang nghĩ cách nói một điều.`,`${n2}: Điều gì?`,`${n1}: Mình thích ${n2}. (dừng lại) Đó. Nói rồi. Mình thích ${n2} từ lâu rồi.`],
+    [`${n1}: ${n2} ơi... có rảnh một chút không?`,`${n2}: Ừ, sao vậy?`,`${n1}: (hít thở) Mình thích ${n2}. Thiệt lòng. Không đùa. Và mình biết có thể hơi bất ngờ — nhưng mình không muốn giữ lại nữa.`],
+    [`${n1}: (nhỏ giọng) Mình muốn nói cái gì đó... ${n2} có nghe không?`,`${n2}: Nghe chứ. Gì vậy?`,`${n1}: Mình thích ${n2}. Từ trước tới giờ. Và hôm nay mình quyết định nói — vì nếu không nói hôm nay thì mình sẽ tiếc mãi.`],
+  ];
+  return{setting:pick(settingPool),time:`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`,ctx:pick(ctxPool),dials:pick(dialSets)};
 }
 
 function buildFunny(n1,n2,ideas){
   const d=detect(ideas);
-  const warning=pick([`Cảnh báo: Đây là một lời tỏ tình NGHIÊM TÚC được viết bởi người không hề chuyên nghiệp trong việc tỏ tình. Có thể gây tim đập nhanh, mỉm cười vô lý, hoặc cả hai.`,`THÔNG BÁO: ${n1} đã chiến đấu với bản thân suốt một thời gian để không nói ra điều này. Và hôm nay... ${n1} thua rồi.`]);
+  const warnings=[
+    `Cảnh báo: Đây là một lời tỏ tình NGHIÊM TÚC được viết bởi người không hề chuyên nghiệp trong việc tỏ tình. Có thể gây tim đập nhanh, mỉm cười vô lý, hoặc cả hai.`,
+    `THÔNG BÁO: ${n1} đã chiến đấu với bản thân suốt một thời gian để không nói ra điều này. Và hôm nay... ${n1} thua rồi.`,
+    `LƯU Ý QUAN TRỌNG: Bức thư này được viết sau nhiều lần hủy và viết lại. Phiên bản bạn đang đọc là phiên bản "thôi kệ gửi luôn" lúc ${new Date().getHours()} giờ.`,
+    `DISCLAIMER: ${n1} không chịu trách nhiệm nếu ${n2} cảm thấy awkward. ${n1} cũng awkward lắm. Chúng ta awkward cùng nhau nhé.`,
+    `THÔNG CÁO KHẨN: ${n1} đã thử "quên đi" ít nhất 12 lần. Không thành công. Đây là phương án cuối cùng: nói thẳng.`,
+  ];
   const bodies=[];
-  bodies.push(`${n1} đã lên kế hoạch tỏ tình theo kiểu: bình tĩnh, sang trọng, đầy nghệ thuật. Kết quả: ${n1} đang viết cái này lúc ${new Date().getHours()} giờ, tim đang đập khoảng 200 lần/phút.`);
+  bodies.push(pick([
+    `${n1} đã lên kế hoạch tỏ tình theo kiểu: bình tĩnh, sang trọng, đầy nghệ thuật. Kết quả: ${n1} đang viết cái này lúc ${new Date().getHours()} giờ, tim đang đập khoảng 200 lần/phút.`,
+    `${n1} đã google "cách tỏ tình" 47 lần. Mỗi lần đọc xong lại nghĩ "thôi mai làm". Hôm nay là ngày thứ... ${n1} không đếm nữa.`,
+    `Bản năng sinh tồn của ${n1} đang nhắc: "Đừng! Nguy hiểm! Có thể bị từ chối!" Nhưng trái tim thì đang hét: "KỆ ĐI. GỬI. LUÔN. ĐI."`,
+    `${n1} đã nhờ bạn thân tư vấn. Bạn thân nói: "Rõ ràng mà, nói đi". ${n1} đã hỏi anh/chị họ. Họ nói: "Nói thẳng đi cho rồi". Okay. Được rồi. Đây.`,
+  ]));
   if(d.smile)bodies.push(`${n2} hay cười vô duyên lắm — và ${n1} biết điều đó vì ${n1} đã... uhm... để ý. Không, bình thường thôi. Ai cũng thế mà.`);
   if(d.lateNight)bodies.push(`Những đêm khuya nhắn tin với nhau, ${n1} hay cười một mình rồi tự nhủ "thôi ngủ đi". Xong lại nhắn thêm. Xong lại cười. Vòng lặp này cứ diễn ra đến 2 giờ sáng.`);
-  bodies.push(`Sau nhiều cân nhắc nghiêm túc và không nghiêm túc, ${n1} đưa ra kết luận khoa học: ${n1} thích ${n2} rồi.`);
-  const confession=`Okay nói thẳng nhé ${n2}: ${n1} THÍCH ${n2}. Không phải "haha thích bạn ý mà". Mà là thích kiểu ngồi nghĩ đến ${n2} xong cười một mình kiểu đó. 💖`;
-  return{warning,bodies,confession};
+  if(d.school)bodies.push(`Hồi còn ở trường, ${n1} đã nghiên cứu lịch học của ${n2} để biết được gặp lúc nào. Không phải stalk. Chỉ là... nghiên cứu thôi.`);
+  if(d.cute)bodies.push(`${n2} dễ thương theo kiểu rất bất công — không cho người ta không để ý được. ${n1} đã thử. Thất bại hoàn toàn.`);
+  if(d.care)bodies.push(`${n2} hay hỏi thăm người khác và ${n1} thì... đứng cạnh đó giả vờ nghe nhạc nhưng thực ra đang nghe giọng ${n2}. Rất bình thường. Hoàn toàn bình thường.`);
+  if(d.online)bodies.push(`Mỗi lần ${n2} online là ${n1} mở điện thoại lên nhìn rồi... đóng lại. Rồi mở lại. Rồi lại đóng. ${n1} đã làm điều này khoảng 300 lần.`);
+  bodies.push(pick([
+    `Sau nhiều cân nhắc nghiêm túc và không nghiêm túc, ${n1} đưa ra kết luận khoa học: ${n1} thích ${n2} rồi.`,
+    `Triệu chứng: nhắn tin thì cười một mình, thấy tên thì tim hơi rung, kể chuyện lúc nào cũng kèm theo tên ${n2}. Chẩn đoán: thích người ta rồi.`,
+    `${n1} đã tự nhủ "không nói đâu" khoảng 20 lần hôm nay. Cái này là lần thứ 21 — nhưng lần này ${n1} nói thật.`,
+    `Nói thẳng cho lẹ: ${n1} đã ngủ không ngon, ăn không đúng bữa, và nhắn tin xong tự cười một mình. Mọi thứ đều do ${n2} gây ra.`,
+  ]));
+  const confessions=[
+    `Okay nói thẳng nhé ${n2}: ${n1} THÍCH ${n2}. Không phải "haha thích bạn ý mà". Mà là thích kiểu ngồi nghĩ đến ${n2} xong cười một mình kiểu đó. 💖`,
+    `Tóm tắt: ${n1} thích ${n2}. Đây là sự thật. Không phải đùa. Không phải bị hack. Là ${n1} đang nói thật 100%. Xin ${n2} đọc kỹ và trả lời cẩn thận nhé 🙏`,
+    `Kết luận cuối cùng sau thời gian dài nghiên cứu: ${n1} thích ${n2}. Rất thích. Kiểu vừa nghĩ đến đã cười ngớ ngẩn rồi. Đó là tình trạng hiện tại của ${n1}.`,
+    `Vậy là: ${n1} thích ${n2}. Đây là kết quả sau hàng tháng đấu tranh nội tâm. Phiên tòa đã xử. Bản án đã tuyên. ${n1} thích ${n2}. Không kháng án.`,
+    `Nói ngắn gọn: ${n1} thích ${n2}. Nói dài hơn: ${n1} thích ${n2} từ lâu rồi, hay nghĩ đến ${n2}, hay cười một mình vì ${n2}, và hôm nay thì nói thẳng luôn. Đó. Xong.`,
+  ];
+  return{warning:pick(warnings),bodies,confession:pick(confessions)};
 }
 
 function buildMidnight(n1,n2,ideas){
@@ -1162,13 +1350,40 @@ function buildMidnight(n1,n2,ideas){
   const now=new Date();
   const t=`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
   const ps=[];
-  ps.push(`${t} rồi. ${n1} đang nằm nhìn trần nhà và cứ nghĩ đến ${n2} mãi không thôi.`);
+  ps.push(pick([
+    `${t} rồi. ${n1} đang nằm nhìn trần nhà và cứ nghĩ đến ${n2} mãi không thôi.`,
+    `Đêm nay ${n1} định ngủ sớm. Rồi nghĩ đến ${n2}. Và đây — ${t} rồi mà vẫn còn thức.`,
+    `${t}. Mọi người ngủ hết. Chỉ còn ${n1} — và những suy nghĩ về ${n2} không chịu yên.`,
+    `Lại một đêm nữa ${n1} không ngủ được. Và lý do — vẫn là cái tên đó: ${n2}.`,
+    `${n1} tắt đèn, nằm xuống, nhắm mắt. Rồi tự nhiên nghĩ đến ${n2}. Đèn bật lại. Điện thoại cầm lên. ${t} rồi.`,
+  ]));
   if(d.lateNight)ps.push(`Những đêm như thế này, ${n1} hay nhắn tin linh tinh với ${n2} — không phải vì có chuyện gì. Chỉ vì... muốn nghe ${n2} trả lời. Chỉ vậy thôi mà ${n1} đã thấy đêm đó <span class="glow">khác rồi</span>.`);
   else if(d.school)ps.push(`Hồi ở trường, ${n1} hay chọn chỗ ngồi nhìn được về phía ${n2}. Không phải tình cờ — à không, <span class="glow">là cố ý</span>. Nhưng ai hỏi thì ${n1} cũng nói "tình cờ" thôi.`);
-  else ps.push(`${n1} không biết từ khi nào. Chỉ biết rằng có một ngày, ${n1} nhận ra — <span class="glow">${n2} không phải ai đó bình thường</span> với ${n1} nữa rồi.`);
-  if(d.smile||d.cute)ps.push(`Cái cách ${n2} hay ${d.smile?'cười':'đáng yêu'} ấy... ${n1} không giải thích được tại sao nó làm ${n1} thấy <span class="glow">an tâm đến vậy</span>.`);
-  ps.push(`Và hôm nay — giữa đêm khuya này — ${n1} muốn nói thật: ${n1} thích ${n2}. Không phải kiểu bạn bè. Mà là kiểu <span class="glow">${n1} muốn ${n2} bình an, vui, và được ở gần hơn một chút</span>.`);
-  return{time:t,ps,confession:`"Có những điều chỉ dám nói lúc nửa đêm. Và điều đó là: ${n1} thích ${n2}."`,sign:`${n1} — ${t} 🌙`};
+  else if(d.smile)ps.push(`${n1} đang nhớ cái cách ${n2} hay cười lúc không biết có người nhìn. Kiểu cười tự nhiên nhất — và <span class="glow">cũng là lý do ${n1} không ngủ được đêm nay</span>.`);
+  else if(d.care)ps.push(`${n2} hay hỏi thăm người khác một cách rất chân thành. Và mỗi lần ${n2} hỏi ${n1}, dù chỉ một câu — <span class="glow">${n1} nhớ mãi đến tận bây giờ</span>.`);
+  else if(d.cute)ps.push(`${n2} có kiểu dễ thương không cần cố — và đêm nay ${n1} đang nghĩ đến điều đó, lúc ${t}, một mình trong phòng tối. <span class="glow">Thật sự không ổn tí nào.</span>`);
+  else ps.push(`${n1} không nhớ từ khi nào ${n2} trở thành người ${n1} nghĩ đến nhiều nhất. Chỉ biết là — <span class="glow">hôm nay cũng vậy, và ${n1} không muốn thay đổi điều đó</span>.`);
+  ps.push(pick([
+    `Đêm khuya hay làm người ta thật thà hơn. Và lúc này — ${n1} thật lòng muốn nói: <span class="glow">${n1} thích ${n2}</span>.`,
+    `${n1} biết có thể đọc tin nhắn này ${n2} sẽ ngạc nhiên. Nhưng ${n1} đã giữ điều này quá lâu rồi — và đêm nay ${n1} chọn <span class="glow">nói thật</span>.`,
+    `Thôi thì ${n1} nói luôn — vì đêm khuya không nên mang theo những điều chưa nói: <span class="glow">${n1} thích ${n2} từ lâu rồi</span>.`,
+    `Cứ mỗi đêm ${n1} lại tự nhủ "ngủ đi, mai tính". Nhưng mai rồi lại thành đêm khác. Hôm nay ${n1} quyết định không "ngủ đi" nữa: <span class="glow">${n1} thích ${n2}</span>.`,
+  ]));
+  const confs=[
+    `Không cần ${n2} trả lời ngay. Chỉ cần ${n2} biết — rằng có người đêm nay đang thức vì nghĩ đến ${n2}. Và người đó là ${n1}.`,
+    `${n1} không chắc đây là quyết định khôn ngoan. Nhưng ${n1} biết nếu không nói — sáng mai sẽ lại giả vờ như không có gì. Và ${n1} không muốn thế nữa.`,
+    `Giờ này mà nhắn tin thế này — ${n1} biết là hơi liều. Nhưng với ${n2}, ${n1} muốn liều một lần.`,
+    `${n2} không cần làm gì cả — chỉ cần biết: đêm nay có người mất ngủ vì nghĩ đến ${n2}. Người đó là ${n1}. Và ${n1} không hối hận điều đó chút nào.`,
+    `Đây là tin nhắn ${n1} gửi lúc ${t} — không phải vì bốc đồng, mà vì ${n1} đã nghĩ đến điều này mỗi đêm đủ lâu rồi. ${n1} thích ${n2}.`,
+  ];
+  const signs=[
+    `${n1} — người đang thức vì ${n2} 🌙`,
+    `${n1} — ${t}, không ngủ được 💫`,
+    `Người nhớ ${n2} lúc ${t},\n${n1} 🌙`,
+    `${n1} — mất ngủ vì ${n2} từ lâu rồi 🌙`,
+    `Gửi lúc ${t} — vì không thể đợi thêm nữa,\n${n1} ✨`,
+  ];
+  return{time:t,ps,confession:pick(confs),sign:pick(signs)};
 }
 
 function buildGalaxy(n1,n2,ideas){
@@ -1399,6 +1614,192 @@ function renderOutput(style,n1,n2,ideas,yt){
     </div>`;
     const ob=document.getElementById('oceanBub');
     for(let i=0;i<20;i++){const b=document.createElement('div');b.className='o-bub';const s=4+Math.random()*12;b.style.cssText=`left:${Math.random()*100}%;--s:${s}px;--d:${5+Math.random()*8}s;--del:${Math.random()*10}s;--dx:${-20+Math.random()*40}px`;ob.appendChild(b);}
+  } else if(style==='polaroid'){
+    const data=buildPolaroid(n1,n2,ideas);
+    el.innerHTML=`<div class="out-polaroid"><div class="polaroid-card">
+      <div class="polaroid-img">${data.emoji}</div>
+      <div class="polaroid-caption">${data.caption}</div>
+      <div class="polaroid-date">#${data.tag} · ${data.date}</div>
+    </div></div>`;
+
+  } else if(style==='postcard'){
+    const data=buildPostcard(n1,n2,ideas);
+    el.innerHTML=`<div class="out-postcard"><div class="postcard-card">
+      <div class="postcard-top">${data.emoji}</div>
+      <div class="postcard-body">
+        <div class="postcard-left">${data.msg.replace(/\n/g,'<br>')}</div>
+        <div class="postcard-divider"></div>
+        <div class="postcard-right">
+          <div class="postcard-stamp">💌</div>
+          <div class="postcard-addr">${n2}<br>${data.city}</div>
+          <div class="postcard-from">Từ: ${n1} 🌸</div>
+        </div>
+      </div>
+    </div></div>`;
+
+  } else if(style==='rain'){
+    const data=buildRain(n1,n2,ideas);
+    el.innerHTML=`<div class="out-rain">
+      <div class="rain-drops" id="rainDrops"></div>
+      <div class="rain-card">
+        <div class="rain-cup">☕</div>
+        <div class="rain-time">✦ ${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2,'0')} · Ngày mưa ✦</div>
+        <div class="rain-body">${data.ps.map(p=>`<p>${p}</p>`).join('')}</div>
+        <div class="rain-conf"><p>${data.confession}</p></div>
+        <div class="rain-sign">${data.sign}</div>
+      </div>
+    </div>`;
+    const rd=document.getElementById('rainDrops');
+    for(let i=0;i<60;i++){const d=document.createElement('div');d.className='rain-drop';d.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${.5+Math.random()*.8}s;--del:${Math.random()*2}s`;rd.appendChild(d);}
+
+  } else if(style==='recipe'){
+    const data=buildRecipe(n1,n2,ideas);
+    el.innerHTML=`<div class="out-recipe"><div class="recipe-card">
+      <div class="recipe-title">Công Thức Tình Yêu</div>
+      <div class="recipe-sub">Bởi ${n1} · Dành cho ${n2}</div>
+      <div class="recipe-section"><i class="bi bi-list-check"></i> Nguyên liệu</div>
+      <ul class="recipe-list">${data.ingredients.map(i=>`<li>${i}</li>`).join('')}</ul>
+      <div class="recipe-section"><i class="bi bi-arrow-right-circle"></i> Cách làm</div>
+      <ol class="recipe-steps">${data.steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+      <div class="recipe-conf">${data.confession}</div>
+    </div></div>`;
+
+  } else if(style==='newspaper'){
+    const data=buildNewspaper(n1,n2,ideas);
+    el.innerHTML=`<div class="out-newspaper"><div class="news-card">
+      <div class="news-header">
+        <div class="news-name">Tòa Soạn Cảm Xúc · Số Đặc Biệt</div>
+        <div class="news-date">${new Date().toLocaleDateString('vi-VN',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</div>
+      </div>
+      <div class="news-headline">${data.headline}</div>
+      <div class="news-subhead">${data.sub}</div>
+      <div class="news-cols">
+        <div class="news-col news-drop-cap"><p>${data.col1}</p></div>
+        <div class="news-col"><p>${data.col2}</p></div>
+      </div>
+      <div class="news-quote">${data.quote}</div>
+    </div></div>`;
+
+  } else if(style==='neon'){
+    const data=buildNeon(n1,n2,ideas);
+    el.innerHTML=`<div class="out-neon">
+      <div class="neon-grid"></div>
+      <div class="neon-title">${data.title}</div>
+      <div class="neon-sub">✦ ${n1} → ${n2} ✦</div>
+      <div class="neon-body">${data.ps.map(p=>`<p>${p}</p>`).join('')}</div>
+      <div class="neon-conf">${data.confession}</div>
+      <div class="neon-sign">${n1}</div>
+    </div>`;
+
+  } else if(style==='aurora'){
+    const data=buildAurora(n1,n2,ideas);
+    el.innerHTML=`<div class="out-aurora">
+      <div class="aurora-sky">
+        <div class="aurora-band" style="top:5%;background:radial-gradient(ellipse,rgba(0,200,100,.25),transparent 70%);--d:8s;--del:0s"></div>
+        <div class="aurora-band" style="top:20%;background:radial-gradient(ellipse,rgba(100,50,200,.2),transparent 70%);--d:11s;--del:2s"></div>
+        <div class="aurora-band" style="top:35%;background:radial-gradient(ellipse,rgba(0,180,200,.15),transparent 70%);--d:9s;--del:4s"></div>
+      </div>
+      <div class="aurora-card">
+        <div class="aurora-label">✦ ${n1} → ${n2} ✦</div>
+        <div class="aurora-title">${data.title}</div>
+        <div class="aurora-body">${data.ps.map(p=>`<p>${p}</p>`).join('')}</div>
+        <div class="aurora-conf"><p>${data.confession}</p></div>
+      </div>
+    </div>`;
+
+  } else if(style==='firefly'){
+    const data=buildFirefly(n1,n2,ideas);
+    el.innerHTML=`<div class="out-firefly">
+      <div class="firefly-container" id="fireflyC"></div>
+      <div class="firefly-title">${data.title}</div>
+      <div class="firefly-sub">✦ ${n1} · ${n2} ✦</div>
+      <div class="firefly-body">${data.ps.map(p=>`<p>${p}</p>`).join('')}</div>
+      <div class="firefly-conf"><p>${data.confession}</p></div>
+    </div>`;
+    const fc=document.getElementById('fireflyC');
+    for(let i=0;i<25;i++){const f=document.createElement('div');f.className='ff';f.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${4+Math.random()*6}s;--del:${Math.random()*8}s;--dx:${-30+Math.random()*60}px;--dy:${-30+Math.random()*60}px`;fc.appendChild(f);}
+
+  } else if(style==='snow'){
+    const data=buildSnow(n1,n2,ideas);
+    el.innerHTML=`<div class="out-snow">
+      <div class="snow-container" id="snowC"></div>
+      <div class="snow-card">
+        <div class="snow-icon">${data.icon}</div>
+        <div class="snow-title">${data.title}</div>
+        <div class="snow-body">${data.ps.map(p=>`<p>${p}</p>`).join('')}</div>
+        <div class="snow-conf"><p>${data.confession}</p></div>
+      </div>
+    </div>`;
+    const sc=document.getElementById('snowC');
+    const flakes=['❄','❅','❆','·','*'];
+    for(let i=0;i<35;i++){const s=document.createElement('div');s.className='snowflake';s.textContent=flakes[i%flakes.length];s.style.cssText=`left:${Math.random()*100}%;--fs:${.5+Math.random()*.9}rem;--d:${6+Math.random()*8}s;--del:${Math.random()*10}s;--dx:${-20+Math.random()*40}px`;sc.appendChild(s);}
+
+  } else if(style==='retro'){
+    const data=buildRetro(n1,n2,ideas);
+    el.innerHTML=`<div class="out-retro"><div class="retro-card">
+      <div class="retro-stamp">CONFIDENTIAL</div>
+      <div class="retro-header">
+        <div class="retro-machine">⌨️</div>
+        <div class="retro-brand">Royal Quiet De Luxe · 1955</div>
+      </div>
+      <div class="retro-body" id="retroBody"></div>
+    </div></div>`;
+    const rb=document.getElementById('retroBody');
+    let i=0;const txt=data.text;
+    function typeNext(){if(i<txt.length){rb.textContent+=txt[i];i++;setTimeout(typeNext,txt[i-1]==='\n'?80:28);}
+    }typeNext();
+
+  } else if(style==='piano'){
+    const data=buildPiano(n1,n2,ideas);
+    const keys=[1,1,0,1,0,1,1,0,1,0,1,1].map(b=>b?'<div class="pk-w"></div>':'<div class="pk-b"></div>').join('');
+    el.innerHTML=`<div class="out-piano">
+      <div class="piano-keys">${keys}</div>
+      <div class="piano-note">${data.note}</div>
+      <div class="piano-title">${data.title}</div>
+      <div class="piano-staff">${Array.from({length:5},()=>'<div></div>').join('')}</div>
+      <div class="piano-body">${data.ps.map(p=>`<p>${p}</p>`).join('')}</div>
+      <div class="piano-conf"><p>${data.confession}</p></div>
+    </div>`;
+
+  } else if(style==='spring'){
+    const data=buildSpring(n1,n2,ideas);
+    el.innerHTML=`<div class="out-spring">
+      <div class="spring-petals" id="springP"></div>
+      <div class="spring-icon">🌸</div>
+      <div class="spring-title">${data.title}</div>
+      <div class="spring-body">${data.ps.map(p=>`<p>${p}</p>`).join('')}</div>
+      <div class="spring-conf"><p>${data.confession}</p></div>
+    </div>`;
+    const sp=document.getElementById('springP');
+    for(let i=0;i<30;i++){const p=document.createElement('div');p.className='sp';p.textContent=pick(['🌸','🌺','🌷','💮','🌼']);p.style.cssText=`left:${Math.random()*100}%;--fs:${.6+Math.random()*.8}rem;--d:${6+Math.random()*8}s;--del:${Math.random()*10}s;--dx:${-40+Math.random()*80}px`;sp.appendChild(p);}
+
+  } else if(style==='campfire'){
+    const data=buildCampfire(n1,n2,ideas);
+    el.innerHTML=`<div class="out-campfire">
+      <div class="campfire-glow"></div>
+      <div class="fire-anim">🔥</div>
+      <div class="campfire-title">${n1} & ${n2} — Đêm Lửa Trại</div>
+      <div class="campfire-body">${data.ps.map(p=>`<p>${p}</p>`).join('')}</div>
+      <div class="campfire-conf"><p>${data.confession}</p></div>
+    </div>`;
+
+  } else if(style==='telegram'){
+    const data=buildTelegram(n1,n2,ideas);
+    el.innerHTML=`<div class="out-telegram"><div class="tg-frame">
+      <div class="tg-bar">
+        <div class="tg-ava">💙</div>
+        <div class="tg-info"><div class="tg-name">${n2}</div><div class="tg-status">đang hoạt động</div></div>
+      </div>
+      <div class="tg-body" id="tgBody"></div>
+    </div></div>`;
+    const tb=document.getElementById('tgBody');
+    data.messages.forEach((m,i)=>{setTimeout(()=>{
+      const b=document.createElement('div');b.className='tg-bubble '+(m.out?'out':'in');
+      b.innerHTML=m.txt+`<div class="tg-time">${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2,'0')}</div>`;
+      const t=tb.querySelector('.tg-typing');if(t)t.remove();
+      tb.appendChild(b);tb.scrollTop=tb.scrollHeight;
+      if(i<data.messages.length-1){setTimeout(()=>{const ty=document.createElement('div');ty.className='tg-typing';ty.innerHTML='<span></span><span></span><span></span>';tb.appendChild(ty);tb.scrollTop=tb.scrollHeight;},300);}
+    },i*900)});
   }
   setupMusic(yt);
 }
@@ -1678,8 +2079,154 @@ function sendResponse(type){
   setTimeout(()=>showScreen('notif'),600);
 }
 
-// ══════════════════════════════════════════
-//  SENDER NOTIFICATION
+// ── NEW STYLE BUILDERS ──
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+
+function buildPolaroid(n1,n2,ideas){
+  const tags=['cười rất đẹp','hay nhìn sang','im lặng bên nhau','ngày thường','khoảnh khắc nhỏ'];
+  const caps=[
+    `${n1} & ${n2} — ngày chưa nói điều gì`,
+    `Khoảnh khắc ${n1} nhận ra`,
+    `${n2}, trong mắt ${n1}`,
+    `Chụp lại để không quên`
+  ];
+  return{emoji:pick(['🌸','💫','✨','🌷','💕']),caption:pick(caps),tag:pick(tags),date:`${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`};
+}
+
+function buildPostcard(n1,n2,ideas){
+  const cities=['Hà Nội','Đà Lạt','Hội An','Sài Gòn','Huế'];
+  const msgs=[
+    `${n2} ơi,\nMình đang nghĩ đến bạn.\nDù ở đâu, lòng mình cũng hướng về phía bạn.\n\n${n1}`,
+    `Gửi ${n2},\nKhi nhận được tấm thiệp này — hãy biết rằng có người đang rất nhớ bạn.\n\n${n1} 🌸`
+  ];
+  return{city:pick(cities),msg:pick(msgs),emoji:pick(['🌸','✈️','🗺️','💌'])};
+}
+
+function buildRain(n1,n2,ideas){
+  const ps=[
+    `Hôm nay trời mưa. Và ${n1} lại nghĩ đến ${n2}.`,
+    `Tiếng mưa gõ nhẹ lên cửa sổ, nhưng trong đầu ${n1} chỉ vang lên tên ${n2}.`,
+    `Những ngày mưa, người ta hay nghĩ về những điều chưa kịp nói.`
+  ];
+  const conf=[
+    `${n2} ơi — mình thích bạn từ lâu rồi. Và mưa hôm nay cứ nhắc mình phải nói ra.`,
+    `Mình không biết mưa bao lâu. Nhưng mình biết ${n1} sẽ thích ${n2} mãi như vậy.`
+  ];
+  return{ps:ps.slice(0,2),confession:pick(conf),sign:`${n1} — một chiều mưa`};
+}
+
+function buildRecipe(n1,n2,ideas){
+  const ingredients=[
+    `1 trái tim chân thành của ${n1}`,`Vô số kỷ niệm nhỏ bên ${n2}`,
+    `Vài đêm thức khuya nghĩ về nhau`,`Một nụ cười — của ${n2}`,
+    `Chút can đảm để nói lên điều này`
+  ];
+  const steps=[
+    `Nhớ lại lần đầu gặp ${n2}, để tim dẫn đường`,
+    `Trộn đều tất cả những kỷ niệm nhỏ — đừng bỏ bất kỳ chi tiết nào`,
+    `Để tình cảm "ủ" qua bao nhiêu ngày tháng không nói ra`,
+    `Nhẹ nhàng rót vào một lời nhắn — và gửi đến ${n2}`
+  ];
+  return{ingredients,steps,confession:`Kết quả: ${n1} thích ${n2}. Không có công thức nào khác.`};
+}
+
+function buildNewspaper(n1,n2,ideas){
+  const headlines=[
+    `${n1.toUpperCase()} CHÍNH THỨC THỪA NHẬN: ĐÃ THÍCH ${n2.toUpperCase()} TỪ LÂU`,
+    `BREAKING: ${n1.toUpperCase()} GỬI TÍN HIỆU ĐẾN ${n2.toUpperCase()}`,
+    `ĐỘC QUYỀN: TRÁI TIM CỦA ${n1.toUpperCase()} ĐÃ CÓ CHỦ`
+  ];
+  const subs=[`Nguồn tin thân cận xác nhận đây là sự thật không thể chối cãi`];
+  const col1=`${n1} — người mà lâu nay vẫn giữ bí mật trong lòng — hôm nay chính thức xác nhận những gì nhiều người đã nghi ngờ từ lâu. "Mình thích ${n2}," ${n1} thừa nhận trong tuyên bố gây chấn động.`;
+  const col2=`Theo các nguồn tin đáng tin cậy, tình cảm này đã hình thành qua nhiều ngày tháng. ${n2} được mô tả là "người khiến mọi thứ trở nên khác đi." Đây được xem là tin tức quan trọng nhất trong năm.`;
+  return{headline:pick(headlines),sub:pick(subs),col1,col2,quote:`"${n2} ơi — đây là sự thật. — ${n1}"`};
+}
+
+function buildNeon(n1,n2,ideas){
+  const titles=[`${n2}`,`Hey ${n2}`,`${n1} ♥ ${n2}`];
+  const ps=[
+    `Có những điều ${n1} muốn nói từ lâu mà chưa đủ dũng cảm. Đêm nay — trong ánh đèn này — ${n1} nói thật.`,
+    `${n2} biết không — mỗi lần nhìn thấy bạn, mọi thứ xung quanh cứ sáng hơn một chút. Không giải thích được. Chỉ là thật.`
+  ];
+  return{title:pick(titles),ps,confession:`${n1} thích ${n2}. Đơn giản vậy thôi.`,sign:n1};
+}
+
+function buildAurora(n1,n2,ideas){
+  const titles=[
+    `${n2} — Ánh Sáng Phương Bắc Của ${n1}`,
+    `Dưới Cực Quang, ${n1} Nghĩ Đến ${n2}`,
+    `${n1} & ${n2} — Một Đêm Nhiều Màu Sắc`
+  ];
+  const ps=[
+    `Người ta nói cực quang chỉ xuất hiện khi điều kiện hoàn toàn đúng — đúng vị trí, đúng thời điểm, đúng bầu trời. ${n1} nghĩ gặp được ${n2} cũng vậy.`,
+    `Có những điều không giải thích được bằng khoa học. Như cực quang. Như cảm giác của ${n1} mỗi khi ${n2} xuất hiện.`
+  ];
+  return{title:pick(titles),ps,confession:`${n1} thích ${n2}. Rất nhiều. Như bầu trời đêm nay vậy.`,sign:n1};
+}
+
+function buildFirefly(n1,n2,ideas){
+  const titles=[`Đêm Hè — ${n1} Nhớ ${n2}`,`${n2} Ơi — Nghe ${n1} Nói`];
+  const ps=[
+    `Đom đóm bay qua — và ${n1} lại nghĩ đến ${n2}. Những điều nhỏ nhất cũng nhắc đến bạn.`,
+    `Mùa hè này, ${n1} nhớ ${n2} theo cách khác. Không ồn ào. Chỉ như đom đóm — nhỏ thôi, nhưng cứ sáng lên mãi.`
+  ];
+  return{title:pick(titles),ps,confession:`${n2} ơi, ${n1} thích bạn — nhỏ thôi, nhưng thật.`,sub:`${n1} 🌿`};
+}
+
+function buildSnow(n1,n2,ideas){
+  const titles=[`${n1} Gửi ${n2} — Một Ngày Tuyết Rơi`,`Tuyết Trắng Và Tên ${n2}`];
+  const ps=[
+    `Tuyết rơi làm mọi thứ trở nên yên tĩnh. Và trong khoảnh yên tĩnh đó, ${n1} chỉ nghĩ đến ${n2}.`,
+    `${n2} biết không — ngày đông lạnh nhất, điều ấm nhất ${n1} nghĩ đến vẫn là bạn.`
+  ];
+  return{icon:'❄️',title:pick(titles),ps,confession:`${n1} thích ${n2}. Dù đông hay hè — vẫn vậy.`};
+}
+
+function buildRetro(n1,n2,ideas){
+  const lines=[
+    `Gui : ${n2}\nTu  : ${n1}\nNgay: ${new Date().toLocaleDateString('vi')}\n\n`,
+    `${n2} oi,\n\n`,
+    `Co nhung dieu kho noi bang mieng. Nen minh dung may chu.\n\n`,
+    `${n1} thich ${n2}. Tu lau roi. Khong giai thich duoc. Chi la that.\n\n`,
+    `Neu ban doc duoc dong nay — hay biet rang co nguoi dang cho tin ban.\n\n`,
+    `                              ${n1} ♥`
+  ];
+  return{text:lines.join('')};
+}
+
+function buildPiano(n1,n2,ideas){
+  const titles=[`Cho ${n2} — Bản Nhạc Của ${n1}`,`${n1} Viết Cho ${n2}`];
+  const ps=[
+    `Mỗi lần ngồi vào đàn, ${n1} lại nghĩ đến ${n2}. Không cố. Tự nhiên như vậy.`,
+    `Có những giai điệu không cần lời. Nhưng lần này ${n1} muốn nói thật bằng lời: ${n2}, bạn là người ${n1} nghĩ đến.`
+  ];
+  return{title:pick(titles),ps,confession:`${n1} thích ${n2}. Như một nốt nhạc cứ vang mãi trong đầu.`,note:`♩ ♪ ♫ ♬`};
+}
+
+function buildSpring(n1,n2,ideas){
+  const titles=[`Mùa Anh Đào Của ${n1} & ${n2}`,`Hoa Nở — ${n1} Nghĩ Đến ${n2}`];
+  const ps=[
+    `Anh đào nở rồi lại rụng — nhưng cảm giác của ${n1} với ${n2} thì không rụng bao giờ.`,
+    `Mùa xuân đến, mọi thứ bắt đầu lại. Và ${n1} cũng muốn bắt đầu — bằng câu này: ${n2}, mình thích bạn.`
+  ];
+  return{title:pick(titles),ps,confession:`${n1} thích ${n2}. Như hoa anh đào — nhẹ, đẹp, và thật.`};
+}
+
+function buildCampfire(n1,n2,ideas){
+  const ps=[
+    `Lửa tàn dần. Bầu trời đầy sao. Và ${n1} cứ nghĩ mãi — giá ${n2} ngồi đây cùng.`,
+    `Xung quanh yên tĩnh. Chỉ có tiếng lửa lách tách. Và trong đầu ${n1} — chỉ có tên ${n2}.`
+  ];
+  return{ps,confession:`${n2} ơi — ${n1} thích bạn. Nói thật như lửa trại vậy. Không giả. Không màu mè.`,sign:`${n1} 🔥`};
+}
+
+function buildTelegram(n1,n2,ideas){
+  const convs=[
+    [{out:false,txt:`${n1} ơi, bạn ổn không?`},{out:true,txt:`Ổn. Nhưng có điều muốn nói với ${n2} lâu rồi...`},{out:false,txt:`Gì vậy? Nói đi 👀`},{out:true,txt:`${n2} ơi... ${n1} thích bạn. Thật sự. Không đùa đâu 💙`},{out:false,txt:`...`},{out:false,txt:`Mình cần một chút để xử lý điều này 🫧`}],
+    [{out:true,txt:`${n2} ơi, cho mình hỏi một câu được không?`},{out:false,txt:`Hỏi đi, sao vậy?`},{out:true,txt:`${n1} thích ${n2}. Bạn có biết không?`},{out:false,txt:`Sao tự nhiên vậy 😳`},{out:true,txt:`Vì đã giữ lâu quá rồi. Nói ra cho nhẹ lòng 💙`}]
+  ];
+  return{messages:pick(convs)};
+}
 // ══════════════════════════════════════════
 function showNotif(type,data){
   const c=CATS[(data&&data.cat)||'love'];
@@ -1760,102 +2307,6 @@ function spawnNotifParticles(type){
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);}
 
 // ══════════════════════════════════════════
-//  CAITAO (AI REWRITE)
-// ══════════════════════════════════════════
-let aiRewriteResult='';
-let caitaoVisible=false;
-
-function onMsgInput(){
-  // Only update char count / validation, never auto-show caitao bar
-  const v=document.getElementById('fMessage').value.trim();
-  const btn=document.getElementById('caitaoTriggerBtn');
-  if(btn) btn.style.display=v.length>0?'inline-flex':'none';
-  // If bar is open and user clears text, hide it
-  if(v.length===0&&caitaoVisible) hideCaitao();
-}
-
-function showCaitao(){
-  const v=document.getElementById('fMessage').value.trim();
-  if(!v){showToast('⚠️ Hãy nhập ý tưởng trước nhé!');return;}
-  document.getElementById('caitaoBar').classList.add('show');
-  caitaoVisible=true;
-  document.getElementById('caitaoBar').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-function hideCaitao(){
-  document.getElementById('caitaoBar').classList.remove('show');
-  caitaoVisible=false;hideCaitaoResult();
-  const v=document.getElementById('fMessage').value.trim();
-  const btn=document.getElementById('caitaoTriggerBtn');
-  if(btn) btn.style.display=v.length>0?'inline-flex':'none';
-}
-
-function hideCaitaoResult(){
-  document.getElementById('caitaoResult').classList.remove('show');
-  document.getElementById('caitaoActions').style.display='none';
-  aiRewriteResult='';
-}
-
-async function aiRewrite(){
-  const msg=document.getElementById('fMessage').value.trim();
-  if(!msg)return;
-
-  // Get or prompt for API key
-  let apiKey=localStorage.getItem('anthro_key')||'';
-  if(!apiKey){
-    apiKey=prompt('🔑 Nhập Anthropic API key của bạn (lưu 1 lần, không cần nhập lại):\n\nLấy tại: console.anthropic.com','');
-    if(!apiKey){showToast('⚠️ Cần API key để dùng tính năng này!');return;}
-    localStorage.setItem('anthro_key',apiKey.trim());
-    apiKey=apiKey.trim();
-  }
-
-  const btn=document.getElementById('caitaoBtn');
-  const res=document.getElementById('caitaoResult');
-  const acts=document.getElementById('caitaoActions');
-  btn.disabled=true;btn.innerHTML='<i class="bi bi-hourglass-split"></i> Đang viết...';
-  res.classList.remove('show');acts.style.display='none';
-  try{
-    const to=document.getElementById('fTo').value.trim()||'người ấy';
-    const from=document.getElementById('fFrom').value.trim()||'mình';
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-api-key':apiKey,
-        'anthropic-version':'2023-06-01',
-        'anthropic-dangerous-direct-browser-access':'true'
-      },
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:400,
-        system:`Bạn là trợ lý viết lời tỏ tình lãng mạn bằng tiếng Việt. Người dùng viết những ý tưởng thô về cảm xúc của họ. Hãy viết lại thành một đoạn văn ngắn (~120-160 từ), rất lãng mạn, chân thành, thơ mộng, ngôn ngữ tự nhiên không gượng ép. Giữ nguyên các chi tiết cụ thể người dùng đã nhắc đến. Xưng hô theo ${from} và ${to}. Trả về đúng đoạn văn, không có gì khác, không giải thích, không ghi chú.`,
-        messages:[{role:'user',content:`Ý tưởng gốc của mình:\n\n${msg}\n\nHãy viết lại lãng mạn hơn cho mình nhé.`}]
-      })
-    });
-    if(resp.status===401){
-      localStorage.removeItem('anthro_key');
-      showToast('❌ API key không hợp lệ, vui lòng thử lại!');
-      return;
-    }
-    const data=await resp.json();
-    aiRewriteResult=(data.content||[]).map(b=>b.text||'').join('').trim();
-    if(aiRewriteResult){
-      res.textContent=aiRewriteResult;res.classList.add('show');
-      acts.style.display='flex';
-    } else {showToast('⚠️ Không thể cải tạo lúc này, thử lại nhé!');}
-  } catch(e){showToast('⚠️ Lỗi kết nối, thử lại nhé!');}
-  finally{btn.disabled=false;btn.innerHTML='<i class="bi bi-magic"></i> Cải tạo';}
-}
-
-function applyRewrite(){
-  if(!aiRewriteResult)return;
-  document.getElementById('fMessage').value=aiRewriteResult;
-  hideCaitao();
-  showToast('✅ Đã áp dụng phiên bản lãng mạn!');
-}
-
-function discardRewrite(){hideCaitaoResult();}
-
 window.addEventListener('hashchange',route);
 document.addEventListener('DOMContentLoaded',()=>{
   init();
