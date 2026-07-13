@@ -116,9 +116,6 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 .style-mini{cursor:pointer;padding:12px 10px;border-radius:14px;text-align:center;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);transition:all .25s;font-size:.82rem;color:rgba(255,255,255,.6)}
 .style-mini .sm-icon{display:block;font-size:1.35rem;margin-bottom:6px;line-height:1}
 .style-mini:hover,.style-mini.on{background:rgba(255,255,255,.12);border-color:var(--accent,#e8a0b0);color:#fff}
-.mood-row{display:flex;gap:10px}
-.mood-btn{flex:1;padding:14px;border-radius:14px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.08);cursor:pointer;font-size:1.5rem;text-align:center;transition:all .25s}
-.mood-btn.selected{background:rgba(255,255,255,.14);border-color:var(--accent,#e8a0b0);transform:scale(1.06)}
 .generate-btn{width:100%;padding:18px;border-radius:20px;background:linear-gradient(135deg,var(--btn-a,#c4607a),var(--btn-b,#9b72cf));border:none;color:#fff;font-family:'DM Serif Display',serif;font-size:1.25rem;cursor:pointer;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;margin-top:8px;letter-spacing:.02em}
 .generate-btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
 .generate-btn .shimmer{position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);animation:shimmer 2.5s infinite}
@@ -135,12 +132,14 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 .link-success{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#c4607a,#9b72cf);display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto 28px;box-shadow:0 0 40px rgba(196,96,122,.4);animation:popIn .5s cubic-bezier(.34,1.56,.64,1)}
 @keyframes popIn{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
 .link-title{font-family:'DM Serif Display',serif;font-size:2rem;margin-bottom:12px}
-.link-sub{color:rgba(255,255,255,.55);margin-bottom:36px;line-height:1.7}
-.link-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:18px 20px;display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.link-url{flex:1;color:rgba(255,255,255,.8);font-size:.82rem;word-break:break-all;text-align:left}
-.copy-btn{padding:10px 18px;border-radius:10px;background:linear-gradient(135deg,#c4607a,#9b72cf);border:none;color:#fff;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .25s}
-.copy-btn:hover{transform:scale(1.05)}
-.link-note{font-size:.82rem;color:rgba(255,255,255,.4);font-style:italic;margin-top:8px}
+.link-sub{color:rgba(255,255,255,.55);margin-bottom:32px;line-height:1.7}
+.send-now-btn{width:100%;padding:19px;border-radius:20px;background:linear-gradient(135deg,#c4607a,#9b72cf);border:none;color:#fff;font-family:'DM Serif Display',serif;font-size:1.22rem;cursor:pointer;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 16px 40px rgba(196,96,122,.35)}
+.send-now-btn:hover{transform:translateY(-2px) scale(1.01);box-shadow:0 20px 50px rgba(196,96,122,.45)}
+.send-now-btn .shimmer{position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);animation:shimmer 2.5s infinite}
+.link-fallback-btn{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:rgba(255,255,255,.38);font-size:.82rem;padding:16px 10px 6px;cursor:pointer;transition:color .25s;font-family:'Nunito',sans-serif}
+.link-fallback-btn:hover{color:rgba(255,255,255,.8)}
+.link-hint{display:flex;align-items:flex-start;gap:10px;text-align:left;font-size:.82rem;color:rgba(255,255,255,.45);font-style:italic;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px 18px;margin:18px 0 4px;line-height:1.6}
+.link-hint i{margin-top:2px;flex-shrink:0;opacity:.7;font-style:normal}
 .share-btns{display:flex;gap:12px;margin-top:20px}
 .share-btn{flex:1;padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:rgba(255,255,255,.7);cursor:pointer;font-size:.9rem;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px}
 .share-btn:hover{background:rgba(255,255,255,.1);color:#fff}
@@ -268,26 +267,20 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 }
 .home-again-btn:hover{background:rgba(255,255,255,.13);color:#fff;transform:translateY(-2px)}
 
-/* ── Link section (for recipient's response page) ── */
-.notif-link-section{margin:0 0 24px;text-align:left}
-.notif-link-label{
-  font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(255,255,255,.3);margin-bottom:10px;display:flex;align-items:center;gap:8px
-}
-.notif-link-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
-.notif-link-box{
-  display:flex;align-items:stretch;border-radius:14px;overflow:hidden;
-  border:1px solid rgba(255,255,255,.09);background:rgba(0,0,0,.3)
-}
-.notif-link-url{flex:1;padding:12px 14px;font-size:.72rem;word-break:break-all;color:rgba(255,255,255,.45);line-height:1.5;font-family:'Nunito',sans-serif}
+/* ── Send-back section (for recipient's response page) ── */
+.notif-link-section{margin:0 0 26px;text-align:center}
 .notif-copy-btn{
-  padding:0 18px;display:flex;align-items:center;
+  display:flex;align-items:center;
   background:var(--copy-bg,rgba(255,255,255,.07));
-  border:none;border-left:1px solid rgba(255,255,255,.07);
+  border:none;
   color:#fff;cursor:pointer;font-size:.8rem;font-weight:700;
-  white-space:nowrap;transition:background .25s;font-family:'Nunito',sans-serif
+  white-space:nowrap;transition:background .25s,transform .25s;font-family:'Nunito',sans-serif
 }
 .notif-copy-btn:hover{background:var(--copy-bg-h,rgba(255,255,255,.14))}
+.notif-send-btn{width:100%;justify-content:center;gap:10px;padding:16px 20px;border-radius:16px;font-size:.95rem;letter-spacing:.01em;box-shadow:0 10px 26px rgba(0,0,0,.22)}
+.notif-send-btn:hover{transform:translateY(-2px)}
+.notif-copy-fallback{display:block;width:100%;text-align:center;background:none;border:none;color:rgba(255,255,255,.35);font-size:.78rem;padding:12px 0 0;cursor:pointer;transition:color .25s;font-family:'Nunito',sans-serif}
+.notif-copy-fallback:hover{color:rgba(255,255,255,.7)}
 
 /* ══ ACCEPT ══ */
 .notif-acc{background:radial-gradient(ellipse 60% 35% at 50% 0%,rgba(20,83,45,.2),transparent 55%)}
@@ -952,11 +945,6 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
     </div>
 
     <div class="form-section">
-      <label class="form-label"><i class="bi bi-chat-text"></i> Ý tưởng &amp; cảm xúc của bạn</label>
-      <textarea class="form-textarea" id="fMessage" placeholder="Viết thoải mái bằng lời của bạn...&#10;&#10;Ví dụ: em ấy hay cười rất duyên, quen nhau hồi năm ngoái ở trường, hay nhắn tin khuya, anh ấy hiền và quan tâm mọi người...&#10;&#10;Càng nhiều chi tiết thì lời càng hay!" maxlength="1000"></textarea>
-    </div>
-
-    <div class="form-section">
       <label class="form-label"><i class="bi bi-palette"></i> Phong cách hiển thị</label>
       <div class="style-mini-grid" id="stylePicker">
         <div class="style-mini on" data-s="letter"    onclick="selStyle(this)"><span class="sm-icon"><i class="bi bi-envelope-heart"></i></span>Thư Tình</div>
@@ -986,11 +974,6 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
       </div>
     </div>
 
-    <div class="form-section" id="moodSection">
-      <label class="form-label"><i class="bi bi-palette2"></i> Tâm trạng</label>
-      <div class="mood-row"></div>
-    </div>
-
     <div class="form-section">
       <label class="form-label"><i class="bi bi-youtube"></i> Nhạc nền YouTube (tuỳ chọn)</label>
       <input class="form-input" type="url" id="fYt" placeholder="https://youtube.com/watch?v=..."/>
@@ -998,7 +981,7 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 
     <button class="generate-btn" onclick="generateLink()">
       <span class="shimmer"></span>
-      <i class="bi bi-send-fill"></i> Tạo link gửi người ấy
+      <i class="bi bi-magic"></i> Tạo lời nhắn cho người ấy
     </button>
   </div>
 </div>
@@ -1007,19 +990,14 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 <div class="screen" id="linkscreen">
   <div style="padding:40px 20px;max-width:560px;margin:0 auto;text-align:center">
     <div class="link-success"><i class="bi bi-envelope-heart-fill"></i></div>
-    <h2 class="link-title">Link đã sẵn sàng! <i class="bi bi-stars"></i></h2>
-    <p class="link-sub">Sao chép link bên dưới và gửi cho người ấy.<br/>Khi họ phản hồi, bạn sẽ nhận được thông báo.</p>
-    <div class="link-box">
-      <div class="link-url" id="generatedLink">...</div>
-      <button class="copy-btn" onclick="copyLink()">Sao chép</button>
-    </div>
-    <p class="link-note"><i class="bi bi-lightbulb"></i> Lưu link bên dưới để biết khi người ấy trả lời</p>
-    <div style="margin-top:24px">
-      <div class="link-box">
-        <div class="link-url" id="senderNotifLink">...</div>
-        <button class="copy-btn" onclick="copySenderLink()">Lưu link</button>
-      </div>
-    </div>
+    <h2 class="link-title">Xong rồi, đẹp lắm! <i class="bi bi-stars"></i></h2>
+    <p class="link-sub" id="linkSub">Chỉ một chạm để gửi điều này đến người ấy.</p>
+    <button class="send-now-btn" id="sendNowBtn" onclick="sendInvite()">
+      <span class="shimmer"></span>
+      <i class="bi bi-send-fill"></i> <span id="sendNowLabel">Gửi ngay cho người ấy</span>
+    </button>
+    <button class="link-fallback-btn" onclick="copyLink()"><i class="bi bi-link-45deg"></i> hoặc sao chép link</button>
+    <div class="link-hint"><i class="bi bi-magic"></i> Khi người ấy trả lời, họ chỉ cần một chạm để gửi kết quả về cho bạn — bạn không cần làm gì thêm.</div>
     <div class="share-btns">
       <button class="share-btn" onclick="previewMsg()"><i class="bi bi-eye"></i> Xem trước</button>
       <button class="share-btn" onclick="showScreen('home')"><i class="bi bi-house"></i> Trang chủ</button>
@@ -1107,13 +1085,12 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
     <!-- Quote block -->
     <div class="notif-quote" id="notifQuote"></div>
 
-    <!-- Link (only for recipient's response screen) -->
+    <!-- Send-back (only for recipient's response screen) -->
     <div class="notif-link-section" id="notifLinkSection" style="display:none">
-      <div class="notif-link-label">Gửi link này cho họ</div>
-      <div class="notif-link-box">
-        <div class="notif-link-url" id="notifLinkUrl"></div>
-        <button class="notif-copy-btn" id="notifCopyBtn">Sao chép</button>
-      </div>
+      <button class="notif-copy-btn notif-send-btn" id="notifSendBtn">
+        <i class="bi bi-send-fill"></i> <span id="notifSendLabel">Gửi cho họ</span>
+      </button>
+      <button class="notif-copy-fallback" id="notifCopyFallback">hoặc sao chép link</button>
     </div>
 
     <a class="home-again-btn" onclick="showScreen('home')"><i class="bi bi-house"></i> Về trang chủ</a>
@@ -1128,15 +1105,15 @@ html,body{font-family:'Nunito',sans-serif;background:#0e0810;color:#fff;min-heig
 //  CATEGORY DATA
 // ══════════════════════════════════════════
 const CATS={
-  love:{icon:'💌',name:'Thư tình lãng mạn',sub:'Từ trái tim đến trái tim',moods:['🥰','😍','🥺','✨','💫'],rq:'Bạn có muốn nhận tình cảm này không? 💌',rsub:'Hãy trả lời bằng cả trái tim bạn',acceptLabel:'💗 Chấp nhận',declineLabel:'🤍 Không thể',bg:'radial-gradient(ellipse at 30% 40%,#3d0a20 0%,transparent 60%),radial-gradient(ellipse at 70% 60%,#1a0a2e 0%,transparent 60%),#090610',particles:['🌹','🌸','💕','✨','🦋','💗'],accMsg:(f,t)=>`${t} ơi, "<strong>${f}</strong>" đã nhận được câu trả lời — <strong style="color:#2ecc71">Chấp nhận 💚</strong><br/><br/>Trái tim họ đang hạnh phúc lắm đó! 🥰`,decMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" đã suy nghĩ thật kỹ và gửi câu trả lời — <strong style="color:#e8a0b0">Chưa thể chấp nhận lúc này 🤍</strong><br/><br/>Hãy trân trọng cảm xúc của nhau nhé.`},
-  confess:{icon:'🌹',name:'Lời tỏ tình',sub:'Dũng cảm nói lên cảm xúc',moods:['🥰','😘','💓','🌹','🔥'],rq:'Cảm ơn bạn đã dũng cảm chia sẻ 💛',rsub:'Đây là câu trả lời của mình',acceptLabel:'💛 Mình cũng vậy!',declineLabel:'🌸 Trân trọng bạn',bg:'radial-gradient(ellipse at 50% 30%,#3d0808 0%,transparent 60%),radial-gradient(ellipse at 30% 70%,#1a0a00 0%,transparent 60%),#0a0505',particles:['🌹','💋','✨','🔥','💘','🌺'],accMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" đã phản hồi — <strong style="color:#2ecc71">Mình cũng có cảm xúc đó! 💛</strong><br/><br/>Hãy cùng bắt đầu một chương mới! 🌹`,decMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" rất trân trọng tình cảm của bạn, nhưng — <strong style="color:#e8a0b0">Chưa thể hơn bạn bè 🌸</strong><br/><br/>Tình bạn đẹp cũng là điều quý giá.`},
-  propose:{icon:'💍',name:'Lời cầu hôn',sub:'Khoảnh khắc trọng đại nhất',moods:['😭','🥹','💍','👑','✨'],rq:'Đây là câu hỏi quan trọng nhất 💍',rsub:'Hãy trả lời bằng cả trái tim',acceptLabel:'💍 Em đồng ý!',declineLabel:'🤍 Chưa sẵn sàng',bg:'radial-gradient(ellipse at 50% 50%,#2d2000 0%,transparent 60%),radial-gradient(ellipse at 20% 20%,#1a0a00 0%,transparent 50%),#0a0800',particles:['💍','⭐','✨','🥂','💎','👑'],accMsg:(f,t)=>`${f} ơi, <strong>DẠ, ${t} ĐỒNG Ý RỒI! 💍✨</strong><br/><br/>Chúc mừng! Một hành trình mới tuyệt vời bắt đầu! 🥂🎊`,decMsg:(f,t)=>`${f} ơi, "${t}" cảm ơn bạn rất nhiều vì đã dũng cảm, nhưng họ cần thêm thời gian. <strong>Hãy cho nhau thêm không gian nhé 🤍</strong>`},
-  sorry:{icon:'🕊️',name:'Xin lỗi & Làm lành',sub:'Hàn gắn những tổn thương',moods:['🥺','😔','🕊️','💙','🤗'],rq:'Bạn có muốn làm lành không? 🕊️',rsub:'Câu trả lời của bạn rất quan trọng',acceptLabel:'🤗 Tha thứ rồi',declineLabel:'💙 Cần thêm thời gian',bg:'radial-gradient(ellipse at 40% 50%,#0a1a2e 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,#0a1a0e 0%,transparent 50%),#080c10',particles:['🕊️','💙','🌊','☁️','🌿','✨'],accMsg:(f,t)=>`${f} ơi, tin vui — "<strong>${t}</strong>" đã <strong style="color:#2ecc71">tha thứ và muốn làm lành! 🤗💙</strong><br/><br/>Hãy trân trọng cơ hội này! 🕊️`,decMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" cần thêm thời gian để suy nghĩ. <strong style="color:#a8d8ea">Hãy cho họ không gian và kiên nhẫn chờ đợi 💙</strong>`},
-  bday:{icon:'🎂',name:'Chúc mừng sinh nhật',sub:'Ngày đặc biệt của người đặc biệt',moods:['🥳','🎉','🎂','😄','💖'],rq:'Bạn thích món quà sinh nhật này không? 🎂',rsub:'Đây là lời chúc từ trái tim',acceptLabel:'🥳 Cảm ơn nhiều!',declineLabel:'😊 Trân trọng nhé',bg:'radial-gradient(ellipse at 30% 30%,#2d0a1e 0%,transparent 50%),radial-gradient(ellipse at 70% 70%,#2d2000 0%,transparent 50%),#100810',particles:['🎉','🎊','✨','🎈','💖','🎂'],accMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" rất vui vì lời chúc của bạn! <strong style="color:#fdcb6e">Cảm ơn bạn thật nhiều! 🎂🎊</strong>`,decMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" đã nhận lời chúc và rất trân trọng. <strong>Cảm ơn bạn đã nhớ đến! 💖</strong>`},
-  miss:{icon:'🌙',name:'Nhớ nhung & Yêu xa',sub:'Khoảng cách không ngăn được tình yêu',moods:['🥺','💜','🌙','💫','😔'],rq:'Bạn có nhớ họ không? 🌙',rsub:'Hãy để họ biết cảm xúc của bạn',acceptLabel:'💜 Mình cũng nhớ!',declineLabel:'🌙 Thôi nhé',bg:'radial-gradient(ellipse at 50% 30%,#0d0a2e 0%,transparent 60%),radial-gradient(ellipse at 30% 70%,#1a0a2e 0%,transparent 60%),#05030f',particles:['🌙','⭐','💫','✨','💜','🌌'],accMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" cũng đang nhớ bạn! <strong style="color:#a29bfe">Mình cũng nhớ bạn lắm! 💜🌙</strong><br/><br/>Dù xa cách, tình cảm vẫn luôn ở đây.`,decMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" đã nhận tin nhắn của bạn. <strong>Chúc bạn mọi điều tốt đẹp! 🌙</strong>`},
+  love:{icon:'💌',name:'Thư tình lãng mạn',sub:'Từ trái tim đến trái tim',teaser:(f,t)=>`💌 ${t} ơi, ${f} đang gửi thật nhiều yêu thương đến bạn...`,rq:'Bạn có muốn nhận tình cảm này không? 💌',rsub:'Hãy trả lời bằng cả trái tim bạn',acceptLabel:'💗 Chấp nhận',declineLabel:'🤍 Không thể',bg:'radial-gradient(ellipse at 30% 40%,#3d0a20 0%,transparent 60%),radial-gradient(ellipse at 70% 60%,#1a0a2e 0%,transparent 60%),#090610',particles:['🌹','🌸','💕','✨','🦋','💗'],accMsg:(f,t)=>`${t} ơi, "<strong>${f}</strong>" đã nhận được câu trả lời — <strong style="color:#2ecc71">Chấp nhận 💚</strong><br/><br/>Trái tim họ đang hạnh phúc lắm đó! 🥰`,decMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" đã suy nghĩ thật kỹ và gửi câu trả lời — <strong style="color:#e8a0b0">Chưa thể chấp nhận lúc này 🤍</strong><br/><br/>Hãy trân trọng cảm xúc của nhau nhé.`},
+  confess:{icon:'🌹',name:'Lời tỏ tình',sub:'Dũng cảm nói lên cảm xúc',teaser:(f,t)=>`🌹 ${t} ơi, ${f} có một lời thú nhận đang chờ bạn mở ra...`,rq:'Cảm ơn bạn đã dũng cảm chia sẻ 💛',rsub:'Đây là câu trả lời của mình',acceptLabel:'💛 Mình cũng vậy!',declineLabel:'🌸 Trân trọng bạn',bg:'radial-gradient(ellipse at 50% 30%,#3d0808 0%,transparent 60%),radial-gradient(ellipse at 30% 70%,#1a0a00 0%,transparent 60%),#0a0505',particles:['🌹','💋','✨','🔥','💘','🌺'],accMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" đã phản hồi — <strong style="color:#2ecc71">Mình cũng có cảm xúc đó! 💛</strong><br/><br/>Hãy cùng bắt đầu một chương mới! 🌹`,decMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" rất trân trọng tình cảm của bạn, nhưng — <strong style="color:#e8a0b0">Chưa thể hơn bạn bè 🌸</strong><br/><br/>Tình bạn đẹp cũng là điều quý giá.`},
+  propose:{icon:'💍',name:'Lời cầu hôn',sub:'Khoảnh khắc trọng đại nhất',teaser:(f,t)=>`💍 ${t} ơi, ${f} có một câu hỏi rất quan trọng dành cho bạn...`,rq:'Đây là câu hỏi quan trọng nhất 💍',rsub:'Hãy trả lời bằng cả trái tim',acceptLabel:'💍 Em đồng ý!',declineLabel:'🤍 Chưa sẵn sàng',bg:'radial-gradient(ellipse at 50% 50%,#2d2000 0%,transparent 60%),radial-gradient(ellipse at 20% 20%,#1a0a00 0%,transparent 50%),#0a0800',particles:['💍','⭐','✨','🥂','💎','👑'],accMsg:(f,t)=>`${f} ơi, <strong>DẠ, ${t} ĐỒNG Ý RỒI! 💍✨</strong><br/><br/>Chúc mừng! Một hành trình mới tuyệt vời bắt đầu! 🥂🎊`,decMsg:(f,t)=>`${f} ơi, "${t}" cảm ơn bạn rất nhiều vì đã dũng cảm, nhưng họ cần thêm thời gian. <strong>Hãy cho nhau thêm không gian nhé 🤍</strong>`},
+  sorry:{icon:'🕊️',name:'Xin lỗi & Làm lành',sub:'Hàn gắn những tổn thương',teaser:(f,t)=>`🕊️ ${t} ơi, ${f} có điều muốn nói để làm lành...`,rq:'Bạn có muốn làm lành không? 🕊️',rsub:'Câu trả lời của bạn rất quan trọng',acceptLabel:'🤗 Tha thứ rồi',declineLabel:'💙 Cần thêm thời gian',bg:'radial-gradient(ellipse at 40% 50%,#0a1a2e 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,#0a1a0e 0%,transparent 50%),#080c10',particles:['🕊️','💙','🌊','☁️','🌿','✨'],accMsg:(f,t)=>`${f} ơi, tin vui — "<strong>${t}</strong>" đã <strong style="color:#2ecc71">tha thứ và muốn làm lành! 🤗💙</strong><br/><br/>Hãy trân trọng cơ hội này! 🕊️`,decMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" cần thêm thời gian để suy nghĩ. <strong style="color:#a8d8ea">Hãy cho họ không gian và kiên nhẫn chờ đợi 💙</strong>`},
+  bday:{icon:'🎂',name:'Chúc mừng sinh nhật',sub:'Ngày đặc biệt của người đặc biệt',teaser:(f,t)=>`🎂 ${t} ơi, ${f} có một lời chúc đặc biệt dành cho ngày của bạn...`,rq:'Bạn thích món quà sinh nhật này không? 🎂',rsub:'Đây là lời chúc từ trái tim',acceptLabel:'🥳 Cảm ơn nhiều!',declineLabel:'😊 Trân trọng nhé',bg:'radial-gradient(ellipse at 30% 30%,#2d0a1e 0%,transparent 50%),radial-gradient(ellipse at 70% 70%,#2d2000 0%,transparent 50%),#100810',particles:['🎉','🎊','✨','🎈','💖','🎂'],accMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" rất vui vì lời chúc của bạn! <strong style="color:#fdcb6e">Cảm ơn bạn thật nhiều! 🎂🎊</strong>`,decMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" đã nhận lời chúc và rất trân trọng. <strong>Cảm ơn bạn đã nhớ đến! 💖</strong>`},
+  miss:{icon:'🌙',name:'Nhớ nhung & Yêu xa',sub:'Khoảng cách không ngăn được tình yêu',teaser:(f,t)=>`🌙 ${t} ơi, ${f} đang rất nhớ bạn...`,rq:'Bạn có nhớ họ không? 🌙',rsub:'Hãy để họ biết cảm xúc của bạn',acceptLabel:'💜 Mình cũng nhớ!',declineLabel:'🌙 Thôi nhé',bg:'radial-gradient(ellipse at 50% 30%,#0d0a2e 0%,transparent 60%),radial-gradient(ellipse at 30% 70%,#1a0a2e 0%,transparent 60%),#05030f',particles:['🌙','⭐','💫','✨','💜','🌌'],accMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" cũng đang nhớ bạn! <strong style="color:#a29bfe">Mình cũng nhớ bạn lắm! 💜🌙</strong><br/><br/>Dù xa cách, tình cảm vẫn luôn ở đây.`,decMsg:(f,t)=>`${f} ơi, "<strong>${t}</strong>" đã nhận tin nhắn của bạn. <strong>Chúc bạn mọi điều tốt đẹp! 🌙</strong>`},
 };
 
-let currentCat='love';let currentMsg={};let selectedMood='🥰';let selectedStyle='letter';
+let currentCat='love';let currentMsg={};let selectedStyle='letter';
 
 // ══════════════════════════════════════════
 //  TEMPLATE ENGINE
@@ -1943,11 +1920,7 @@ function openEditor(cat){
   document.getElementById('editorTitle').textContent='Viết '+c.name.toLowerCase();
   document.getElementById('editorSub').textContent=c.sub;
   document.getElementById('editor').className='screen theme-'+cat;
-  document.getElementById('fTo').value='';document.getElementById('fFrom').value='';document.getElementById('fMessage').value='';document.getElementById('fYt').value='';
-  // Mood
-  const mr=document.getElementById('moodSection').querySelector('.mood-row');
-  mr.innerHTML='';selectedMood=c.moods[0];
-  c.moods.forEach((m,i)=>{const b=document.createElement('div');b.className='mood-btn'+(i===0?' selected':'');b.dataset.mood=m;b.textContent=m;b.onclick=()=>{document.querySelectorAll('.mood-btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');selectedMood=m;};mr.appendChild(b);});
+  document.getElementById('fTo').value='';document.getElementById('fFrom').value='';document.getElementById('fYt').value='';
   // Reset style picker
   document.querySelectorAll('.style-mini').forEach((el,i)=>{el.classList.toggle('on',i===0);});selectedStyle='letter';
   showScreen('editor');
@@ -1965,26 +1938,49 @@ function encodeMsg(obj){try{return btoa(unescape(encodeURIComponent(JSON.stringi
 function decodeMsg(str){try{return JSON.parse(decodeURIComponent(escape(atob(str))))}catch(e){return null}}
 
 // ══════════════════════════════════════════
+//  SHARE / COPY — one tap to send, no manual round-trip
+// ══════════════════════════════════════════
+async function shareOrCopy(shareData,fallbackToast){
+  if(navigator.share){
+    try{ await navigator.share(shareData); return true; }
+    catch(e){ if(e&&e.name==='AbortError')return false; /* else fall back to copy */ }
+  }
+  try{
+    const text=shareData.text?shareData.text+'\n\n'+shareData.url:shareData.url;
+    await navigator.clipboard.writeText(text);
+    showToast(fallbackToast||'✅ Đã sao chép! Dán vào Zalo/Messenger để gửi nhé 💌');
+  }catch(e){ showToast('⚠️ Không sao chép được — thử lại nhé'); }
+  return false;
+}
+
+// ══════════════════════════════════════════
 //  GENERATE LINK
 // ══════════════════════════════════════════
+let currentViewLink='';
 function generateLink(){
   const from=document.getElementById('fFrom').value.trim();
   const to=document.getElementById('fTo').value.trim();
-  const msg=document.getElementById('fMessage').value.trim();
   const yt=document.getElementById('fYt').value.trim();
   if(!to||!from){showToast('⚠️ Hãy điền tên cả hai người nhé!');return;}
-  if(!msg){showToast('⚠️ Hãy viết vài dòng cảm xúc nhé!');return;}
-  currentMsg={cat:currentCat,to,from,msg,mood:selectedMood,style:selectedStyle,yt,ts:Date.now()};
+  currentMsg={cat:currentCat,to,from,msg:'',style:selectedStyle,yt,ts:Date.now()};
   const encoded=encodeMsg(currentMsg);
   const base=location.href.split('#')[0];
-  const viewLink=base+'#view/'+encoded;
-  const notifLink=base+'#notif/pending/'+encoded;
-  document.getElementById('generatedLink').textContent=viewLink;
-  document.getElementById('senderNotifLink').textContent=notifLink;
+  currentViewLink=base+'#view/'+encoded;
+  document.getElementById('linkSub').textContent=`Chỉ một chạm để gửi điều này đến ${to}.`;
+  document.getElementById('sendNowLabel').textContent=`Gửi ngay cho ${to}`;
   showScreen('linkscreen');
 }
-function copyLink(){navigator.clipboard.writeText(document.getElementById('generatedLink').textContent).then(()=>showToast('✅ Đã sao chép link!'));}
-function copySenderLink(){navigator.clipboard.writeText(document.getElementById('senderNotifLink').textContent).then(()=>showToast('✅ Đã sao chép link theo dõi!'));}
+function sendInvite(){
+  if(!currentViewLink)return;
+  const c=CATS[currentMsg.cat]||CATS.love;
+  const from=currentMsg.from||'',to=currentMsg.to||'người ấy';
+  const text=c.teaser?c.teaser(from,to):`${to} ơi, ${from} có điều muốn nói với bạn...`;
+  shareOrCopy({title:'💌 Gửi Yêu Thương',text,url:currentViewLink},`✅ Đã sao chép! Dán vào Zalo/Messenger để gửi cho ${to} nhé 💌`);
+}
+function copyLink(){
+  if(!currentViewLink)return;
+  navigator.clipboard.writeText(currentViewLink).then(()=>showToast('✅ Đã sao chép link!')).catch(()=>showToast('⚠️ Không sao chép được — thử lại nhé'));
+}
 function previewMsg(){
   showRecipient(currentMsg, true);
 }
@@ -2038,21 +2034,23 @@ function sendResponse(type){
   const encoded=encodeMsg(data);
   const notifHash=base+'#notif/'+type+'/'+encoded;
 
-  let icon,badge,nameLine,poem,quote,stateClass;
+  let icon,badge,nameLine,poem,quote,stateClass,shareText;
   if(type==='accept'){
     stateClass='notif-acc';
     icon=c.acceptLabel.split(' ')[0]||'💚';
     badge='BẠN ĐÃ ĐỒNG Ý ✦';
     nameLine=`Cảm ơn bạn, ${to}!`;
     poem=`Dũng cảm trả lời là điều rất đẹp.`;
-    quote=`"Hãy sao chép link bên dưới và gửi cho ${from} — để họ nhận được tin vui này."`;
+    quote=`"Một chạm nữa thôi — để ${from} biết tin vui này."`;
+    shareText=`💌 ${from} ơi, ${to} đã trả lời rồi... mở ra xem nhé`;
   } else {
     stateClass='notif-dec';
     icon='🤍';
     badge='ĐÃ GỬI CÂU TRẢ LỜI';
     nameLine=`Cảm ơn sự thành thật, ${to}`;
     poem=`Thật lòng luôn là điều tốt nhất bạn có thể làm.`;
-    quote=`"Hãy sao chép link bên dưới và gửi cho ${from} — để họ nhận được câu trả lời của bạn."`;
+    quote=`"Một chạm nữa thôi — để ${from} biết câu trả lời của bạn."`;
+    shareText=`💌 ${from} ơi, ${to} đã gửi câu trả lời cho bạn`;
   }
 
   document.getElementById('notif').className='screen '+stateClass;
@@ -2063,10 +2061,11 @@ function sendResponse(type){
   document.getElementById('notifQuote').textContent=quote;
 
   const ls=document.getElementById('notifLinkSection');
-  const lu=document.getElementById('notifLinkUrl');
-  const cb=document.getElementById('notifCopyBtn');
-  lu.textContent=notifHash;
-  cb.onclick=()=>navigator.clipboard.writeText(notifHash).then(()=>showToast('✅ Đã sao chép!'));
+  const sb=document.getElementById('notifSendBtn');
+  const cf=document.getElementById('notifCopyFallback');
+  document.getElementById('notifSendLabel').textContent=`Gửi cho ${from}`;
+  sb.onclick=()=>shareOrCopy({title:'💌 Gửi Yêu Thương',text:shareText,url:notifHash},`✅ Đã sao chép! Dán vào Zalo/Messenger để gửi cho ${from} nhé 💌`);
+  cf.onclick=()=>navigator.clipboard.writeText(notifHash).then(()=>showToast('✅ Đã sao chép link!')).catch(()=>showToast('⚠️ Không sao chép được — thử lại nhé'));
   ls.style.display='block';
 
   const orbColors={acc:'#22c55e',dec:'#9b72cf'};
@@ -2075,8 +2074,7 @@ function sendResponse(type){
   document.getElementById('notifOrb2').style.background=orbColors[k];
 
   spawnNotifParticles(type);
-  showToast('📤 Sao chép link và gửi cho họ nhé!');
-  setTimeout(()=>showScreen('notif'),600);
+  setTimeout(()=>showScreen('notif'),300);
 }
 
 // ── NEW STYLE BUILDERS ──
